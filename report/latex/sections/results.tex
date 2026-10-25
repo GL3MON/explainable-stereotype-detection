@@ -57,7 +57,7 @@ The SFT JSON model predicts the category correctly for 1,727 examples and the ex
 
 Category macro F1 is 99.48\% after SFT, whereas exact target macro F1 is 97.51\%. The target scores preserve string distinctions such as capitalization and underscores. Base target macro F1 (43.47\%) exceeds its overall target accuracy (21.69\%) because macro F1 weights each target class equally while accuracy weights individual examples. It should not be substituted for exact target accuracy.
 
-\subsection{Encoder results and review-stage reference baselines}
+\subsection{Encoder results and embedding baselines}
 \begin{table}[H]
 \centering\small
 \caption{Prediction-backed sentence-only encoder test results (\%).}
@@ -71,7 +71,7 @@ Category macro F1 is 99.48\% after SFT, whereas exact target macro F1 is 97.51\%
 
 ModernBERT-base's retuned run improves over its original saved run from 89.36\% to 92.12\% accuracy. The saved ModernBERT-large run reaches 93.33\%, making it the strongest encoder result in this artifact collection. ALBERT obtains 88.09\%. These runs share the sentence-only task, but model size, training duration, schedule, and other hyperparameters vary. The table therefore summarizes observed configurations rather than isolating a single architectural cause.
 
-The review-stage document additionally reports MiniLM accuracy/macro F1 of 77.33\%/74.29\%, Qwen3-Embedding-0.6B of 91.08\%/91.11\%, and an earlier ModernBERT-large review entry of 92.98\%/93.05\%.
+Additional five-class results include MiniLM accuracy/macro F1 of 77.33\%/74.29\%, Qwen3-Embedding-0.6B at 91.08\%/91.11\%, and a separate ModernBERT-large result of 92.98\%/93.05\%.
 
 \subsection{Confusion matrices and remaining errors}
 \begin{figure}[H]
