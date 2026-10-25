@@ -58,6 +58,47 @@ JSON training/evaluation scores the label field. Invalid or missing labels count
 incorrect predictions and appear in an extra confusion-matrix column. Category and
 target accuracy can be measured separately with `stereodetect evaluate json-fields`.
 
+## Qwen terminal demo (vLLM)
+
+From the repository root, use the `med` environment:
+
+```bash
+conda activate med
+python demo_qwen.py
+```
+
+The demo loads Qwen3.5-2B once through vLLM and switches between the three trained
+LoRA adapters. It selects five test samples, one per label, using seed 42 and runs:
+
+- **A:** sentence → label.
+- **B:** sentence → category, target, and label as JSON.
+- **C:** sentence + gold category and target annotations → label.
+
+Thinking is disabled for every prompt. Labels use greedy next-token selection
+restricted to digits 0–4; JSON uses unconstrained greedy generation. Colored panels
+show sentences, actual model outputs, ground truth, and independent JSON field
+checks. Results, settings, sample indices, and engine logs are saved under
+`outputs/demo/`. The five-sample summary describes the demo rather than full-test
+performance.
+
+```bash
+python demo_qwen.py --mode base                 # Same tasks with no adapters
+python demo_qwen.py --sampling random --seed 7  # Different reproducible samples
+python demo_qwen.py --device <GPU-index-or-MIG-UUID>
+python demo_qwen.py --color always             # Force ANSI colors when piping
+```
+
+The local `data/test.csv`, cached Qwen weights, and (for the default SFT mode)
+three adapter directories are required; weights and datasets are excluded from Git.
+Use `--adapter-a`, `--adapter-b`, and `--adapter-c` for other locations. The demo
+requires a free CUDA GPU; `--gpu-memory-utilization` controls the vLLM budget and
+`--cpu-offload-gb` can reduce GPU weight memory at a speed cost. Dependencies are
+already present in `med`; elsewhere install `pip install -e '.[demo]'`.
+For a crowded GPU, `--kv-cache-mib 128` sets a fixed cache size and overrides
+vLLM's memory-fraction-based cache sizing.
+
+The package entry point is also available as `stereodetect predict qwen-demo`.
+
 ## Project report
 
 - [Full project report (PDF)](report/StereoDetect_Project_Report.pdf)

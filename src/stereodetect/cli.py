@@ -20,7 +20,10 @@ COMMANDS = {
         "qwen-vllm": ("evaluation.qwen_vllm", "client"),
         "json-fields": ("evaluation.json_fields", None),
     },
-    "predict": {"qwen": ("inference.qwen", "qwen")},
+    "predict": {
+        "qwen": ("inference.qwen", "qwen"),
+        "qwen-demo": ("inference.qwen_demo", "demo"),
+    },
     "explain": {
         "albert": ("explanations.encoder", "explanations"),
         "modernbert": ("explanations.modernbert", "explanations"),

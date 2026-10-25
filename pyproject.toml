@@ -23,6 +23,7 @@ explanations = ["torch>=2.2", "transformers>=5.17,<6", "sentencepiece>=0.2", "li
 reporting = ["matplotlib>=3.8"]
 client = ["httpx>=0.27"]
 serving = ["vllm>=0.22,<0.23"]
+demo = ["vllm>=0.22,<0.23", "rich>=13.9"]
 tracking = ["wandb>=0.19"]
 dev = ["build>=1.2", "ruff>=0.9"]
 
