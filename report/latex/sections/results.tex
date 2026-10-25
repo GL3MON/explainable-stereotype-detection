@@ -13,10 +13,6 @@ JSON category accuracy compares normalized category strings. Target accuracy req
 \operatorname{Acc}_{\mathrm{joint}}=\frac{1}{N}\sum_{i=1}^{N}
 \mathbf{1}[\hat c_i=c_i\land\hat t_i=t_i\land\hat y_i=y_i].
 \end{equation}
-Invalid or missing outputs count as errors rather than being removed. The two canonical JSON test completion files contain valid objects and in-range integer labels for all rows. Their semantic errors therefore cannot be explained solely by JSON parsing failures.
-
-The report independently recomputes metrics from saved predictions and JSON completions and checks them against the saved evaluation files. For tasks B and C, the canonical SFT results come from the standalone full-test evaluations. Earlier training-time test passes of the same adapters differ by one label prediction and remain in the companion TXT reports. They are repeated evaluations of existing models, not additional SFT models. The incomplete 410-row thinking benchmark and smoke tests are excluded from headline results.
-
 \subsection{Qwen3.5-2B: three tasks, six evaluations}
 Table~\ref{tab:qwen} is organized by the task contracts in Table~\ref{tab:contracts}. It compares Base and SFT \emph{within each task}. Every number in this table scores the label. In particular, task B's 93.61\% label accuracy is not its all-fields-correct accuracy.
 
