@@ -140,6 +140,8 @@ This example illustrates how word attributions can be used to inspect an incorre
 \subsection{Future Work}
 Further experiments can compare training schedules, numerical precision, and batch size across model families. Task-specific comparisons will continue to distinguish sentence-only inputs from annotation-conditioned inputs.
 
+Future work could introduce reinforcement-learning-based fine-tuning with verifiable task rewards to test whether Qwen can better distinguish stereotypes from anti-stereotypes and produce more consistent structured outputs. Rewards could combine label correctness, category and target correctness, and JSON validity; the resulting models should be compared with the current SFT adapters on held-out data.
+
 Additional development can extend structured target prediction and compare exact string matching with semantic matching. The explanation workflow can be expanded with human-reviewed word attributions, perturbation stability studies, and external-domain evaluation.
 
 \subsection{Complete per-class label reports}
