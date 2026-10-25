@@ -1,13 +1,13 @@
 \reportsection{Method Overview with Architecture}
 \subsection{End-to-end pipeline}
-The implementation separates data loading, model training, evaluation, prediction, and explanation into explicit workflows. CSV rows are converted into inputs appropriate for the selected task. Training uses only the training split; validation macro F1 determines checkpoint selection. The selected model or adapter is then evaluated on the complete test split. Saved predictions support independent recomputation of the report tables.
+The implementation separates data loading, model training, evaluation, prediction, and explanation into explicit workflows. The benchmark dataset is loaded and converted into inputs appropriate for the selected task. Training uses only the training split; validation macro F1 determines checkpoint selection. The selected model or adapter is then evaluated on the complete test split. Saved predictions support independent recomputation of the report tables.
 
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}[node distance=5mm and 6mm, font=\sffamily\small,
 block/.style={draw=headingblue!45,rounded corners,fill=softblue,align=center,inner sep=6pt,text width=3.1cm},
 wide/.style={block,text width=11.8cm},arr/.style={-{Latex[length=2mm]},thick,draw=headingblue}]
-\node[wide] (data) {StereoDetect CSV splits: train / validation / test};
+\node[wide] (data) {Loaded StereoDetect dataset: train / validation / test};
 \node[wide,below=of data] (contract) {Select task and construct inputs; keep gold outputs outside the prompt};
 \node[block,below left=8mm and 3mm of contract.south] (enc) {Encoder classifier\\Sentence $\to$ label};
 \node[block,below right=8mm and 3mm of contract.south,fill=softpurple] (qwen) {Qwen3.5-2B\\Tasks A / B / C};
