@@ -88,12 +88,11 @@ The task-A base checkpoint predicts no class-3 examples correctly and correctly 
 
 SFT improves performance across all five classes. The remaining 107 task-A errors include 46 gold anti-stereotypes predicted as stereotypes and 36 gold stereotypes predicted as anti-stereotypes. Together these 82 swaps account for approximately 76.64\% of its mistakes. The two corresponding class F1 scores are 87.04\% and 87.97\%, below the neutral and bias class scores of about 98\%. The explanation examples below examine word-level contributions for individual ModernBERT-large decisions.
 
-\Needspace{.83\textheight}
 \subsection{Effect of auxiliary annotations: task A versus task C}
 Task A predicts the label from the sentence alone, while task C also receives the gold category and target annotations. Figure~\ref{fig:metadata_confusion} compares these inputs within the Base and SFT states on the same 1,738 test sentences. The SFT panels use the adapter trained for each respective task.
 
 \begin{figure}[H]
-\centering\includegraphics[width=\linewidth]{figures/metadata_confusion_comparison.pdf}
+\centering\includegraphics[width=.80\linewidth]{figures/metadata_confusion_comparison.pdf}
 \caption{Task A versus task C: Base models (top) and SFT models (bottom). Each cell shows its count and percentage within the gold-class row. All four panels share the 0--100\% color scale; diagonal percentages are class recall. Class IDs follow Table~\ref{tab:dataset}. Auxiliary annotations are the gold category and target.}
 \label{fig:metadata_confusion}
 \end{figure}
@@ -113,7 +112,6 @@ For the Base checkpoint, conditioning on category and target annotations increas
 
 For SFT, correct predictions increase from 1,631 to 1,660, raising accuracy from 93.84\% to 95.51\% (+1.67 percentage points). Task C corrects 53 task-A errors and changes 24 previously correct answers, giving a net gain of 29. Anti-stereotype recall rises from 86.07\% to 91.92\%; neutral-without-target and bias recall reach 100\%. Stereotype recall changes from 89.50\% to 86.01\%, while its F1 increases from 87.97\% to 88.99\%. The matrices show these class-specific changes alongside the overall gain.
 
-\Needspace{.68\textheight}
 \subsection{Explainability example 1: a correct stereotype prediction}
 The first saved ModernBERT-large example is test index 1713: \emph{``Producers are businesslike''}. Both the gold label and prediction are class 1 (stereotype). Figure~\ref{fig:explain1} displays the LIME and SHAP values for that predicted class. The word \emph{businesslike} has the largest positive value in both methods: approximately +0.688 for LIME and +0.631 for SHAP. Masking the top-ranked word lowers the predicted class probability by 57.73 percentage points in the saved sensitivity check.
 

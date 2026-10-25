@@ -5,8 +5,8 @@ contents, abstract and base-paper details, problem statement, architecture,
 dataset, results, implementation/dataset links, and APA-style references.
 The original Word document and presentations are preserved.
 
-The cover includes Harissh Ragav Dhamodaran (2023BCD0059) and
-Mugupuram Kavya Amrutha (2023BCS0221). Edit `metadata.tex` to change these
+The cover includes Mugupuram Kavya Amrutha (2023BCS0221) and
+Harissh Ragav Dhamodaran (2023BCD0059). Edit `metadata.tex` to change these
 details or the project repository link.
 
 ## Compile

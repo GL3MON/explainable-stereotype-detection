@@ -67,6 +67,11 @@ conda activate med
 python demo_qwen.py
 ```
 
+For the shared low-memory GPU setup, run `bash run_demo.sh`; it applies the
+tested CPU-offload settings. Set `DEMO_CUDA_DEVICE` to choose another device,
+and pass any demo options after the script name. Watch the
+[recorded terminal demo](demo_video.mp4) for an example run.
+
 The demo loads Qwen3.5-2B once through vLLM and switches between the three trained
 LoRA adapters. It selects five test samples, one per label, using seed 42 and runs:
 

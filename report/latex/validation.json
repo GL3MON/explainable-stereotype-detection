@@ -1,5 +1,5 @@
 {
-  "pages": 28,
+  "pages": 27,
   "page_size": "US Letter; 1.25-inch left/right and 1-inch top/bottom margins in LaTeX",
   "qwen_evaluations": 6,
   "canonical_label_reports": 10,
@@ -14,5 +14,5 @@
   "off_page_text": [],
   "sparse_pages": [],
   "project_repository": "https://github.com/GL3MON/explainable-stereotype-detection",
-  "pdf_sha256": "240a7b4a26b8d92d5959827c4d4a07ca1a720aca2acd929e855ebd44f839a24a"
+  "pdf_sha256": "b70f71401748f42102071da23fd1667469864aa77fc8e9acd711f16f1658abd5"
 }
