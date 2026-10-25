@@ -1,0 +1,37 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+build/
+dist/
+*.egg-info/
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+outputs/
+wandb/
+data/*.csv
+
+# Local credentials and machine configuration
+.env.*
+!.env.example
+.aws/
+.codex/
+.agents/
+*.pem
+*.key
+
+# Original review document contains a credential; keep it local.
+presentation/DL-Review-2.docx
+
+# Generated visual QA and LaTeX build intermediates
+presentation/preview/
+presentation/**/qa/
+report/latex/qa/
+report/Evidence_Wording_Audit.md
+report/latex/*.aux
+report/latex/*.log
+report/latex/*.toc
+report/latex/*.out
+report/latex/*.xdv

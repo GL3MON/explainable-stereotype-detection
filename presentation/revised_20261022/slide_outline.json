@@ -1,0 +1,486 @@
+[
+  {
+    "number": 1,
+    "heading": "BTP Title",
+    "subtitle": "Editable title and identity details",
+    "sources": [
+      "presentation/BTP Presentation Template-3.pptx"
+    ],
+    "speaker": "Identity placeholders and institutional template are preserved."
+  },
+  {
+    "number": 2,
+    "heading": "Introduction",
+    "subtitle": "Five labels capture different forms of group-related language",
+    "sources": [
+      "https://aclanthology.org/2025.findings-emnlp.216/",
+      "data/README.md"
+    ],
+    "speaker": "Introduce StereoDetect as a benchmark-based project. The dataset and definitions are prior work; this project compares model families, task adaptation, structured output, and diagnostic explanations."
+  },
+  {
+    "number": 3,
+    "heading": "Literature Review",
+    "subtitle": "Dataset foundations and explainable stereotype detection",
+    "sources": [
+      "https://aclanthology.org/2025.findings-emnlp.216/",
+      "https://aclanthology.org/2025.ijcnlp-long.1/"
+    ],
+    "speaker": "StereoDetect supplies the five-class task and benchmark definitions. HEARTS supplies a related ALBERT-based binary stereotype detection and explainability approach. Its task and dataset differ from this project; its published scores are not mixed into the local comparison."
+  },
+  {
+    "number": 4,
+    "heading": "Literature Review",
+    "subtitle": "Model families used in the comparison",
+    "sources": [
+      "https://arxiv.org/abs/1909.11942",
+      "https://arxiv.org/abs/2412.13663",
+      "https://arxiv.org/abs/2002.10957",
+      "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2",
+      "https://arxiv.org/abs/2506.05176",
+      "https://huggingface.co/Qwen/Qwen3.5-2B",
+      "https://arxiv.org/abs/2106.09685"
+    ],
+    "speaker": "This slide describes public model backbones. The exact classifier fitting details for the MiniLM and Qwen3-Embedding baseline runs are not present in the supplied code; their scores are reported from DL-Review-2.docx. Later diagrams mark those task heads as schematic."
+  },
+  {
+    "number": 5,
+    "heading": "Motivation",
+    "subtitle": "Test both classification quality and the usefulness of the output",
+    "sources": [
+      "https://aclanthology.org/2025.findings-emnlp.216/",
+      "outputs/eval/qwen35_2b_base_nothinking_20261022_173617/labels/evaluation.json",
+      "outputs/eval/qwen35_2b_base_nothinking_20261022_173617/json/evaluation.json",
+      "outputs/eval/adapter_test/evaluation.json",
+      "outputs/eval/json_test/evaluation.json",
+      "outputs/albert_stereodetect/evaluation.json",
+      "outputs/modernbert_large_lr3e5_warmup30_wd001_ep3_seed3407/evaluation.json",
+      "outputs/eval/qwen35_2b_base_sentence_labels_nothinking_20261022_195718/evaluation.json",
+      "outputs/kaggle_qwen35_sentence_lora_1022-183119/results/artifacts/evaluation.json"
+    ],
+    "speaker": "Frame these as project questions, not as claims that no earlier work exists. Dataset-specific label meanings make task adaptation worth measuring. The richer-input label task and sentence-only JSON task must be interpreted separately."
+  },
+  {
+    "number": 6,
+    "heading": "Problem Statement",
+    "subtitle": "Three Qwen task contracts on the same held-out test split",
+    "sources": [
+      "outputs/eval/qwen35_2b_base_nothinking_20261022_173617/labels/evaluation.json",
+      "outputs/eval/qwen35_2b_base_nothinking_20261022_173617/json/evaluation.json",
+      "outputs/eval/adapter_test/evaluation.json",
+      "outputs/eval/json_test/evaluation.json",
+      "outputs/albert_stereodetect/evaluation.json",
+      "outputs/modernbert_large_lr3e5_warmup30_wd001_ep3_seed3407/evaluation.json",
+      "outputs/eval/qwen35_2b_base_sentence_labels_nothinking_20261022_195718/evaluation.json",
+      "outputs/kaggle_qwen35_sentence_lora_1022-183119/results/artifacts/evaluation.json"
+    ],
+    "speaker": "There are three independent task adapters: sentence-only numeric labels, metadata-conditioned numeric labels, and sentence-only category/target/label JSON. Each is compared to the base checkpoint under its own prompt. All report the same held-out 1,738 rows. Metadata-conditioned results should not be read as input-matched rankings against sentence-only models."
+  },
+  {
+    "number": 7,
+    "heading": "Architecture",
+    "subtitle": "Overall experimental pipeline",
+    "sources": [
+      "src/stereodetect/",
+      "data/README.md"
+    ],
+    "speaker": "The dataset is split before model training. Validation selects checkpoints; held-out test evaluation reports task-specific scores. Explanations are produced for saved ALBERT and ModernBERT-large classifiers. Public-backbone baseline scores are retained from the review document."
+  },
+  {
+    "number": 8,
+    "heading": "Architecture",
+    "subtitle": "all-MiniLM-L6-v2 \u00b7 Compact sentence-embedding backbone",
+    "sources": [
+      "https://arxiv.org/abs/2002.10957",
+      "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2",
+      "presentation/DL-Review-2.docx"
+    ],
+    "speaker": "The published all-MiniLM-L6-v2 backbone uses six transformer layers, 384-dimensional hidden states, mean pooling, and normalized sentence embeddings. The dashed task stage is schematic: the supplied review records its five-class score, but does not include the downstream classifier implementation. Do not imply that a particular classifier or training recipe was verified."
+  },
+  {
+    "number": 9,
+    "heading": "Architecture",
+    "subtitle": "Qwen3-Embedding-0.6B \u00b7 Decoder-derived sentence representation",
+    "sources": [
+      "https://arxiv.org/abs/2506.05176",
+      "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B",
+      "presentation/DL-Review-2.docx"
+    ],
+    "speaker": "Qwen3-Embedding-0.6B uses a dense Qwen3 decoder backbone with 28 layers. Its official model extracts a final-token representation and supports an embedding dimension up to 1,024. The supplied materials report a five-class baseline score but omit the downstream classifier details, so that stage is explicitly schematic."
+  },
+  {
+    "number": 10,
+    "heading": "Architecture",
+    "subtitle": "ALBERT-base-v2 \u00b7 Sentence-only five-class classifier",
+    "sources": [
+      "https://arxiv.org/abs/1909.11942",
+      "src/stereodetect/training/albert.py",
+      "outputs/albert_stereodetect/model/config.json"
+    ],
+    "speaker": "ALBERT factorizes token embeddings and shares parameters across repeated transformer layers. The local classifier consumes Sentence only, applies the ALBERT pooler to the classification token, and produces five label logits. Category and Target are metadata, not model inputs. This differs from the wording in one row of the supplied review document; the diagram follows the actual code and run configuration."
+  },
+  {
+    "number": 11,
+    "heading": "Architecture",
+    "subtitle": "ModernBERT-large \u00b7 Sentence-only five-class classifier",
+    "sources": [
+      "https://arxiv.org/abs/2412.13663",
+      "outputs/modernbert_large_lr3e5_warmup30_wd001_ep3_seed3407/model/config.json",
+      "src/stereodetect/training/modernbert.py"
+    ],
+    "speaker": "This architecture slide describes the saved large-model run; additional base-model experiments are reported in the appendix. The saved configuration has 28 encoder layers, hidden width 1,024, local attention width 128, and global attention every third layer. The classification pooler is mean pooling in the saved configuration; it is not a CLS-only head. RoPE and GeGLU are public backbone design features. The training settings shown are for the additional saved large-model run, rather than an inferred recipe for the earlier review score."
+  },
+  {
+    "number": 12,
+    "heading": "Architecture",
+    "subtitle": "Qwen3.5-2B \u00b7 Shared language backbone, three task adapters",
+    "sources": [
+      "https://huggingface.co/Qwen/Qwen3.5-2B",
+      "https://huggingface.co/Qwen/Qwen3.5-2B/raw/main/config.json",
+      "https://arxiv.org/abs/2106.09685",
+      "src/stereodetect/models/qwen/"
+    ],
+    "speaker": "This project uses only the language path of the conditional-generation model. The official 2B text configuration contains 24 layers arranged in six repetitions of three linear-attention layers followed by one full-attention layer. Gated DeltaNet is used for the linear-attention path. LoRA is trained separately for sentence-only labels, conditioned labels, and JSON; the three adapters are not interchangeable. Rank 16, alpha 32, dropout 0.05 are taken from the implementation. No vision input is used."
+  },
+  {
+    "number": 13,
+    "heading": "Architecture",
+    "subtitle": "Aligned word-level explanations for the encoder classifiers",
+    "sources": [
+      "https://aclanthology.org/2025.ijcnlp-long.1/",
+      "https://arxiv.org/abs/1602.04938",
+      "https://arxiv.org/abs/1705.07874",
+      "src/stereodetect/explanations/encoder.py"
+    ],
+    "speaker": "Both explainers treat each word occurrence as a feature and replace absent words with the tokenizer mask token. LIME uses 1,000 perturbations. Kernel SHAP uses an all-masked baseline and up to 512 coalitions with no L1 feature selection. Predictions are made on the same perturbed strings by the saved encoder classifier. Explanations concern class probabilities, not moral judgments about words or calibrated prediction confidence. The 100-example sample is deliberately diagnostic and not representative test statistics."
+  },
+  {
+    "number": 14,
+    "heading": "Experimental Results",
+    "subtitle": "Dataset, training setup, and evaluation protocol",
+    "sources": [
+      "data/train.csv",
+      "data/val.csv",
+      "data/test.csv",
+      "outputs/kaggle_qwen35_sentence_lora_1022-183119/results/artifacts/evaluation.json",
+      "outputs/albert_stereodetect/run_config.json",
+      "outputs/modernbert_large_lr3e5_warmup30_wd001_ep3_seed3407/run_config.json",
+      "outputs/qwen35_2b_stereodetect_json/run_config.json"
+    ],
+    "speaker": "The new sentence-only Qwen LoRA uses two T4 GPUs, batch 16 per GPU, global batch 32, three epochs and 570 optimizer steps. It trains in FP32 with LoRA rank 16, alpha 32 and dropout 0.05. The matching base evaluation uses vLLM BF16 on H100 MIG 0. Prompt, test rows and five-label argmax scoring match, but numerical precision and runtime differ. Validation macro F1 selected epoch 3; test was evaluated once after loading that adapter. Other Qwen adapters retain effective batch 16."
+  },
+  {
+    "number": 15,
+    "heading": "Experimental Results",
+    "subtitle": "Model comparison on the 1,738-example test split",
+    "sources": [
+      "presentation/DL-Review-2.docx",
+      "outputs/eval/qwen35_2b_base_nothinking_20261022_173617/labels/evaluation.json",
+      "outputs/eval/qwen35_2b_base_nothinking_20261022_173617/json/evaluation.json",
+      "outputs/eval/adapter_test/evaluation.json",
+      "outputs/eval/json_test/evaluation.json",
+      "outputs/albert_stereodetect/evaluation.json",
+      "outputs/modernbert_large_lr3e5_warmup30_wd001_ep3_seed3407/evaluation.json",
+      "outputs/eval/qwen35_2b_base_sentence_labels_nothinking_20261022_195718/evaluation.json",
+      "outputs/kaggle_qwen35_sentence_lora_1022-183119/results/artifacts/evaluation.json"
+    ],
+    "speaker": "The new sentence-only Qwen label result is 93.84% accuracy and 93.89% macro F1. The conditioned label adapter is a different experiment and receives gold category and target as input. Review-only baseline rows are preserved rather than replaced by later saved runs. Additional saved ModernBERT-base experiments and all full classification reports are included in the appendix. Precision/runtime differ across experiments, so this is descriptive rather than an engine-controlled model ranking."
+  },
+  {
+    "number": 16,
+    "heading": "Experimental Results",
+    "subtitle": "Sentence-only labels \u00b7 Base versus LoRA",
+    "sources": [
+      "outputs/eval/qwen35_2b_base_sentence_labels_nothinking_20261022_195718/evaluation.json",
+      "outputs/kaggle_qwen35_sentence_lora_1022-183119/results/artifacts/evaluation.json"
+    ],
+    "speaker": "Both runs take only Sentence and select the largest logit among label tokens 0-4 with thinking disabled. Base has 403 correct, LoRA 1,631 correct out of 1,738. Accuracy rises from 23.19% to 93.84%, an observed gain of 70.66 percentage points. Macro F1 rises from 14.21% to 93.89%. Base uses vLLM BF16; the adapter uses PyTorch FP32, so this is not a precision/engine-controlled ablation."
+  },
+  {
+    "number": 17,
+    "heading": "Experimental Results",
+    "subtitle": "Qwen3.5-2B \u00b7 Base versus fine-tuned label prediction",
+    "sources": [
+      "outputs/eval/qwen35_2b_base_nothinking_20261022_173617/labels/evaluation.json",
+      "outputs/eval/adapter_test/evaluation.json"
+    ],
+    "speaker": "Both runs use Category, Target and Sentence, and choose among the five numeric label-token logits. The base benchmark evaluates the Qwen/Qwen3.5-2B checkpoint without a task adapter; the fine-tuned run loads outputs/qwen35_2b_stereodetect/adapter. Accuracy gain is computed in percentage points, not relative percent. Engines differ (vLLM versus Transformers/PEFT), so this is an observed task-adaptation comparison rather than an isolated engine-controlled ablation."
+  },
+  {
+    "number": 18,
+    "heading": "Experimental Results",
+    "subtitle": "Qwen3.5-2B \u00b7 Base versus fine-tuned all-field generation",
+    "sources": [
+      "outputs/eval/qwen35_2b_base_nothinking_20261022_173617/json/evaluation.json",
+      "outputs/eval/json_test/evaluation.json"
+    ],
+    "speaker": "Both runs receive only Sentence and generate category, target and label JSON. This chart scores the label field only; it does not mean all fields are correct. Greedy generation and a 96-token cap are used in the saved task configuration. The base run has 599 correct labels, the adapter run 1,627. Both saved evaluations record zero invalid labels. The distinct complete-JSON result appears on the next slide."
+  },
+  {
+    "number": 19,
+    "heading": "Experimental Results",
+    "subtitle": "Structured output \u00b7 Category, target, label, and complete JSON",
+    "sources": [
+      "outputs/eval/qwen35_2b_base_nothinking_20261022_173617/json/completions.jsonl",
+      "outputs/eval/json_test/completions.jsonl",
+      "outputs/eval/json_test/field_validation.json"
+    ],
+    "speaker": "Every saved completion is aligned with its source test row. Category is compared after trimming, case folding and collapsing whitespace. Target uses exact string comparison, including capitalization and underscores. Label must be an integer matching the gold label. Complete JSON accuracy requires all three fields to be correct for the same example. Both sets contain valid JSON objects for all 1,738 rows, so low base accuracy is semantic rather than just JSON formatting. The fine-tuned all-field count agrees with the existing field_validation.json. Base field metrics were computed from saved completions while preparing this deck; no model was rerun."
+  },
+  {
+    "number": 20,
+    "heading": "Experimental Results",
+    "subtitle": "JSON field classification \u00b7 Accuracy and macro F1",
+    "sources": [
+      "outputs/reports/classification_reports_20261022/report_manifest.json",
+      "outputs/reports/classification_reports_20261022/all_label_only_classification_reports.txt",
+      "outputs/reports/classification_reports_20261022/all_category_label_target_classification_reports.txt"
+    ],
+    "speaker": "This supplements the exact-match field accuracy slide with full classification macro F1. Categories use five fixed normalized classes. Targets use the 87 exact gold target strings, preserving case and underscores. Predictions outside the gold class set are incorrect and appear in the companion reports; macro averages are over the explicit gold class set. The training-time and standalone JSON adapter evaluations have identical category and target prediction vectors and differ on one label. This table uses the standalone adapter evaluation."
+  },
+  {
+    "number": 21,
+    "heading": "Experimental Results",
+    "subtitle": "Stereotype versus anti-stereotype remains the hardest boundary",
+    "sources": [
+      "outputs/kaggle_qwen35_sentence_lora_1022-183119/results/artifacts/evaluation.json",
+      "outputs/eval/json_test/evaluation.json",
+      "outputs/modernbert_large_lr3e5_warmup30_wd001_ep3_seed3407/evaluation.json"
+    ],
+    "speaker": "Across these three sentence-only experiments, classes 0 and 1 have lower F1 than the neutral and bias classes. For the new sentence-only Qwen LoRA, 46 anti-stereotypes become stereotypes and 36 stereotypes become anti-stereotypes: 82 of 107 errors. This is a confusion-matrix observation, not a linguistic causal explanation."
+  },
+  {
+    "number": 22,
+    "heading": "Demonstration",
+    "subtitle": "Saved test example \u00b7 Same sentence, different structured predictions",
+    "sources": [
+      "outputs/eval/qwen35_2b_base_nothinking_20261022_173617/json/completions.jsonl",
+      "outputs/eval/json_test/completions.jsonl",
+      "data/test.csv"
+    ],
+    "speaker": "This demonstration replays saved responses for test index 0 and is not a fresh model inference. Dataset annotation: Category Neutral, Target Neutral, Label 2. The base model instead targets dog and predicts class 3. The task adapter recovers the annotated neutral target and class 2. This is a single illustration rather than an estimate of overall accuracy."
+  },
+  {
+    "number": 23,
+    "heading": "Demonstration",
+    "subtitle": "ModernBERT-large \u00b7 Correct prediction with word color maps",
+    "sources": [
+      "outputs/modernbert_large_lr3e5_warmup30_wd001_ep3_seed3407/explanations/explanations.jsonl",
+      "data/test.csv",
+      "src/stereodetect/explanations/encoder.py"
+    ],
+    "speaker": "Saved diagnostic test index 1713. Exact word occurrences and attribution arrays are reused; no new explanation inference was run. Gold label 1; model label 1. Both rows explain the predicted class 1. Blue denotes a negative contribution/weight for this class; orange denotes positive; near-white is close to zero. Both slides share a fixed symmetric scale -0.70 to +0.70. LIME surrogate weights and Kernel SHAP contributions are distinct quantities and not word probabilities. Attributions diagnose model sensitivity and do not certify correctness. Signed values are displayed to three decimals."
+  },
+  {
+    "number": 24,
+    "heading": "Demonstration",
+    "subtitle": "ModernBERT-large \u00b7 A misclassified example with word color maps",
+    "sources": [
+      "outputs/modernbert_large_lr3e5_warmup30_wd001_ep3_seed3407/explanations/explanations.jsonl",
+      "data/test.csv",
+      "src/stereodetect/explanations/encoder.py"
+    ],
+    "speaker": "Saved diagnostic test index 1205. Exact word occurrences and attribution arrays are reused; no new explanation inference was run. Gold label 4; model label 0. Both rows explain the predicted class 0. Blue denotes a negative contribution/weight for this class; orange denotes positive; near-white is close to zero. Both slides share a fixed symmetric scale -0.70 to +0.70. LIME surrogate weights and Kernel SHAP contributions are distinct quantities and not word probabilities. Attributions diagnose model sensitivity and do not certify correctness. Signed values are displayed to three decimals."
+  },
+  {
+    "number": 25,
+    "heading": "Conclusion",
+    "subtitle": "Task adaptation improves all three task setups",
+    "sources": [
+      "outputs/eval/qwen35_2b_base_nothinking_20261022_173617/labels/evaluation.json",
+      "outputs/eval/qwen35_2b_base_nothinking_20261022_173617/json/evaluation.json",
+      "outputs/eval/adapter_test/evaluation.json",
+      "outputs/eval/json_test/evaluation.json",
+      "outputs/albert_stereodetect/evaluation.json",
+      "outputs/modernbert_large_lr3e5_warmup30_wd001_ep3_seed3407/evaluation.json",
+      "outputs/eval/qwen35_2b_base_sentence_labels_nothinking_20261022_195718/evaluation.json",
+      "outputs/kaggle_qwen35_sentence_lora_1022-183119/results/artifacts/evaluation.json",
+      "outputs/modernbert_large_lr3e5_warmup30_wd001_ep3_seed3407/explanations/explanations.jsonl"
+    ],
+    "speaker": "The new sentence-only label experiment improves from 23.19% to 93.84% accuracy under matched prompt, split and label-token scoring, with differing precision/runtime. The metadata-conditioned label adapter reaches 95.51%; its richer inputs prevent a direct input-matched ranking. Sentence-only JSON label accuracy is 93.61%, category accuracy 99.37%, target exact match 98.16%, and all-three-fields accuracy 92.87%. The explanation examples use ModernBERT-large, not Qwen, and include a misclassification to show why attribution does not certify correctness. Future work is proposed, not performed."
+  },
+  {
+    "number": 26,
+    "heading": "References",
+    "subtitle": "IEEE-style bibliography \u00b7 1 / 2",
+    "sources": [
+      "https://aclanthology.org/2025.findings-emnlp.216/",
+      "https://aclanthology.org/2025.ijcnlp-long.1/",
+      "https://arxiv.org/abs/1909.11942",
+      "https://arxiv.org/abs/2412.13663",
+      "https://arxiv.org/abs/2002.10957",
+      "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2"
+    ],
+    "speaker": "Public model descriptions are separated from local experimental results. Local results are traceable to repository paths in the corresponding speaker notes. All public links were consulted on October 22, 2026."
+  },
+  {
+    "number": 27,
+    "heading": "References",
+    "subtitle": "IEEE-style bibliography \u00b7 2 / 2",
+    "sources": [
+      "https://arxiv.org/abs/2506.05176",
+      "https://huggingface.co/Qwen/Qwen3.5-2B",
+      "https://arxiv.org/abs/2106.09685",
+      "https://arxiv.org/abs/1602.04938",
+      "https://arxiv.org/abs/1705.07874"
+    ],
+    "speaker": "Public model descriptions are separated from local experimental results. Local results are traceable to repository paths in the corresponding speaker notes. All public links were consulted on October 22, 2026."
+  },
+  {
+    "number": 28,
+    "heading": "Appendix \u00b7 Complete Test Results",
+    "subtitle": "All nine saved label-only test evaluations",
+    "sources": [
+      "outputs/reports/classification_reports_20261022/report_manifest.json",
+      "outputs/reports/classification_reports_20261022/all_label_only_classification_reports.txt"
+    ],
+    "speaker": "These are all nine completed label-only test reports. The two evaluations of the old conditioned Qwen adapter differ slightly and are both retained. ModernBERT-base variants are distinct from the large-model architecture slide. Each run has all 1,738 test rows; no partial runs appear here."
+  },
+  {
+    "number": 29,
+    "heading": "Appendix \u00b7 Classification Reports",
+    "subtitle": "Label-only \u00b7 Full per-class precision, recall and F1",
+    "sources": [
+      "outputs/eval/qwen35_2b_base_sentence_labels_nothinking_20261022_195718/predictions.csv",
+      "outputs/kaggle_qwen35_sentence_lora_1022-183119/results/artifacts/test_predictions.csv"
+    ],
+    "speaker": "Full-test per-class precision, recall, F1 and support. P/R/F1 are percentages; N is gold support. All 1,738 rows are retained. Invalid or out-of-set predictions count as errors. Sources identify the saved prediction or report files."
+  },
+  {
+    "number": 30,
+    "heading": "Appendix \u00b7 Classification Reports",
+    "subtitle": "Label-only \u00b7 Full per-class precision, recall and F1",
+    "sources": [
+      "outputs/eval/qwen35_2b_base_nothinking_20261022_173617/labels/predictions.csv",
+      "outputs/eval/adapter_test/predictions.csv"
+    ],
+    "speaker": "Full-test per-class precision, recall, F1 and support. P/R/F1 are percentages; N is gold support. All 1,738 rows are retained. Invalid or out-of-set predictions count as errors. Sources identify the saved prediction or report files."
+  },
+  {
+    "number": 31,
+    "heading": "Appendix \u00b7 Classification Reports",
+    "subtitle": "Label-only \u00b7 Full per-class precision, recall and F1",
+    "sources": [
+      "outputs/qwen35_2b_stereodetect/test_predictions.csv",
+      "outputs/albert_stereodetect/test_predictions.csv"
+    ],
+    "speaker": "Full-test per-class precision, recall, F1 and support. P/R/F1 are percentages; N is gold support. All 1,738 rows are retained. Invalid or out-of-set predictions count as errors. Sources identify the saved prediction or report files."
+  },
+  {
+    "number": 32,
+    "heading": "Appendix \u00b7 Classification Reports",
+    "subtitle": "Label-only \u00b7 Full per-class precision, recall and F1",
+    "sources": [
+      "outputs/modernbert_stereodetect/test_predictions.csv",
+      "outputs/modernbert_stereodetect_lr5e5_cosine_ep3_seed3407/test_predictions.csv"
+    ],
+    "speaker": "Full-test per-class precision, recall, F1 and support. P/R/F1 are percentages; N is gold support. All 1,738 rows are retained. Invalid or out-of-set predictions count as errors. Sources identify the saved prediction or report files."
+  },
+  {
+    "number": 33,
+    "heading": "Appendix \u00b7 Classification Reports",
+    "subtitle": "Label-only \u00b7 Full per-class precision, recall and F1",
+    "sources": [
+      "outputs/modernbert_large_lr3e5_warmup30_wd001_ep3_seed3407/test_predictions.csv"
+    ],
+    "speaker": "Full-test per-class precision, recall, F1 and support. P/R/F1 are percentages; N is gold support. All 1,738 rows are retained. Invalid or out-of-set predictions count as errors. Sources identify the saved prediction or report files."
+  },
+  {
+    "number": 34,
+    "heading": "Appendix \u00b7 Classification Reports",
+    "subtitle": "JSON category \u00b7 Five normalized classes",
+    "sources": [
+      "outputs/eval/qwen35_2b_base_nothinking_20261022_173617/json/completions.jsonl",
+      "outputs/qwen35_2b_stereodetect_json/test_completions.jsonl",
+      "outputs/eval/json_test/completions.jsonl"
+    ],
+    "speaker": "Full-test per-class precision, recall, F1 and support. P/R/F1 are percentages; N is gold support. All 1,738 rows are retained. Invalid or out-of-set predictions count as errors. Sources identify the saved prediction or report files."
+  },
+  {
+    "number": 35,
+    "heading": "Appendix \u00b7 Classification Reports",
+    "subtitle": "JSON label \u00b7 All three full-test evaluations",
+    "sources": [
+      "outputs/eval/qwen35_2b_base_nothinking_20261022_173617/json/completions.jsonl",
+      "outputs/eval/json_test/completions.jsonl"
+    ],
+    "speaker": "Full-test per-class precision, recall, F1 and support. P/R/F1 are percentages; N is gold support. All 1,738 rows are retained. Invalid or out-of-set predictions count as errors. Sources identify the saved prediction or report files."
+  },
+  {
+    "number": 36,
+    "heading": "Appendix \u00b7 Classification Reports",
+    "subtitle": "JSON label \u00b7 All three full-test evaluations",
+    "sources": [
+      "outputs/qwen35_2b_stereodetect_json/test_completions.jsonl"
+    ],
+    "speaker": "Full-test per-class precision, recall, F1 and support. P/R/F1 are percentages; N is gold support. All 1,738 rows are retained. Invalid or out-of-set predictions count as errors. Sources identify the saved prediction or report files."
+  },
+  {
+    "number": 37,
+    "heading": "Appendix \u00b7 Target Classification",
+    "subtitle": "Base JSON \u00b7 Exact target strings (1 / 3)",
+    "sources": [
+      "outputs/eval/qwen35_2b_base_nothinking_20261022_173617/json/completions.jsonl"
+    ],
+    "speaker": "Per-target precision/recall/F1 on all 1,738 test examples. All 87 distinct gold target strings are listed across 3 slides. Target matching is exact, including capitalization, underscores and whitespace. Gold classes alone define macro averages; out-of-set guesses remain wrong predictions. The training-time and standalone LoRA target vectors are identical, so one shared report represents both evaluations."
+  },
+  {
+    "number": 38,
+    "heading": "Appendix \u00b7 Target Classification",
+    "subtitle": "Base JSON \u00b7 Exact target strings (2 / 3)",
+    "sources": [
+      "outputs/eval/qwen35_2b_base_nothinking_20261022_173617/json/completions.jsonl"
+    ],
+    "speaker": "Per-target precision/recall/F1 on all 1,738 test examples. All 87 distinct gold target strings are listed across 3 slides. Target matching is exact, including capitalization, underscores and whitespace. Gold classes alone define macro averages; out-of-set guesses remain wrong predictions. The training-time and standalone LoRA target vectors are identical, so one shared report represents both evaluations."
+  },
+  {
+    "number": 39,
+    "heading": "Appendix \u00b7 Target Classification",
+    "subtitle": "Base JSON \u00b7 Exact target strings (3 / 3)",
+    "sources": [
+      "outputs/eval/qwen35_2b_base_nothinking_20261022_173617/json/completions.jsonl"
+    ],
+    "speaker": "Per-target precision/recall/F1 on all 1,738 test examples. All 87 distinct gold target strings are listed across 3 slides. Target matching is exact, including capitalization, underscores and whitespace. Gold classes alone define macro averages; out-of-set guesses remain wrong predictions. The training-time and standalone LoRA target vectors are identical, so one shared report represents both evaluations."
+  },
+  {
+    "number": 40,
+    "heading": "Appendix \u00b7 Target Classification",
+    "subtitle": "JSON LoRA \u00b7 both evaluations \u00b7 Exact target strings (1 / 3)",
+    "sources": [
+      "outputs/qwen35_2b_stereodetect_json/test_completions.jsonl",
+      "outputs/eval/json_test/completions.jsonl"
+    ],
+    "speaker": "Per-target precision/recall/F1 on all 1,738 test examples. All 87 distinct gold target strings are listed across 3 slides. Target matching is exact, including capitalization, underscores and whitespace. Gold classes alone define macro averages; out-of-set guesses remain wrong predictions. The training-time and standalone LoRA target vectors are identical, so one shared report represents both evaluations."
+  },
+  {
+    "number": 41,
+    "heading": "Appendix \u00b7 Target Classification",
+    "subtitle": "JSON LoRA \u00b7 both evaluations \u00b7 Exact target strings (2 / 3)",
+    "sources": [
+      "outputs/qwen35_2b_stereodetect_json/test_completions.jsonl",
+      "outputs/eval/json_test/completions.jsonl"
+    ],
+    "speaker": "Per-target precision/recall/F1 on all 1,738 test examples. All 87 distinct gold target strings are listed across 3 slides. Target matching is exact, including capitalization, underscores and whitespace. Gold classes alone define macro averages; out-of-set guesses remain wrong predictions. The training-time and standalone LoRA target vectors are identical, so one shared report represents both evaluations."
+  },
+  {
+    "number": 42,
+    "heading": "Appendix \u00b7 Target Classification",
+    "subtitle": "JSON LoRA \u00b7 both evaluations \u00b7 Exact target strings (3 / 3)",
+    "sources": [
+      "outputs/qwen35_2b_stereodetect_json/test_completions.jsonl",
+      "outputs/eval/json_test/completions.jsonl"
+    ],
+    "speaker": "Per-target precision/recall/F1 on all 1,738 test examples. All 87 distinct gold target strings are listed across 3 slides. Target matching is exact, including capitalization, underscores and whitespace. Gold classes alone define macro averages; out-of-set guesses remain wrong predictions. The training-time and standalone LoRA target vectors are identical, so one shared report represents both evaluations."
+  },
+  {
+    "number": 43,
+    "heading": "Appendix \u00b7 Report Coverage",
+    "subtitle": "Complete reports and diagnostic subsets are kept distinct",
+    "sources": [
+      "outputs/reports/classification_reports_20261022/report_manifest.json",
+      "outputs/reports/classification_reports_20261022/all_label_only_classification_reports.txt",
+      "outputs/reports/classification_reports_20261022/all_category_label_target_classification_reports.txt"
+    ],
+    "speaker": "The accompanying text files contain all nine completed label-only test evaluations and three validation class reports; and three completed JSON test evaluations, three complete validation evaluations, plus six partial/incomplete diagnostic runs. The 410-row thinking run is unfinished and is not a full-test result. No new classifier or explanation model was run while revising this deck."
+  }
+]

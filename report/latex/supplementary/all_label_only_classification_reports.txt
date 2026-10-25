@@ -1,0 +1,311 @@
+ALL LABEL-ONLY CLASSIFICATION REPORTS
+Generated UTC: 2026-10-22T20:06:52.230337+00:00
+Includes all nine completed label-only test evaluations: Qwen, ALBERT and ModernBERT.
+JSON-output experiments are in the separate category/label/target report.
+All full test reports use the same 1,738 rows. Metrics were recomputed and checked against saved evaluations.
+Category/target-conditioned and sentence-only inputs differ; inspect each run's input contract.
+The base sentence-only run used vLLM BF16; the Kaggle LoRA run used PyTorch FP32.
+Precision, recall and F1 are fractions; the accuracy line also gives a percentage.
+Labels: 0 - Anti-stereotype; 1 - Stereotype; 2 - Neutral without target term; 3 - Neutral with target term; 4 - Bias.
+All label reports include labels 0-4 in macro averages; invalid predictions remain errors.
+
+COMPLETED TEST RUN SUMMARY
+ID      Accuracy    Macro F1  Experiment
+1       23.1876%    14.2143%  Qwen3.5-2B BASE - sentence only -> label
+2       93.8435%    93.8946%  Qwen3.5-2B LoRA - sentence only -> label (Kaggle 2xT4)
+3       33.5443%    27.6275%  Qwen3.5-2B BASE - category + target + sentence -> label
+4       95.4545%    95.4934%  Qwen3.5-2B LoRA - conditioned label, training-time test evaluation
+5       95.5121%    95.5502%  Qwen3.5-2B LoRA - conditioned label, standalone test evaluation
+6       88.0898%    88.1966%  ALBERT-base-v2 fine-tuned
+7       89.3556%    89.4323%  ModernBERT-base fine-tuned - original run
+8       92.1174%    92.1822%  ModernBERT-base fine-tuned - LR 5e-5, cosine, 3 epochs, seed 3407
+9       93.3257%    93.3886%  ModernBERT-large fine-tuned - LR 3e-5, warmup 30, WD 0.01, 3 epochs, seed 3407
+
+====================================================================================================
+TEST 01. Qwen3.5-2B BASE - sentence only -> label
+====================================================================================================
+Split: TEST, complete, 1738 / 1738 examples
+Input: Sentence only
+Output: label 0-4
+Thinking: False
+Runtime: vLLM; dtype=bfloat16
+Prediction source: outputs/eval/qwen35_2b_base_sentence_labels_nothinking_20261022_195718/predictions.csv
+Saved report: outputs/eval/qwen35_2b_base_sentence_labels_nothinking_20261022_195718/evaluation.json
+
+Accuracy (all 1738 examples): 0.231876 (23.19%)
+                                 precision    recall  f1-score   support
+
+            0 - Anti-stereotype     0.1507    0.3203    0.2050       359
+                 1 - Stereotype     0.2839    0.7872    0.4173       343
+2 - Neutral without target term     0.8500    0.0425    0.0810       400
+   3 - Neutral with target term     0.0000    0.0000    0.0000       372
+                       4 - Bias     0.2500    0.0038    0.0075       264
+
+                       accuracy                         0.2319      1738
+                      macro avg     0.3069    0.2308    0.1421      1738
+                   weighted avg     0.3208    0.2319    0.1445      1738
+
+====================================================================================================
+TEST 02. Qwen3.5-2B LoRA - sentence only -> label (Kaggle 2xT4)
+====================================================================================================
+Split: TEST, complete, 1738 / 1738 examples
+Input: Sentence only
+Output: label 0-4
+Thinking: False
+Runtime precision: float32
+Selected epoch: 3
+Prediction source: outputs/kaggle_qwen35_sentence_lora_1022-183119/results/artifacts/test_predictions.csv
+Saved report: outputs/kaggle_qwen35_sentence_lora_1022-183119/results/artifacts/evaluation.json
+
+Accuracy (all 1738 examples): 0.938435 (93.84%)
+                                 precision    recall  f1-score   support
+
+            0 - Anti-stereotype     0.8803    0.8607    0.8704       359
+                 1 - Stereotype     0.8648    0.8950    0.8797       343
+2 - Neutral without target term     0.9949    0.9700    0.9823       400
+   3 - Neutral with target term     0.9711    0.9919    0.9814       372
+                       4 - Bias     0.9847    0.9773    0.9810       264
+
+                       accuracy                         0.9384      1738
+                      macro avg     0.9392    0.9390    0.9389      1738
+                   weighted avg     0.9389    0.9384    0.9385      1738
+
+====================================================================================================
+TEST 03. Qwen3.5-2B BASE - category + target + sentence -> label
+====================================================================================================
+Split: TEST, complete, 1738 / 1738 examples
+Input: Category + Target + Sentence
+Output: label 0-4
+Thinking: False
+Runtime: vLLM; dtype=bfloat16
+Prediction source: outputs/eval/qwen35_2b_base_nothinking_20261022_173617/labels/predictions.csv
+Saved report: outputs/eval/qwen35_2b_base_nothinking_20261022_173617/labels/evaluation.json
+
+Accuracy (all 1738 examples): 0.335443 (33.54%)
+                                 precision    recall  f1-score   support
+
+            0 - Anti-stereotype     0.2100    0.3983    0.2750       359
+                 1 - Stereotype     0.3015    0.7085    0.4230       343
+2 - Neutral without target term     1.0000    0.4775    0.6464       400
+   3 - Neutral with target term     0.0000    0.0000    0.0000       372
+                       4 - Bias     0.1000    0.0227    0.0370       264
+
+                       accuracy                         0.3354      1738
+                      macro avg     0.3223    0.3214    0.2763      1738
+                   weighted avg     0.3482    0.3354    0.2947      1738
+
+====================================================================================================
+TEST 04. Qwen3.5-2B LoRA - conditioned label, training-time test evaluation
+====================================================================================================
+Split: TEST, complete, 1738 / 1738 examples
+Input: Category + Target + Sentence
+Output: label 0-4
+Thinking: False
+Prediction source: outputs/qwen35_2b_stereodetect/test_predictions.csv
+Saved report: outputs/qwen35_2b_stereodetect/evaluation.json
+
+Accuracy (all 1738 examples): 0.954545 (95.45%)
+                                 precision    recall  f1-score   support
+
+            0 - Anti-stereotype     0.8704    0.9164    0.8928       359
+                 1 - Stereotype     0.9190    0.8601    0.8886       343
+2 - Neutral without target term     1.0000    1.0000    1.0000       400
+   3 - Neutral with target term     0.9893    0.9973    0.9933       372
+                       4 - Bias     1.0000    1.0000    1.0000       264
+
+                       accuracy                         0.9545      1738
+                      macro avg     0.9557    0.9548    0.9549      1738
+                   weighted avg     0.9550    0.9545    0.9544      1738
+
+====================================================================================================
+TEST 05. Qwen3.5-2B LoRA - conditioned label, standalone test evaluation
+====================================================================================================
+Split: TEST, complete, 1738 / 1738 examples
+Input: Category + Target + Sentence
+Output: label 0-4
+Thinking: False
+Prediction source: outputs/eval/adapter_test/predictions.csv
+Saved report: outputs/eval/adapter_test/evaluation.json
+
+Accuracy (all 1738 examples): 0.955121 (95.51%)
+                                 precision    recall  f1-score   support
+
+            0 - Anti-stereotype     0.8707    0.9192    0.8943       359
+                 1 - Stereotype     0.9219    0.8601    0.8899       343
+2 - Neutral without target term     1.0000    1.0000    1.0000       400
+   3 - Neutral with target term     0.9893    0.9973    0.9933       372
+                       4 - Bias     1.0000    1.0000    1.0000       264
+
+                       accuracy                         0.9551      1738
+                      macro avg     0.9564    0.9553    0.9555      1738
+                   weighted avg     0.9556    0.9551    0.9550      1738
+
+====================================================================================================
+TEST 06. ALBERT-base-v2 fine-tuned
+====================================================================================================
+Split: TEST, complete, 1738 / 1738 examples
+Input: Sentence only
+Output: label 0-4
+Thinking: N/A for encoder models
+Runtime precision: bf16 autocast with fp32 parameters
+Prediction source: outputs/albert_stereodetect/test_predictions.csv
+Saved report: outputs/albert_stereodetect/evaluation.json
+
+Accuracy (all 1738 examples): 0.880898 (88.09%)
+                                 precision    recall  f1-score   support
+
+            0 - Anti-stereotype     0.7679    0.7187    0.7424       359
+                 1 - Stereotype     0.7227    0.7901    0.7549       343
+2 - Neutral without target term     0.9821    0.9600    0.9709       400
+   3 - Neutral with target term     0.9707    0.9812    0.9759       372
+                       4 - Bias     0.9731    0.9583    0.9656       264
+
+                       accuracy                         0.8809      1738
+                      macro avg     0.8833    0.8817    0.8820      1738
+                   weighted avg     0.8828    0.8809    0.8814      1738
+
+====================================================================================================
+TEST 07. ModernBERT-base fine-tuned - original run
+====================================================================================================
+Split: TEST, complete, 1738 / 1738 examples
+Input: Sentence only
+Output: label 0-4
+Thinking: N/A for encoder models
+Runtime precision: bf16 autocast with fp32 parameters
+Prediction source: outputs/modernbert_stereodetect/test_predictions.csv
+Saved report: outputs/modernbert_stereodetect/evaluation.json
+
+Accuracy (all 1738 examples): 0.893556 (89.36%)
+                                 precision    recall  f1-score   support
+
+            0 - Anti-stereotype     0.8077    0.7604    0.7834       359
+                 1 - Stereotype     0.7655    0.8280    0.7955       343
+2 - Neutral without target term     0.9869    0.9450    0.9655       400
+   3 - Neutral with target term     0.9602    0.9731    0.9666       372
+                       4 - Bias     0.9517    0.9697    0.9606       264
+
+                       accuracy                         0.8936      1738
+                      macro avg     0.8944    0.8952    0.8943      1738
+                   weighted avg     0.8951    0.8936    0.8938      1738
+
+====================================================================================================
+TEST 08. ModernBERT-base fine-tuned - LR 5e-5, cosine, 3 epochs, seed 3407
+====================================================================================================
+Split: TEST, complete, 1738 / 1738 examples
+Input: Sentence only
+Output: label 0-4
+Thinking: N/A for encoder models
+Runtime precision: bf16 autocast with fp32 parameters
+Prediction source: outputs/modernbert_stereodetect_lr5e5_cosine_ep3_seed3407/test_predictions.csv
+Saved report: outputs/modernbert_stereodetect_lr5e5_cosine_ep3_seed3407/evaluation.json
+
+Accuracy (all 1738 examples): 0.921174 (92.12%)
+                                 precision    recall  f1-score   support
+
+            0 - Anti-stereotype     0.8551    0.8217    0.8381       359
+                 1 - Stereotype     0.8217    0.8601    0.8405       343
+2 - Neutral without target term     0.9948    0.9600    0.9771       400
+   3 - Neutral with target term     0.9634    0.9892    0.9761       372
+                       4 - Bias     0.9737    0.9811    0.9774       264
+
+                       accuracy                         0.9212      1738
+                      macro avg     0.9217    0.9224    0.9218      1738
+                   weighted avg     0.9218    0.9212    0.9212      1738
+
+====================================================================================================
+TEST 09. ModernBERT-large fine-tuned - LR 3e-5, warmup 30, WD 0.01, 3 epochs, seed 3407
+====================================================================================================
+Split: TEST, complete, 1738 / 1738 examples
+Input: Sentence only
+Output: label 0-4
+Thinking: N/A for encoder models
+Runtime precision: bf16 autocast with fp32 parameters
+Prediction source: outputs/modernbert_large_lr3e5_warmup30_wd001_ep3_seed3407/test_predictions.csv
+Saved report: outputs/modernbert_large_lr3e5_warmup30_wd001_ep3_seed3407/evaluation.json
+
+Accuracy (all 1738 examples): 0.933257 (93.33%)
+                                 precision    recall  f1-score   support
+
+            0 - Anti-stereotype     0.8672    0.8552    0.8612       359
+                 1 - Stereotype     0.8520    0.8892    0.8702       343
+2 - Neutral without target term     0.9949    0.9675    0.9810       400
+   3 - Neutral with target term     0.9760    0.9839    0.9799       372
+                       4 - Bias     0.9809    0.9735    0.9772       264
+
+                       accuracy                         0.9333      1738
+                      macro avg     0.9342    0.9338    0.9339      1738
+                   weighted avg     0.9341    0.9333    0.9336      1738
+
+====================================================================================================
+APPENDIX: AVAILABLE VALIDATION CLASSIFICATION REPORTS
+====================================================================================================
+These are validation results used for model selection, not held-out test results.
+
+====================================================================================================
+Kaggle sentence-only LoRA - validation epoch 1 (step 190)
+====================================================================================================
+Split: VALIDATION, complete, 868 / 868 examples
+Source: outputs/kaggle_qwen35_sentence_lora_1022-183119/results/artifacts/validation_history.json
+Reconstructed exactly from the saved validation confusion matrix.
+
+Accuracy (all 868 examples): 0.905530 (90.55%)
+                                 precision    recall  f1-score   support
+
+            0 - Anti-stereotype     0.8043    0.8268    0.8154       179
+                 1 - Stereotype     0.8294    0.7921    0.8103       178
+2 - Neutral without target term     0.9760    0.9902    0.9831       205
+   3 - Neutral with target term     0.9763    0.9593    0.9677       172
+                       4 - Bias     0.9416    0.9627    0.9520       134
+
+                       accuracy                         0.9055       868
+                      macro avg     0.9055    0.9062    0.9057       868
+                   weighted avg     0.9053    0.9055    0.9052       868
+
+====================================================================================================
+Kaggle sentence-only LoRA - validation epoch 2 (step 380)
+====================================================================================================
+Split: VALIDATION, complete, 868 / 868 examples
+Source: outputs/kaggle_qwen35_sentence_lora_1022-183119/results/artifacts/validation_history.json
+Reconstructed exactly from the saved validation confusion matrix.
+
+Accuracy (all 868 examples): 0.938940 (93.89%)
+                                 precision    recall  f1-score   support
+
+            0 - Anti-stereotype     0.8564    0.8994    0.8774       179
+                 1 - Stereotype     0.8895    0.8596    0.8743       178
+2 - Neutral without target term     0.9951    0.9854    0.9902       205
+   3 - Neutral with target term     0.9718    1.0000    0.9857       172
+                       4 - Bias     0.9922    0.9478    0.9695       134
+
+                       accuracy                         0.9389       868
+                      macro avg     0.9410    0.9384    0.9394       868
+                   weighted avg     0.9398    0.9389    0.9391       868
+
+====================================================================================================
+Kaggle sentence-only LoRA - validation epoch 3 (step 570)
+====================================================================================================
+Split: VALIDATION, complete, 868 / 868 examples
+Source: outputs/kaggle_qwen35_sentence_lora_1022-183119/results/artifacts/validation_history.json
+Reconstructed exactly from the saved validation confusion matrix.
+
+Accuracy (all 868 examples): 0.953917 (95.39%)
+                                 precision    recall  f1-score   support
+
+            0 - Anti-stereotype     0.8913    0.9162    0.9036       179
+                 1 - Stereotype     0.9138    0.8933    0.9034       178
+2 - Neutral without target term     1.0000    0.9854    0.9926       205
+   3 - Neutral with target term     0.9884    0.9942    0.9913       172
+                       4 - Bias     0.9778    0.9851    0.9814       134
+
+                       accuracy                         0.9539       868
+                      macro avg     0.9543    0.9548    0.9545       868
+                   weighted avg     0.9542    0.9539    0.9540       868
+
+====================================================================================================
+COVERAGE NOTES
+====================================================================================================
+The stopped MIG 0 sentence-only training has no completed final test evaluation and is excluded.
+Training smoke checks without classification predictions are excluded.
+Training-time and standalone evaluations are both retained: their saved prediction vectors differ.
+Encoder validation aggregate scores without per-class predictions/confusion matrices cannot yield full reports.
+No model inference or training was run to create these text files.

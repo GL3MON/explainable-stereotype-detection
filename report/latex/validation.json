@@ -1,0 +1,18 @@
+{
+  "pages": 28,
+  "page_size": "US Letter; 1.25-inch left/right and 1-inch top/bottom margins in LaTeX",
+  "qwen_evaluations": 6,
+  "canonical_label_reports": 10,
+  "exact_target_classes": 87,
+  "required_content": "pass",
+  "metric_recomputation": "pass",
+  "citations": "pass",
+  "metadata_confusion_matrices": "four verified 5x5 matrices; counts and row percentages",
+  "removed_sections": "5.2\u20135.4; References retained",
+  "partition_mentions": "none",
+  "latex_errors_or_overfull_boxes": [],
+  "off_page_text": [],
+  "sparse_pages": [],
+  "project_repository": "https://github.com/GL3MON/explainable-stereotype-detection",
+  "pdf_sha256": "d7d35bfdc351847d192558a276e6d92ef40b8ddab4d5f13caa45c9f4ad11ac7a"
+}

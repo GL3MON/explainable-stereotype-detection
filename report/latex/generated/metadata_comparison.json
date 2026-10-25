@@ -1,0 +1,184 @@
+{
+  "num_examples": 1738,
+  "class_names": [
+    "Anti-stereotype",
+    "Stereotype",
+    "Neutral without target term",
+    "Neutral with target term",
+    "Bias"
+  ],
+  "states": {
+    "base": {
+      "matrices": {
+        "A": [
+          [
+            115,
+            242,
+            1,
+            0,
+            1
+          ],
+          [
+            72,
+            270,
+            0,
+            0,
+            1
+          ],
+          [
+            315,
+            67,
+            17,
+            0,
+            1
+          ],
+          [
+            164,
+            206,
+            2,
+            0,
+            0
+          ],
+          [
+            97,
+            166,
+            0,
+            0,
+            1
+          ]
+        ],
+        "C": [
+          [
+            143,
+            208,
+            0,
+            0,
+            8
+          ],
+          [
+            60,
+            243,
+            0,
+            0,
+            40
+          ],
+          [
+            200,
+            4,
+            191,
+            0,
+            5
+          ],
+          [
+            199,
+            172,
+            0,
+            0,
+            1
+          ],
+          [
+            79,
+            179,
+            0,
+            0,
+            6
+          ]
+        ]
+      },
+      "corrected": 242,
+      "introduced": 62,
+      "net_additional_correct": 180,
+      "accuracy_gain_pp": 10.356731875719218,
+      "prediction_sources": {
+        "A": "outputs/eval/qwen35_2b_base_sentence_labels_nothinking_20261022_195718/predictions.csv",
+        "C": "outputs/eval/qwen35_2b_base_nothinking_20261022_173617/labels/predictions.csv"
+      }
+    },
+    "sft": {
+      "matrices": {
+        "A": [
+          [
+            309,
+            46,
+            0,
+            3,
+            1
+          ],
+          [
+            36,
+            307,
+            0,
+            0,
+            0
+          ],
+          [
+            3,
+            0,
+            388,
+            7,
+            2
+          ],
+          [
+            0,
+            0,
+            2,
+            369,
+            1
+          ],
+          [
+            3,
+            2,
+            0,
+            1,
+            258
+          ]
+        ],
+        "C": [
+          [
+            330,
+            25,
+            0,
+            4,
+            0
+          ],
+          [
+            48,
+            295,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            400,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            371,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            264
+          ]
+        ]
+      },
+      "corrected": 53,
+      "introduced": 24,
+      "net_additional_correct": 29,
+      "accuracy_gain_pp": 1.668584579976985,
+      "prediction_sources": {
+        "A": "outputs/kaggle_qwen35_sentence_lora_1022-183119/results/artifacts/test_predictions.csv",
+        "C": "outputs/eval/adapter_test/predictions.csv"
+      }
+    }
+  }
+}

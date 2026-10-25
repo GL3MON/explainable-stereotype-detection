@@ -1,0 +1,97 @@
+\reportsection{Method Overview with Architecture}
+\subsection{End-to-end pipeline}
+The implementation separates data loading, model training, evaluation, prediction, and explanation into explicit workflows. CSV rows are converted into inputs appropriate for the selected task. Training uses only the training split; validation macro F1 determines checkpoint selection. The selected model or adapter is then evaluated on the complete test split. Saved predictions support independent recomputation of the report tables.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=5mm and 6mm, font=\sffamily\small,
+block/.style={draw=headingblue!45,rounded corners,fill=softblue,align=center,inner sep=6pt,text width=3.1cm},
+wide/.style={block,text width=11.8cm},arr/.style={-{Latex[length=2mm]},thick,draw=headingblue}]
+\node[wide] (data) {StereoDetect CSV splits: train / validation / test};
+\node[wide,below=of data] (contract) {Select task and construct inputs; keep gold outputs outside the prompt};
+\node[block,below left=8mm and 3mm of contract.south] (enc) {Encoder classifier\\Sentence $\to$ label};
+\node[block,below right=8mm and 3mm of contract.south,fill=softpurple] (qwen) {Qwen3.5-2B\\Tasks A / B / C};
+\node[block,below=of enc,fill=softgreen] (trainenc) {Supervised fine-tuning\\Five-class output head};
+\node[block,below=of qwen,fill=softgreen] (trainqwen) {Base evaluation or\\task-specific LoRA SFT};
+\node[wide,below=9mm of $(trainenc.south)!0.5!(trainqwen.south)$] (eval) {Validation selection $\to$ full-test predictions $\to$ label / JSON-field metrics};
+\node[wide,below=of eval] (explain) {Encoder explanation branch: word masks $\to$ LIME / Kernel SHAP $\to$ signed color maps};
+\draw[arr] (data)--(contract);
+\draw[arr] (contract.south)-|(enc.north);\draw[arr] (contract.south)-|(qwen.north);
+\draw[arr] (enc)--(trainenc);\draw[arr] (qwen)--(trainqwen);
+\draw[arr] (trainenc.south)--(trainenc.south |- eval.north);
+\draw[arr] (trainqwen.south)--(trainqwen.south |- eval.north);
+\draw[arr] (eval)--(explain);
+\end{tikzpicture}
+\caption{Implemented pipeline. The last branch explains encoder outputs. It is not a Qwen reasoning-generation stage.}
+\label{fig:pipeline}
+\end{figure}
+
+\subsection{Encoder and embedding model families}
+\textbf{ALBERT.} ALBERT reduces parameter requirements through factorized embeddings and cross-layer parameter sharing \citep{lan2020}. The project loads \code{albert/albert-base-v2} using a sequence-classification model with five outputs. Tokenized sentence inputs pass through the encoder and its classification head to produce logits, followed by a softmax for class probabilities. Category and target remain in the saved rows for analysis and are excluded from encoder input.
+
+\textbf{ModernBERT.} ModernBERT modernizes the bidirectional encoder architecture, including rotary positional information and alternating attention patterns \citep{warner2024}. The saved project runs use \code{answerdotai/ModernBERT-base} and \code{answerdotai/ModernBERT-large} with five-class sequence-classification heads. The local sequence limit is 128 tokens, irrespective of the backbone's longer supported context. The same sentence-only contract enables a meaningful task-level comparison with ALBERT and Qwen task A, although hyperparameters and computational settings differ.
+
+\textbf{Review-stage embedding baselines.} MiniLM supplies compact transformer representations through distillation \citep{wang2020}; Qwen3-Embedding provides decoder-derived embedding models \citep{zhang2025}. The earlier review document contains five-class scores for \code{all-MiniLM-L6-v2} and \code{Qwen3-Embedding-0.6B}. Qwen3-Embedding-0.6B is a different model family from the Qwen3.5-2B generative checkpoint used in tasks A--C.
+
+\subsection{Qwen tasks and supervised adaptation}
+The backbone is \code{Qwen/Qwen3.5-2B} \citep{qwen2026}. Here, \emph{base} means that this published checkpoint is evaluated without one of our StereoDetect task adapters. It does not imply that the checkpoint lacks any upstream instruction training. Text inputs use the language-model path; images are not part of the project dataset.
+
+\begin{table}[H]
+\centering\small
+\caption{Three Qwen tasks, each evaluated in Base and SFT states.}
+\label{tab:contracts}
+\begin{tabularx}{\linewidth}{lXX}
+\toprule Task & Input & Predicted output\\\midrule
+A & Sentence & One integer label, 0--4\\
+B & Sentence & JSON: category, target, and label\\
+C & Sentence + gold category + gold target & One integer label, 0--4\\\bottomrule
+\end{tabularx}
+\end{table}
+
+All three tasks explicitly disable thinking. Tasks A and C request a single digit without an explanation. At evaluation, the predicted label is selected by the largest next-token logit among the five numeric label tokens:
+\begin{equation}
+\hat y=\arg\max_{k\in\{0,1,2,3,4\}}\ell_k(s),
+\end{equation}
+with the category and target added to the prompt for task C. Normalizing these five logits produces a distribution over the five label choices.
+
+Task B uses greedy, unconstrained generation of a JSON object with a saved maximum of 96 new tokens. Categories are normalized by trimming, case folding, and collapsing whitespace. Targets preserve dataset spelling, capitalization, and underscores. The label must be an integer in the permitted range. The training objective supervises the generated JSON fields, while checkpoint selection uses validation \emph{label} macro F1. This selection criterion does not directly optimize complete-record exact match.
+
+LoRA freezes the backbone weights and adds trainable low-rank updates to selected language-model projections \citep{hu2022}. For a frozen matrix $W_0$, the adapted transformation can be written as
+\begin{equation}
+W=W_0+\frac{\alpha}{r}BA,
+\end{equation}
+where $A$ and $B$ are trainable low-rank matrices. The project uses rank $r=16$, scaling $\alpha=32$, and dropout 0.05. Attention, gated linear-attention, and feed-forward projection modules are targeted by the saved Qwen training implementation. Prompt tokens are masked from the causal training loss; assistant output tokens and their ending token contribute to supervision. Each task has its own adapter and prompt contract.
+
+\subsection{Training protocol and checkpoint selection}
+Table~\ref{tab:training} summarizes the saved settings. The ALBERT configuration adapts the six-epoch, effective-batch-64, learning-rate-$2\times10^{-5}$ setup recorded in the HEARTS reproduction notes to this five-label benchmark. ModernBERT-base includes an initial run and a separately retuned run. Multiple hyperparameters change in the retuned setup, so its improvement is not attributable to the learning rate alone.
+
+\begin{table}[H]
+\centering\scriptsize
+\caption{Saved supervised training configurations. Batch is the global effective batch.}
+\label{tab:training}
+\begin{tabularx}{\linewidth}{Xrrrrl}
+\toprule Run & Epochs & Batch & LR & Seed & Precision\\\midrule
+ALBERT-base-v2 & 6 & 64 & $2\times10^{-5}$ & 42 & BF16 autocast\\
+ModernBERT-base, original & 6 & 64 & $2\times10^{-5}$ & 42 & BF16 autocast\\
+ModernBERT-base, retuned & 3 & 32 & $5\times10^{-5}$ & 3407 & BF16 autocast\\
+ModernBERT-large & 3 & 32 & $3\times10^{-5}$ & 3407 & BF16 autocast\\
+Qwen A: sentence-only SFT & 3 & 32 & $2\times10^{-4}$ & 42 & FP32\\
+Qwen B: JSON SFT & 3 & 16 & $2\times10^{-4}$ & 42 & BF16\\
+Qwen C: conditioned SFT & 3 & 16 & $2\times10^{-4}$ & 42 & BF16\\\bottomrule
+\end{tabularx}
+\end{table}
+
+The completed sentence-only Qwen SFT job runs with DistributedDataParallel/NCCL on two Tesla T4 GPUs, using 16 examples per device, no gradient accumulation, and a global batch of 32. Its 6,080 training examples give 190 optimizer steps per epoch and 570 steps across three epochs. The saved run uses FP32, a cosine learning-rate schedule, a 5\% warmup fraction, AdamW, and 16,819,200 trainable adapter parameters. Epoch 3 is selected by validation macro F1. Training plus evaluation takes approximately 69.3 minutes in that job; this is a run-specific elapsed time, not a controlled throughput benchmark.
+
+The local encoder runs use BF16 autocast and FP32 parameters. ModernBERT-large uses weight decay 0.01 and 30 warmup optimizer steps. The other Qwen SFT runs use micro-batch 4 and gradient accumulation 4. The base Qwen benchmarks run through vLLM in BF16, while the completed task-A adapter evaluation uses FP32 PyTorch. Consequently, the base/SFT differences are observed task-adaptation comparisons with different numerical runtimes, rather than isolated same-engine ablations.
+
+\subsection{Aligned LIME and Kernel SHAP explanations}
+LIME fits a local surrogate around a prediction by observing perturbed inputs \citep{ribeiro2016}. SHAP assigns additive feature contributions relative to a background input \citep{lundberg2017}. The implementation gives both methods the same word-occurrence feature space, preserving punctuation and position. Repeated occurrences of a word are separate features, using \code{bow=False}. Removing a feature replaces the associated word occurrence with the model's mask token.
+
+The saved diagnostic configuration uses 1,000 LIME perturbations and up to 512 Kernel SHAP coalitions, with no L1 feature selection. Kernel SHAP uses an all-masked background and an identity link on classifier probabilities. Short examples can enumerate coalitions rather than consume the full sampling budget. For class $k$, the additive interpretation is
+\begin{equation}
+f_k(s)\approx E[f_k(s_{\mathrm{masked}})]+\sum_{j=1}^{m}\phi_{j,k},
+\end{equation}
+where $m$ is the number of word occurrences and $\phi_{j,k}$ is a signed SHAP contribution. The implementation checks the additivity residual. LIME weights and SHAP contributions remain different quantities despite sharing features and a display scale.
+
+The analysis explains the predicted class and class 1 (stereotype). Masking highly ranked words provides an additional sensitivity check. The default 100-example diagnostic set is stratified by label and includes both correct and incorrect predictions.

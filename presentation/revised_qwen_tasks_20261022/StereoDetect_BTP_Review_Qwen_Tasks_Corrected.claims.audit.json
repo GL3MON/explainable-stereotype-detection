@@ -1,0 +1,3432 @@
+{
+  "schema_version": "1.0",
+  "source": "clara_claim_basis_map_audit",
+  "result": "pass",
+  "deck": "StereoDetect_BTP_Review_Qwen_Tasks_Corrected.pptx",
+  "claim_count": 687,
+  "shared_lineage_claim_count": 0,
+  "ungrounded_claims": [],
+  "drift": {
+    "checked_deck": "/home/harishr/StereoDetect/presentation/revised_qwen_tasks_20261022/StereoDetect_BTP_Review_Qwen_Tasks_Corrected.pptx",
+    "claims_checked": 687,
+    "issues": [],
+    "moved": [],
+    "untracked_current_text": [],
+    "current_text_inventory": [
+      {
+        "slide_number": 1,
+        "text": "StereoDetect Explainable Stereotype Detection",
+        "claim_key": "s1-t0"
+      },
+      {
+        "slide_number": 1,
+        "text": "BY [Student names and roll numbers]",
+        "claim_key": "s1-t1"
+      },
+      {
+        "slide_number": 1,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s1-t3"
+      },
+      {
+        "slide_number": 1,
+        "text": "Guided By, [Guide name]",
+        "claim_key": "s1-t4"
+      },
+      {
+        "slide_number": 2,
+        "text": "Introduction",
+        "claim_key": "s2-t0"
+      },
+      {
+        "slide_number": 2,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s2-t2"
+      },
+      {
+        "slide_number": 2,
+        "text": "2"
+      },
+      {
+        "slide_number": 2,
+        "text": "Five labels capture different forms of group-related language",
+        "claim_key": "s2-t4"
+      },
+      {
+        "slide_number": 2,
+        "text": "Why this task matters",
+        "claim_key": "s2-t6"
+      },
+      {
+        "slide_number": 2,
+        "text": "Group references and generalizations require context-sensitive classification.",
+        "claim_key": "s2-t7"
+      },
+      {
+        "slide_number": 2,
+        "text": "Project focus",
+        "claim_key": "s2-t9"
+      },
+      {
+        "slide_number": 2,
+        "text": "Compare model predictions and inspect the words influencing their decisions.",
+        "claim_key": "s2-t10"
+      },
+      {
+        "slide_number": 2,
+        "text": "0 Anti-stereotype",
+        "claim_key": "s2-t12"
+      },
+      {
+        "slide_number": 2,
+        "text": "1 Stereotype",
+        "claim_key": "s2-t14"
+      },
+      {
+        "slide_number": 2,
+        "text": "2 Neutral without target term",
+        "claim_key": "s2-t16"
+      },
+      {
+        "slide_number": 2,
+        "text": "3 Neutral with target term",
+        "claim_key": "s2-t18"
+      },
+      {
+        "slide_number": 2,
+        "text": "4 Bias",
+        "claim_key": "s2-t20"
+      },
+      {
+        "slide_number": 2,
+        "text": "Dataset definitions: StereoDetect [1]. Labels match the supplied CSV annotations.",
+        "claim_key": "s2-t21"
+      },
+      {
+        "slide_number": 3,
+        "text": "Literature Review",
+        "claim_key": "s3-t0"
+      },
+      {
+        "slide_number": 3,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s3-t2"
+      },
+      {
+        "slide_number": 3,
+        "text": "3"
+      },
+      {
+        "slide_number": 3,
+        "text": "Dataset foundations and explainable stereotype detection",
+        "claim_key": "s3-t4"
+      },
+      {
+        "slide_number": 3,
+        "text": "StereoDetect \u00b7 Shejole & Bhattacharyya",
+        "claim_key": "s3-t6"
+      },
+      {
+        "slide_number": 3,
+        "text": "Definition-aligned benchmark for stereotypes, anti-stereotypes, neutrality, and bias. Provides the five-class labels used in this project. [1]",
+        "claim_key": "s3-t7"
+      },
+      {
+        "slide_number": 3,
+        "text": "HEARTS \u00b7 King et al.",
+        "claim_key": "s3-t9"
+      },
+      {
+        "slide_number": 3,
+        "text": "Combines ALBERT-based stereotype detection with LIME/SHAP explanations. Motivates diagnostic word attribution for our five-class setting. [2]",
+        "claim_key": "s3-t10"
+      },
+      {
+        "slide_number": 3,
+        "text": "The HEARTS binary task and StereoDetect five-class task use different evaluation settings.",
+        "claim_key": "s3-t11"
+      },
+      {
+        "slide_number": 4,
+        "text": "Literature Review",
+        "claim_key": "s4-t0"
+      },
+      {
+        "slide_number": 4,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s4-t2"
+      },
+      {
+        "slide_number": 4,
+        "text": "4"
+      },
+      {
+        "slide_number": 4,
+        "text": "Model families used in the comparison",
+        "claim_key": "s4-t4"
+      },
+      {
+        "slide_number": 4,
+        "text": "Model family Core idea Role in this project"
+      },
+      {
+        "slide_number": 4,
+        "text": "MiniLM [5], [6] Distilled transformer embeddings Compact baseline"
+      },
+      {
+        "slide_number": 4,
+        "text": "Qwen3-Embedding [7] Decoder-derived text embeddings Embedding baseline"
+      },
+      {
+        "slide_number": 4,
+        "text": "ALBERT [3] Factorized embeddings; shared layers Sentence classifier"
+      },
+      {
+        "slide_number": 4,
+        "text": "ModernBERT-large [4] Local/global encoder attention Sentence classifier"
+      },
+      {
+        "slide_number": 4,
+        "text": "Qwen3.5-2B + LoRA [8], [9] Hybrid decoder; task adaptation Label or JSON output"
+      },
+      {
+        "slide_number": 4,
+        "text": "Architectures: original papers and official model cards [3]\u2013[9].",
+        "claim_key": "s4-t6"
+      },
+      {
+        "slide_number": 5,
+        "text": "Motivation",
+        "claim_key": "s5-t0"
+      },
+      {
+        "slide_number": 5,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s5-t2"
+      },
+      {
+        "slide_number": 5,
+        "text": "5"
+      },
+      {
+        "slide_number": 5,
+        "text": "Test both classification quality and the usefulness of the output",
+        "claim_key": "s5-t4"
+      },
+      {
+        "slide_number": 5,
+        "text": "1 \u00b7 Adaptation",
+        "claim_key": "s5-t6"
+      },
+      {
+        "slide_number": 5,
+        "text": "How much does task-specific fine-tuning improve the existing Qwen checkpoint?",
+        "claim_key": "s5-t7"
+      },
+      {
+        "slide_number": 5,
+        "text": "2 \u00b7 Output scope",
+        "claim_key": "s5-t9"
+      },
+      {
+        "slide_number": 5,
+        "text": "Can one sentence produce the category, target group, and label together?",
+        "claim_key": "s5-t10"
+      },
+      {
+        "slide_number": 5,
+        "text": "3 \u00b7 Explanation",
+        "claim_key": "s5-t12"
+      },
+      {
+        "slide_number": 5,
+        "text": "Which words influence an encoder decision, including a wrong prediction?",
+        "claim_key": "s5-t13"
+      },
+      {
+        "slide_number": 5,
+        "text": "Project questions evaluated on the supplied StereoDetect splits.",
+        "claim_key": "s5-t14"
+      },
+      {
+        "slide_number": 6,
+        "text": "Problem Statement",
+        "claim_key": "s6-t0"
+      },
+      {
+        "slide_number": 6,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s6-t2"
+      },
+      {
+        "slide_number": 6,
+        "text": "6"
+      },
+      {
+        "slide_number": 6,
+        "text": "Three Qwen task contracts on the same held-out test split",
+        "claim_key": "s6-t4"
+      },
+      {
+        "slide_number": 6,
+        "text": "A \u00b7 Sentence-only labels",
+        "claim_key": "s6-t6"
+      },
+      {
+        "slide_number": 6,
+        "text": "Input: Sentence only Output: one label, 0\u20134 Five-label token scoring",
+        "claim_key": "s6-t7"
+      },
+      {
+        "slide_number": 6,
+        "text": "B \u00b7 Predict all fields",
+        "claim_key": "s6-t9"
+      },
+      {
+        "slide_number": 6,
+        "text": "Input: Sentence only Output: category + target + label JSON",
+        "claim_key": "s6-t10"
+      },
+      {
+        "slide_number": 6,
+        "text": "C \u00b7 Label with metadata",
+        "claim_key": "s6-t12"
+      },
+      {
+        "slide_number": 6,
+        "text": "Input: Sentence + Category + Target Output: one label, 0\u20134",
+        "claim_key": "s6-t13"
+      },
+      {
+        "slide_number": 6,
+        "text": "Each task has a Base and an SFT evaluation. Metadata means category + target; task B also predicts the label.",
+        "claim_key": "s6-t14"
+      },
+      {
+        "slide_number": 6,
+        "text": "All completed test evaluations use 1,738 examples. Category and target are never supplied to sentence-only tasks.",
+        "claim_key": "s6-t15"
+      },
+      {
+        "slide_number": 7,
+        "text": "Architecture",
+        "claim_key": "s7-t0"
+      },
+      {
+        "slide_number": 7,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s7-t2"
+      },
+      {
+        "slide_number": 7,
+        "text": "7"
+      },
+      {
+        "slide_number": 7,
+        "text": "Overall experimental pipeline",
+        "claim_key": "s7-t4"
+      },
+      {
+        "slide_number": 7,
+        "text": "StereoDetect CSV splits",
+        "claim_key": "s7-t6"
+      },
+      {
+        "slide_number": 7,
+        "text": "Task-specific inputs",
+        "claim_key": "s7-t8"
+      },
+      {
+        "slide_number": 7,
+        "text": "Model training / adaptation",
+        "claim_key": "s7-t11"
+      },
+      {
+        "slide_number": 7,
+        "text": "Held-out predictions",
+        "claim_key": "s7-t14"
+      },
+      {
+        "slide_number": 7,
+        "text": "Metrics + explanations",
+        "claim_key": "s7-t17"
+      },
+      {
+        "slide_number": 7,
+        "text": "Data",
+        "claim_key": "s7-t20"
+      },
+      {
+        "slide_number": 7,
+        "text": "Train 6,080 \u00b7 validation 868 Test 1,738",
+        "claim_key": "s7-t21"
+      },
+      {
+        "slide_number": 7,
+        "text": "Outputs",
+        "claim_key": "s7-t23"
+      },
+      {
+        "slide_number": 7,
+        "text": "Five labels, or structured category/target/label JSON",
+        "claim_key": "s7-t24"
+      },
+      {
+        "slide_number": 7,
+        "text": "Inspection",
+        "claim_key": "s7-t26"
+      },
+      {
+        "slide_number": 7,
+        "text": "Class-wise scores and LIME/SHAP diagnostics",
+        "claim_key": "s7-t27"
+      },
+      {
+        "slide_number": 7,
+        "text": "Implementation: stereodetect package. Dataset split sizes are counted from local CSV files.",
+        "claim_key": "s7-t28"
+      },
+      {
+        "slide_number": 8,
+        "text": "Architecture",
+        "claim_key": "s8-t0"
+      },
+      {
+        "slide_number": 8,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s8-t2"
+      },
+      {
+        "slide_number": 8,
+        "text": "8"
+      },
+      {
+        "slide_number": 8,
+        "text": "all-MiniLM-L6-v2 \u00b7 Compact sentence-embedding backbone",
+        "claim_key": "s8-t4"
+      },
+      {
+        "slide_number": 8,
+        "text": "Sentence",
+        "claim_key": "s8-t6"
+      },
+      {
+        "slide_number": 8,
+        "text": "Tokenizer",
+        "claim_key": "s8-t8"
+      },
+      {
+        "slide_number": 8,
+        "text": "MiniLM encoder 6 layers",
+        "claim_key": "s8-t11"
+      },
+      {
+        "slide_number": 8,
+        "text": "Mean pooling + normalize",
+        "claim_key": "s8-t14"
+      },
+      {
+        "slide_number": 8,
+        "text": "384-D embedding",
+        "claim_key": "s8-t17"
+      },
+      {
+        "slide_number": 8,
+        "text": "Task classifier \u2192 five labels",
+        "claim_key": "s8-t22"
+      },
+      {
+        "slide_number": 8,
+        "text": "A compact sentence representation for the review baseline. The embedding backbone is shown above; the classification stage is schematic.",
+        "claim_key": "s8-t23"
+      },
+      {
+        "slide_number": 8,
+        "text": "Backbone: MiniLM and official all-MiniLM-L6-v2 model card [5], [6]. Baseline result: review document.",
+        "claim_key": "s8-t24"
+      },
+      {
+        "slide_number": 9,
+        "text": "Architecture",
+        "claim_key": "s9-t0"
+      },
+      {
+        "slide_number": 9,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s9-t2"
+      },
+      {
+        "slide_number": 9,
+        "text": "9"
+      },
+      {
+        "slide_number": 9,
+        "text": "Qwen3-Embedding-0.6B \u00b7 Decoder-derived sentence representation",
+        "claim_key": "s9-t4"
+      },
+      {
+        "slide_number": 9,
+        "text": "Sentence",
+        "claim_key": "s9-t6"
+      },
+      {
+        "slide_number": 9,
+        "text": "Tokenizer",
+        "claim_key": "s9-t8"
+      },
+      {
+        "slide_number": 9,
+        "text": "Qwen3 decoder 28 layers",
+        "claim_key": "s9-t11"
+      },
+      {
+        "slide_number": 9,
+        "text": "Final-token pooling",
+        "claim_key": "s9-t14"
+      },
+      {
+        "slide_number": 9,
+        "text": "Up to 1024-D embedding",
+        "claim_key": "s9-t17"
+      },
+      {
+        "slide_number": 9,
+        "text": "Task classifier \u2192 five labels",
+        "claim_key": "s9-t22"
+      },
+      {
+        "slide_number": 9,
+        "text": "A larger sentence representation for the review baseline. The embedding backbone is shown above; the classification stage is schematic.",
+        "claim_key": "s9-t23"
+      },
+      {
+        "slide_number": 9,
+        "text": "Backbone: Qwen3 Embedding paper and official 0.6B model card [7]. Baseline result: review document.",
+        "claim_key": "s9-t24"
+      },
+      {
+        "slide_number": 10,
+        "text": "Architecture",
+        "claim_key": "s10-t0"
+      },
+      {
+        "slide_number": 10,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s10-t2"
+      },
+      {
+        "slide_number": 10,
+        "text": "10"
+      },
+      {
+        "slide_number": 10,
+        "text": "ALBERT-base-v2 \u00b7 Sentence-only five-class classifier",
+        "claim_key": "s10-t4"
+      },
+      {
+        "slide_number": 10,
+        "text": "Sentence + special tokens",
+        "claim_key": "s10-t6"
+      },
+      {
+        "slide_number": 10,
+        "text": "Factorized embeddings",
+        "claim_key": "s10-t8"
+      },
+      {
+        "slide_number": 10,
+        "text": "Shared ALBERT encoder \u00d712",
+        "claim_key": "s10-t11"
+      },
+      {
+        "slide_number": 10,
+        "text": "[CLS] pooler + classifier",
+        "claim_key": "s10-t14"
+      },
+      {
+        "slide_number": 10,
+        "text": "Five label probabilities",
+        "claim_key": "s10-t17"
+      },
+      {
+        "slide_number": 10,
+        "text": "Parameter efficiency",
+        "claim_key": "s10-t20"
+      },
+      {
+        "slide_number": 10,
+        "text": "Embedding projection and cross-layer sharing reduce learned parameters.",
+        "claim_key": "s10-t21"
+      },
+      {
+        "slide_number": 10,
+        "text": "Local experiment",
+        "claim_key": "s10-t23"
+      },
+      {
+        "slide_number": 10,
+        "text": "Six epochs \u00b7 effective batch 64 Learning rate 2 \u00d7 10\u207b\u2075",
+        "claim_key": "s10-t24"
+      },
+      {
+        "slide_number": 10,
+        "text": "ALBERT [3]. Local task and head: saved configuration and training implementation.",
+        "claim_key": "s10-t25"
+      },
+      {
+        "slide_number": 11,
+        "text": "Architecture",
+        "claim_key": "s11-t0"
+      },
+      {
+        "slide_number": 11,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s11-t2"
+      },
+      {
+        "slide_number": 11,
+        "text": "11"
+      },
+      {
+        "slide_number": 11,
+        "text": "ModernBERT-large \u00b7 Sentence-only five-class classifier",
+        "claim_key": "s11-t4"
+      },
+      {
+        "slide_number": 11,
+        "text": "Sentence + tokenizer",
+        "claim_key": "s11-t6"
+      },
+      {
+        "slide_number": 11,
+        "text": "Token embeddings",
+        "claim_key": "s11-t8"
+      },
+      {
+        "slide_number": 11,
+        "text": "Local/global encoder \u00d728",
+        "claim_key": "s11-t11"
+      },
+      {
+        "slide_number": 11,
+        "text": "Mean pooling + classifier",
+        "claim_key": "s11-t14"
+      },
+      {
+        "slide_number": 11,
+        "text": "Five label probabilities",
+        "claim_key": "s11-t17"
+      },
+      {
+        "slide_number": 11,
+        "text": "RoPE \u00b7 GeGLU \u00b7 periodic global attention",
+        "claim_key": "s11-t20"
+      },
+      {
+        "slide_number": 11,
+        "text": "Saved large-model run: 3 epochs \u00b7 effective batch 32 \u00b7 LR 3 \u00d7 10\u207b\u2075 Checkpoint selected by validation macro F1.",
+        "claim_key": "s11-t21"
+      },
+      {
+        "slide_number": 11,
+        "text": "ModernBERT [4]. Large variant: 28 layers, hidden width 1024; details verified in the saved model config.",
+        "claim_key": "s11-t22"
+      },
+      {
+        "slide_number": 12,
+        "text": "Architecture",
+        "claim_key": "s12-t0"
+      },
+      {
+        "slide_number": 12,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s12-t2"
+      },
+      {
+        "slide_number": 12,
+        "text": "12"
+      },
+      {
+        "slide_number": 12,
+        "text": "Qwen3.5-2B \u00b7 Shared language backbone, three task adapters",
+        "claim_key": "s12-t4"
+      },
+      {
+        "slide_number": 12,
+        "text": "Task prompt + tokenizer",
+        "claim_key": "s12-t6"
+      },
+      {
+        "slide_number": 12,
+        "text": "Hybrid language decoder \u00d724",
+        "claim_key": "s12-t8"
+      },
+      {
+        "slide_number": 12,
+        "text": "Language-model head",
+        "claim_key": "s12-t11"
+      },
+      {
+        "slide_number": 12,
+        "text": "Task LoRA r=16 \u00b7 \u03b1=32",
+        "claim_key": "s12-t14"
+      },
+      {
+        "slide_number": 12,
+        "text": "Repeated block: 3 \u00d7 gated linear attention + 1 \u00d7 full attention",
+        "claim_key": "s12-t19"
+      },
+      {
+        "slide_number": 12,
+        "text": "Two label adapters",
+        "claim_key": "s12-t21"
+      },
+      {
+        "slide_number": 12,
+        "text": "Sentence \u2192 label Category + Target + Sentence \u2192 label",
+        "claim_key": "s12-t22"
+      },
+      {
+        "slide_number": 12,
+        "text": "JSON task",
+        "claim_key": "s12-t24"
+      },
+      {
+        "slide_number": 12,
+        "text": "Sentence \u2192 category + target + label",
+        "claim_key": "s12-t25"
+      },
+      {
+        "slide_number": 12,
+        "text": "Qwen3.5-2B model configuration [8]; LoRA [9]. Text pathway only; separate task adapters.",
+        "claim_key": "s12-t26"
+      },
+      {
+        "slide_number": 13,
+        "text": "Architecture",
+        "claim_key": "s13-t0"
+      },
+      {
+        "slide_number": 13,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s13-t2"
+      },
+      {
+        "slide_number": 13,
+        "text": "13"
+      },
+      {
+        "slide_number": 13,
+        "text": "Aligned word-level explanations for the encoder classifiers",
+        "claim_key": "s13-t4"
+      },
+      {
+        "slide_number": 13,
+        "text": "Sentence word positions",
+        "claim_key": "s13-t6"
+      },
+      {
+        "slide_number": 13,
+        "text": "Masked-word variants",
+        "claim_key": "s13-t8"
+      },
+      {
+        "slide_number": 13,
+        "text": "Saved encoder probabilities",
+        "claim_key": "s13-t11"
+      },
+      {
+        "slide_number": 13,
+        "text": "LIME / Kernel SHAP",
+        "claim_key": "s13-t14"
+      },
+      {
+        "slide_number": 13,
+        "text": "Word scores + masking checks",
+        "claim_key": "s13-t17"
+      },
+      {
+        "slide_number": 13,
+        "text": "Matched features",
+        "claim_key": "s13-t20"
+      },
+      {
+        "slide_number": 13,
+        "text": "Same word positions, masking token, and explained class for both methods.",
+        "claim_key": "s13-t21"
+      },
+      {
+        "slide_number": 13,
+        "text": "Diagnostic interpretation",
+        "claim_key": "s13-t23"
+      },
+      {
+        "slide_number": 13,
+        "text": "Agreement describes model sensitivity; it does not establish that a prediction is correct.",
+        "claim_key": "s13-t24"
+      },
+      {
+        "slide_number": 13,
+        "text": "Method sources: HEARTS [2], LIME [10], SHAP [11]. Local explanation settings are recorded per run.",
+        "claim_key": "s13-t25"
+      },
+      {
+        "slide_number": 14,
+        "text": "Experimental Results",
+        "claim_key": "s14-t0"
+      },
+      {
+        "slide_number": 14,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s14-t2"
+      },
+      {
+        "slide_number": 14,
+        "text": "14"
+      },
+      {
+        "slide_number": 14,
+        "text": "Dataset, training setup, and evaluation protocol",
+        "claim_key": "s14-t4"
+      },
+      {
+        "slide_number": 14,
+        "text": "6,080",
+        "claim_key": "s14-t6"
+      },
+      {
+        "slide_number": 14,
+        "text": "Training examples",
+        "claim_key": "s14-t7"
+      },
+      {
+        "slide_number": 14,
+        "text": "868"
+      },
+      {
+        "slide_number": 14,
+        "text": "Validation examples",
+        "claim_key": "s14-t10"
+      },
+      {
+        "slide_number": 14,
+        "text": "1,738",
+        "claim_key": "s14-t12"
+      },
+      {
+        "slide_number": 14,
+        "text": "Test examples",
+        "claim_key": "s14-t13"
+      },
+      {
+        "slide_number": 14,
+        "text": "Saved training run Epochs Global batch Learning rate"
+      },
+      {
+        "slide_number": 14,
+        "text": "ALBERT-base-v2 6 64 2 \u00d7 10\u207b\u2075"
+      },
+      {
+        "slide_number": 14,
+        "text": "ModernBERT-large 3 32 3 \u00d7 10\u207b\u2075"
+      },
+      {
+        "slide_number": 14,
+        "text": "Qwen \u00b7 conditioned label / JSON 3 16 2 \u00d7 10\u207b\u2074"
+      },
+      {
+        "slide_number": 14,
+        "text": "Qwen \u00b7 sentence-only label (2\u00d7T4) 3 32 2 \u00d7 10\u207b\u2074"
+      },
+      {
+        "slide_number": 14,
+        "text": "New LoRA: 16 examples/GPU, 570 optimizer steps, FP32. Base: vLLM BF16. Validation macro F1 selects the adapter.",
+        "claim_key": "s14-t15"
+      },
+      {
+        "slide_number": 15,
+        "text": "Experimental Results",
+        "claim_key": "s15-t0"
+      },
+      {
+        "slide_number": 15,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s15-t2"
+      },
+      {
+        "slide_number": 15,
+        "text": "15"
+      },
+      {
+        "slide_number": 15,
+        "text": "Model comparison on the 1,738-example test split",
+        "claim_key": "s15-t4"
+      },
+      {
+        "slide_number": 15,
+        "text": "Model / run Input / source Accuracy (%) Macro F1 (%)"
+      },
+      {
+        "slide_number": 15,
+        "text": "all-MiniLM-L6-v2 Review baseline 77.33 74.29"
+      },
+      {
+        "slide_number": 15,
+        "text": "Qwen3-Embedding-0.6B Review baseline 91.08 91.11"
+      },
+      {
+        "slide_number": 15,
+        "text": "ALBERT-base-v2 Sentence only 88.09 88.20"
+      },
+      {
+        "slide_number": 15,
+        "text": "ModernBERT-large \u00b7 review Review run 92.98 93.05"
+      },
+      {
+        "slide_number": 15,
+        "text": "ModernBERT-large \u00b7 saved Sentence only 93.33 93.39"
+      },
+      {
+        "slide_number": 15,
+        "text": "Qwen SFT \u00b7 A \u00b7 sentence \u2192 label Sentence only 93.84 93.89"
+      },
+      {
+        "slide_number": 15,
+        "text": "Qwen SFT \u00b7 B \u00b7 all fields Sentence only 93.61 93.64"
+      },
+      {
+        "slide_number": 15,
+        "text": "Qwen SFT \u00b7 C \u00b7 metadata \u2192 label Sentence + metadata 95.51 95.55"
+      },
+      {
+        "slide_number": 15,
+        "text": "Qwen rows use the label metric. A/B/C are separate SFT adapters; Base/SFT pairs are on the next slide.",
+        "claim_key": "s15-t6"
+      },
+      {
+        "slide_number": 16,
+        "text": "Experimental Results",
+        "claim_key": "s16-t0"
+      },
+      {
+        "slide_number": 16,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s16-t2"
+      },
+      {
+        "slide_number": 16,
+        "text": "16"
+      },
+      {
+        "slide_number": 16,
+        "text": "Qwen3.5-2B \u00b7 Three tasks \u00d7 Base / SFT",
+        "claim_key": "s16-t4"
+      },
+      {
+        "slide_number": 16,
+        "text": "Input \u2192 predicted output Model state Label acc (%) Label macro F1 (%)"
+      },
+      {
+        "slide_number": 16,
+        "text": "A \u00b7 Sentence \u2192 label Base 23.19 14.21"
+      },
+      {
+        "slide_number": 16,
+        "text": "A \u00b7 Sentence \u2192 label SFT 93.84 93.89"
+      },
+      {
+        "slide_number": 16,
+        "text": "B \u00b7 Sentence \u2192 category + target + label Base 34.46 28.08"
+      },
+      {
+        "slide_number": 16,
+        "text": "B \u00b7 Sentence \u2192 category + target + label SFT 93.61 93.64"
+      },
+      {
+        "slide_number": 16,
+        "text": "C \u00b7 Sentence + category + target \u2192 label Base 33.54 27.63"
+      },
+      {
+        "slide_number": 16,
+        "text": "C \u00b7 Sentence + category + target \u2192 label SFT 95.51 95.55"
+      },
+      {
+        "slide_number": 16,
+        "text": "SFT = supervised fine-tuning with LoRA. One base checkpoint; three task-specific adapters.",
+        "claim_key": "s16-t6"
+      },
+      {
+        "slide_number": 16,
+        "text": "All scores here evaluate the label. Task B's category, target and joint exact-match scores follow separately.",
+        "claim_key": "s16-t7"
+      },
+      {
+        "slide_number": 17,
+        "text": "Experimental Results",
+        "claim_key": "s17-t0"
+      },
+      {
+        "slide_number": 17,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s17-t2"
+      },
+      {
+        "slide_number": 17,
+        "text": "17"
+      },
+      {
+        "slide_number": 17,
+        "text": "A \u00b7 Sentence \u2192 label \u00b7 Base vs SFT",
+        "claim_key": "s17-t4"
+      },
+      {
+        "slide_number": 17,
+        "text": "+70.66 pp",
+        "claim_key": "s17-t7"
+      },
+      {
+        "slide_number": 17,
+        "text": "Observed accuracy gain",
+        "claim_key": "s17-t8"
+      },
+      {
+        "slide_number": 17,
+        "text": "Sentence-only input",
+        "claim_key": "s17-t10"
+      },
+      {
+        "slide_number": 17,
+        "text": "No category/target input Label-token argmax, 0\u20134 All 1,738 test examples",
+        "claim_key": "s17-t11"
+      },
+      {
+        "slide_number": 17,
+        "text": "Base 23.19% accuracy / 14.21% macro F1; LoRA 93.84% / 93.89%. Base BF16; LoRA FP32; runtimes differ.",
+        "claim_key": "s17-t12"
+      },
+      {
+        "slide_number": 18,
+        "text": "Experimental Results",
+        "claim_key": "s18-t0"
+      },
+      {
+        "slide_number": 18,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s18-t2"
+      },
+      {
+        "slide_number": 18,
+        "text": "18"
+      },
+      {
+        "slide_number": 18,
+        "text": "B \u00b7 Sentence \u2192 category + target + label \u00b7 Base vs SFT",
+        "claim_key": "s18-t4"
+      },
+      {
+        "slide_number": 18,
+        "text": "+59.15 pp",
+        "claim_key": "s18-t7"
+      },
+      {
+        "slide_number": 18,
+        "text": "Observed label accuracy gain",
+        "claim_key": "s18-t8"
+      },
+      {
+        "slide_number": 18,
+        "text": "Sentence-only input",
+        "claim_key": "s18-t10"
+      },
+      {
+        "slide_number": 18,
+        "text": "Generate all three fields. This chart scores the label.",
+        "claim_key": "s18-t11"
+      },
+      {
+        "slide_number": 18,
+        "text": "Base: 599 correct labels. Fine-tuned: 1,627 correct labels. Both use the complete 1,738-example test split.",
+        "claim_key": "s18-t12"
+      },
+      {
+        "slide_number": 19,
+        "text": "Experimental Results",
+        "claim_key": "s19-t0"
+      },
+      {
+        "slide_number": 19,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s19-t2"
+      },
+      {
+        "slide_number": 19,
+        "text": "19"
+      },
+      {
+        "slide_number": 19,
+        "text": "B \u00b7 Generated JSON \u00b7 Per-field and all-fields accuracy",
+        "claim_key": "s19-t4"
+      },
+      {
+        "slide_number": 19,
+        "text": "Metric Base (%) Fine-tuned (%) Fine-tuned correct"
+      },
+      {
+        "slide_number": 19,
+        "text": "Category accuracy 51.96 99.37 1,727 / 1,738"
+      },
+      {
+        "slide_number": 19,
+        "text": "Target exact match 21.69 98.16 1,706 / 1,738"
+      },
+      {
+        "slide_number": 19,
+        "text": "Label accuracy 34.46 93.61 1,627 / 1,738"
+      },
+      {
+        "slide_number": 19,
+        "text": "All three fields correct 2.53 92.87 1,614 / 1,738"
+      },
+      {
+        "slide_number": 19,
+        "text": "Complete-JSON accuracy measures all fields together for the same sentence.",
+        "claim_key": "s19-t6"
+      },
+      {
+        "slide_number": 19,
+        "text": "Recomputed from saved responses. Category: normalized text. Target: exact string. Label: strict integer match.",
+        "claim_key": "s19-t7"
+      },
+      {
+        "slide_number": 20,
+        "text": "Experimental Results",
+        "claim_key": "s20-t0"
+      },
+      {
+        "slide_number": 20,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s20-t2"
+      },
+      {
+        "slide_number": 20,
+        "text": "20"
+      },
+      {
+        "slide_number": 20,
+        "text": "B \u00b7 Generated JSON \u00b7 Per-field accuracy and macro F1",
+        "claim_key": "s20-t4"
+      },
+      {
+        "slide_number": 20,
+        "text": "Field Base acc (%) LoRA acc (%) Base macro F1 LoRA macro F1"
+      },
+      {
+        "slide_number": 20,
+        "text": "Category 51.96 99.37 43.66 99.48"
+      },
+      {
+        "slide_number": 20,
+        "text": "Label 34.46 93.61 28.08 93.64"
+      },
+      {
+        "slide_number": 20,
+        "text": "Target 21.69 98.16 43.47 97.51"
+      },
+      {
+        "slide_number": 20,
+        "text": "Category",
+        "claim_key": "s20-t7"
+      },
+      {
+        "slide_number": 20,
+        "text": "Case/whitespace normalized; five classes",
+        "claim_key": "s20-t8"
+      },
+      {
+        "slide_number": 20,
+        "text": "Target",
+        "claim_key": "s20-t10"
+      },
+      {
+        "slide_number": 20,
+        "text": "Exact match; 87 gold target strings",
+        "claim_key": "s20-t11"
+      },
+      {
+        "slide_number": 20,
+        "text": "Full per-class category, label and target reports are included in the appendix. Values are percentages.",
+        "claim_key": "s20-t12"
+      },
+      {
+        "slide_number": 21,
+        "text": "Experimental Results",
+        "claim_key": "s21-t0"
+      },
+      {
+        "slide_number": 21,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s21-t2"
+      },
+      {
+        "slide_number": 21,
+        "text": "21"
+      },
+      {
+        "slide_number": 21,
+        "text": "C \u00b7 Sentence + category + target \u2192 label \u00b7 Base vs SFT",
+        "claim_key": "s21-t4"
+      },
+      {
+        "slide_number": 21,
+        "text": "+61.97 pp",
+        "claim_key": "s21-t7"
+      },
+      {
+        "slide_number": 21,
+        "text": "Observed accuracy gain",
+        "claim_key": "s21-t8"
+      },
+      {
+        "slide_number": 21,
+        "text": "Same task inputs",
+        "claim_key": "s21-t10"
+      },
+      {
+        "slide_number": 21,
+        "text": "Category + Target + Sentence All 1,738 test examples",
+        "claim_key": "s21-t11"
+      },
+      {
+        "slide_number": 21,
+        "text": "Base: 583 correct. Fine-tuned: 1,660 correct. Base = named Qwen checkpoint without the task adapter.",
+        "claim_key": "s21-t12"
+      },
+      {
+        "slide_number": 22,
+        "text": "Experimental Results",
+        "claim_key": "s22-t0"
+      },
+      {
+        "slide_number": 22,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s22-t2"
+      },
+      {
+        "slide_number": 22,
+        "text": "22"
+      },
+      {
+        "slide_number": 22,
+        "text": "Stereotype versus anti-stereotype remains the hardest boundary",
+        "claim_key": "s22-t4"
+      },
+      {
+        "slide_number": 22,
+        "text": "Gold class N ModernBERT-large A \u00b7 Qwen SFT B \u00b7 Qwen SFT"
+      },
+      {
+        "slide_number": 22,
+        "text": "0 Anti-stereotype 359 86.12 87.04 86.45"
+      },
+      {
+        "slide_number": 22,
+        "text": "1 Stereotype 343 87.02 87.97 87.54"
+      },
+      {
+        "slide_number": 22,
+        "text": "2 Neutral: no target 400 98.10 98.23 98.75"
+      },
+      {
+        "slide_number": 22,
+        "text": "3 Neutral: target 372 97.99 98.14 97.61"
+      },
+      {
+        "slide_number": 22,
+        "text": "4 Bias 264 97.72 98.10 97.88"
+      },
+      {
+        "slide_number": 22,
+        "text": "82 of 107 sentence-only Qwen label errors are stereotype \u2194 anti-stereotype swaps.",
+        "claim_key": "s22-t7"
+      },
+      {
+        "slide_number": 22,
+        "text": "Per-class F1 (%), same test rows and sentence-only input. Different runtimes/precision; no controlled throughput claim.",
+        "claim_key": "s22-t8"
+      },
+      {
+        "slide_number": 23,
+        "text": "Demonstration",
+        "claim_key": "s23-t0"
+      },
+      {
+        "slide_number": 23,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s23-t2"
+      },
+      {
+        "slide_number": 23,
+        "text": "23"
+      },
+      {
+        "slide_number": 23,
+        "text": "Saved test example \u00b7 Same sentence, different structured predictions",
+        "claim_key": "s23-t4"
+      },
+      {
+        "slide_number": 23,
+        "text": "Input sentence: \u201cThe dog begged for his treat.\u201d",
+        "claim_key": "s23-t6"
+      },
+      {
+        "slide_number": 23,
+        "text": "Base checkpoint",
+        "claim_key": "s23-t8"
+      },
+      {
+        "slide_number": 23,
+        "text": "{ \"category\": \"neutral\", \"target\": \"dog\", \"label\": 3 }",
+        "claim_key": "s23-t9"
+      },
+      {
+        "slide_number": 23,
+        "text": "Fine-tuned JSON adapter",
+        "claim_key": "s23-t11"
+      },
+      {
+        "slide_number": 23,
+        "text": "{ \"category\": \"neutral\", \"target\": \"Neutral\", \"label\": 2 }",
+        "claim_key": "s23-t12"
+      },
+      {
+        "slide_number": 23,
+        "text": "Gold annotation: category neutral \u00b7 target Neutral \u00b7 label 2",
+        "claim_key": "s23-t13"
+      },
+      {
+        "slide_number": 23,
+        "text": "Exact saved completions for test index 0. This example is a recorded demonstration.",
+        "claim_key": "s23-t14"
+      },
+      {
+        "slide_number": 24,
+        "text": "Demonstration",
+        "claim_key": "s24-t0"
+      },
+      {
+        "slide_number": 24,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s24-t2"
+      },
+      {
+        "slide_number": 24,
+        "text": "24"
+      },
+      {
+        "slide_number": 24,
+        "text": "ModernBERT-large \u00b7 Correct prediction with word color maps",
+        "claim_key": "s24-t4"
+      },
+      {
+        "slide_number": 24,
+        "text": "\u201cProducers are businesslike\u201d",
+        "claim_key": "s24-t6"
+      },
+      {
+        "slide_number": 24,
+        "text": "Gold 1 (Stereotype) | Predicted 1 (Stereotype) | Correct",
+        "claim_key": "s24-t7"
+      },
+      {
+        "slide_number": 24,
+        "text": "LIME",
+        "claim_key": "s24-t8"
+      },
+      {
+        "slide_number": 24,
+        "text": "Producers",
+        "claim_key": "s24-t10"
+      },
+      {
+        "slide_number": 24,
+        "text": "+0.114",
+        "claim_key": "s24-t11"
+      },
+      {
+        "slide_number": 24,
+        "text": "are",
+        "claim_key": "s24-t13"
+      },
+      {
+        "slide_number": 24,
+        "text": "+0.113",
+        "claim_key": "s24-t14"
+      },
+      {
+        "slide_number": 24,
+        "text": "businesslike",
+        "claim_key": "s24-t16"
+      },
+      {
+        "slide_number": 24,
+        "text": "+0.688",
+        "claim_key": "s24-t17"
+      },
+      {
+        "slide_number": 24,
+        "text": "SHAP",
+        "claim_key": "s24-t18"
+      },
+      {
+        "slide_number": 24,
+        "text": "Producers"
+      },
+      {
+        "slide_number": 24,
+        "text": "+0.034",
+        "claim_key": "s24-t21"
+      },
+      {
+        "slide_number": 24,
+        "text": "are"
+      },
+      {
+        "slide_number": 24,
+        "text": "+0.048",
+        "claim_key": "s24-t24"
+      },
+      {
+        "slide_number": 24,
+        "text": "businesslike"
+      },
+      {
+        "slide_number": 24,
+        "text": "+0.631",
+        "claim_key": "s24-t27"
+      },
+      {
+        "slide_number": 24,
+        "text": "Largest support: businesslike. Masking the top word lowers the class score by 57.73 pp.",
+        "claim_key": "s24-t28"
+      },
+      {
+        "slide_number": 24,
+        "text": "Blue: lowers class 1 score",
+        "claim_key": "s24-t29"
+      },
+      {
+        "slide_number": 24,
+        "text": "Orange: raises class 1 score",
+        "claim_key": "s24-t30"
+      },
+      {
+        "slide_number": 24,
+        "text": "\u22120.70",
+        "claim_key": "s24-t80"
+      },
+      {
+        "slide_number": 24,
+        "text": "0"
+      },
+      {
+        "slide_number": 24,
+        "text": "+0.70",
+        "claim_key": "s24-t82"
+      },
+      {
+        "slide_number": 24,
+        "text": "Near white = near zero",
+        "claim_key": "s24-t83"
+      },
+      {
+        "slide_number": 24,
+        "text": "Darker color = stronger attribution. Signs refer to the named model class, not sentiment or word probabilities.",
+        "claim_key": "s24-t84"
+      },
+      {
+        "slide_number": 25,
+        "text": "Demonstration",
+        "claim_key": "s25-t0"
+      },
+      {
+        "slide_number": 25,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s25-t2"
+      },
+      {
+        "slide_number": 25,
+        "text": "25"
+      },
+      {
+        "slide_number": 25,
+        "text": "ModernBERT-large \u00b7 A misclassified example with word color maps",
+        "claim_key": "s25-t4"
+      },
+      {
+        "slide_number": 25,
+        "text": "\u201cGentlemen open the car doors for their date.\u201d",
+        "claim_key": "s25-t6"
+      },
+      {
+        "slide_number": 25,
+        "text": "Gold 4 (Bias) | Predicted 0 (Anti-stereotype) | Misclassified",
+        "claim_key": "s25-t7"
+      },
+      {
+        "slide_number": 25,
+        "text": "LIME",
+        "claim_key": "s25-t8"
+      },
+      {
+        "slide_number": 25,
+        "text": "Gentlemen",
+        "claim_key": "s25-t10"
+      },
+      {
+        "slide_number": 25,
+        "text": "+0.461",
+        "claim_key": "s25-t11"
+      },
+      {
+        "slide_number": 25,
+        "text": "open",
+        "claim_key": "s25-t13"
+      },
+      {
+        "slide_number": 25,
+        "text": "+0.099",
+        "claim_key": "s25-t14"
+      },
+      {
+        "slide_number": 25,
+        "text": "the",
+        "claim_key": "s25-t16"
+      },
+      {
+        "slide_number": 25,
+        "text": "-0.037",
+        "claim_key": "s25-t17"
+      },
+      {
+        "slide_number": 25,
+        "text": "car",
+        "claim_key": "s25-t19"
+      },
+      {
+        "slide_number": 25,
+        "text": "-0.013",
+        "claim_key": "s25-t20"
+      },
+      {
+        "slide_number": 25,
+        "text": "doors",
+        "claim_key": "s25-t22"
+      },
+      {
+        "slide_number": 25,
+        "text": "+0.091",
+        "claim_key": "s25-t23"
+      },
+      {
+        "slide_number": 25,
+        "text": "for",
+        "claim_key": "s25-t25"
+      },
+      {
+        "slide_number": 25,
+        "text": "+0.043",
+        "claim_key": "s25-t26"
+      },
+      {
+        "slide_number": 25,
+        "text": "their",
+        "claim_key": "s25-t28"
+      },
+      {
+        "slide_number": 25,
+        "text": "+0.044",
+        "claim_key": "s25-t29"
+      },
+      {
+        "slide_number": 25,
+        "text": "date",
+        "claim_key": "s25-t31"
+      },
+      {
+        "slide_number": 25,
+        "text": "+0.032",
+        "claim_key": "s25-t32"
+      },
+      {
+        "slide_number": 25,
+        "text": "SHAP",
+        "claim_key": "s25-t33"
+      },
+      {
+        "slide_number": 25,
+        "text": "Gentlemen"
+      },
+      {
+        "slide_number": 25,
+        "text": "+0.370",
+        "claim_key": "s25-t36"
+      },
+      {
+        "slide_number": 25,
+        "text": "open"
+      },
+      {
+        "slide_number": 25,
+        "text": "+0.042",
+        "claim_key": "s25-t39"
+      },
+      {
+        "slide_number": 25,
+        "text": "the"
+      },
+      {
+        "slide_number": 25,
+        "text": "-0.059",
+        "claim_key": "s25-t42"
+      },
+      {
+        "slide_number": 25,
+        "text": "car"
+      },
+      {
+        "slide_number": 25,
+        "text": "-0.099",
+        "claim_key": "s25-t45"
+      },
+      {
+        "slide_number": 25,
+        "text": "doors"
+      },
+      {
+        "slide_number": 25,
+        "text": "+0.027",
+        "claim_key": "s25-t48"
+      },
+      {
+        "slide_number": 25,
+        "text": "for"
+      },
+      {
+        "slide_number": 25,
+        "text": "+0.046",
+        "claim_key": "s25-t51"
+      },
+      {
+        "slide_number": 25,
+        "text": "their"
+      },
+      {
+        "slide_number": 25,
+        "text": "+0.113",
+        "claim_key": "s25-t54"
+      },
+      {
+        "slide_number": 25,
+        "text": "date"
+      },
+      {
+        "slide_number": 25,
+        "text": "-0.018",
+        "claim_key": "s25-t57"
+      },
+      {
+        "slide_number": 25,
+        "text": "Largest support: Gentlemen. Strongest SHAP opposition: car. The predicted label is still wrong.",
+        "claim_key": "s25-t58"
+      },
+      {
+        "slide_number": 25,
+        "text": "Blue: lowers class 0 score",
+        "claim_key": "s25-t59"
+      },
+      {
+        "slide_number": 25,
+        "text": "Orange: raises class 0 score",
+        "claim_key": "s25-t60"
+      },
+      {
+        "slide_number": 25,
+        "text": "\u22120.70",
+        "claim_key": "s25-t110"
+      },
+      {
+        "slide_number": 25,
+        "text": "0"
+      },
+      {
+        "slide_number": 25,
+        "text": "+0.70",
+        "claim_key": "s25-t112"
+      },
+      {
+        "slide_number": 25,
+        "text": "Near white = near zero",
+        "claim_key": "s25-t113"
+      },
+      {
+        "slide_number": 25,
+        "text": "Darker color = stronger attribution. Signs refer to the named model class, not sentiment or word probabilities.",
+        "claim_key": "s25-t114"
+      },
+      {
+        "slide_number": 26,
+        "text": "Conclusion",
+        "claim_key": "s26-t0"
+      },
+      {
+        "slide_number": 26,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s26-t2"
+      },
+      {
+        "slide_number": 26,
+        "text": "26"
+      },
+      {
+        "slide_number": 26,
+        "text": "Task adaptation improves all three task setups",
+        "claim_key": "s26-t4"
+      },
+      {
+        "slide_number": 26,
+        "text": "Three SFT task outcomes",
+        "claim_key": "s26-t6"
+      },
+      {
+        "slide_number": 26,
+        "text": "\u2022 A \u00b7 Sentence \u2192 label: 93.84% \u2022 B \u00b7 Sentence \u2192 all fields: label 93.61%; joint 92.87% \u2022 C \u00b7 Sentence + metadata \u2192 label: 95.51% Color maps show signed word influence.",
+        "claim_key": "s26-t7"
+      },
+      {
+        "slide_number": 26,
+        "text": "Next phase",
+        "claim_key": "s26-t9"
+      },
+      {
+        "slide_number": 26,
+        "text": "\u2022 Review class 0 / class 1 errors \u2022 Match runtimes, precision and seeds \u2022 Evaluate calibration and new domains \u2022 Extend explanation diagnostics Explanations describe the model; they do not prove label correctness.",
+        "claim_key": "s26-t10"
+      },
+      {
+        "slide_number": 26,
+        "text": "All main result slides use completed full-test evaluations; partial or validation results are kept separate.",
+        "claim_key": "s26-t11"
+      },
+      {
+        "slide_number": 27,
+        "text": "References",
+        "claim_key": "s27-t0"
+      },
+      {
+        "slide_number": 27,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s27-t2"
+      },
+      {
+        "slide_number": 27,
+        "text": "27"
+      },
+      {
+        "slide_number": 27,
+        "text": "IEEE-style bibliography \u00b7 1 / 2",
+        "claim_key": "s27-t4"
+      },
+      {
+        "slide_number": 27,
+        "text": "[1]",
+        "claim_key": "s27-t5"
+      },
+      {
+        "slide_number": 27,
+        "text": "K. S. Shejole and P. Bhattacharyya, \u201cStereoDetect: Detecting Stereotypes and Anti-stereotypes the Correct Way Using Social Psychological Underpinnings,\u201d Findings of EMNLP, pp. 4051\u20134082, 2025.",
+        "claim_key": "s27-t6"
+      },
+      {
+        "slide_number": 27,
+        "text": "[2]",
+        "claim_key": "s27-t7"
+      },
+      {
+        "slide_number": 27,
+        "text": "T. King et al., \u201cHEARTS: A Holistic Framework for Explainable, Sustainable and Robust Text Stereotype Detection,\u201d Proc. IJCNLP\u2013AACL, pp. 1\u201318, 2025.",
+        "claim_key": "s27-t8"
+      },
+      {
+        "slide_number": 27,
+        "text": "[3]",
+        "claim_key": "s27-t9"
+      },
+      {
+        "slide_number": 27,
+        "text": "Z. Lan et al., \u201cALBERT: A Lite BERT for Self-supervised Learning of Language Representations,\u201d ICLR, 2020.",
+        "claim_key": "s27-t10"
+      },
+      {
+        "slide_number": 27,
+        "text": "[4]",
+        "claim_key": "s27-t11"
+      },
+      {
+        "slide_number": 27,
+        "text": "B. Warner et al., \u201cSmarter, Better, Faster, Longer: A Modern Bidirectional Encoder for Fast, Memory Efficient, and Long Context Finetuning and Inference,\u201d arXiv:2412.13663, 2024.",
+        "claim_key": "s27-t12"
+      },
+      {
+        "slide_number": 27,
+        "text": "[5]",
+        "claim_key": "s27-t13"
+      },
+      {
+        "slide_number": 27,
+        "text": "W. Wang et al., \u201cMiniLM: Deep Self-Attention Distillation for Task-Agnostic Compression of Pre-Trained Transformers,\u201d NeurIPS, 2020.",
+        "claim_key": "s27-t14"
+      },
+      {
+        "slide_number": 27,
+        "text": "[6]",
+        "claim_key": "s27-t15"
+      },
+      {
+        "slide_number": 27,
+        "text": "Sentence Transformers, \u201call-MiniLM-L6-v2,\u201d model card. Accessed Oct. 22, 2026.",
+        "claim_key": "s27-t16"
+      },
+      {
+        "slide_number": 27,
+        "text": "Click a reference to open the primary paper or official model card.",
+        "claim_key": "s27-t17"
+      },
+      {
+        "slide_number": 28,
+        "text": "References",
+        "claim_key": "s28-t0"
+      },
+      {
+        "slide_number": 28,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s28-t2"
+      },
+      {
+        "slide_number": 28,
+        "text": "28"
+      },
+      {
+        "slide_number": 28,
+        "text": "IEEE-style bibliography \u00b7 2 / 2",
+        "claim_key": "s28-t4"
+      },
+      {
+        "slide_number": 28,
+        "text": "[7]",
+        "claim_key": "s28-t5"
+      },
+      {
+        "slide_number": 28,
+        "text": "Y. Zhang et al., \u201cQwen3 Embedding: Advancing Text Embedding and Reranking Through Foundation Models,\u201d arXiv:2506.05176, 2025.",
+        "claim_key": "s28-t6"
+      },
+      {
+        "slide_number": 28,
+        "text": "[8]",
+        "claim_key": "s28-t7"
+      },
+      {
+        "slide_number": 28,
+        "text": "Qwen Team, \u201cQwen3.5-2B,\u201d model card and model configuration. Accessed Oct. 22, 2026.",
+        "claim_key": "s28-t8"
+      },
+      {
+        "slide_number": 28,
+        "text": "[9]",
+        "claim_key": "s28-t9"
+      },
+      {
+        "slide_number": 28,
+        "text": "E. J. Hu et al., \u201cLoRA: Low-Rank Adaptation of Large Language Models,\u201d ICLR, 2022.",
+        "claim_key": "s28-t10"
+      },
+      {
+        "slide_number": 28,
+        "text": "[10]",
+        "claim_key": "s28-t11"
+      },
+      {
+        "slide_number": 28,
+        "text": "M. T. Ribeiro, S. Singh, and C. Guestrin, \u201cWhy Should I Trust You?: Explaining the Predictions of Any Classifier,\u201d KDD, pp. 1135\u20131144, 2016.",
+        "claim_key": "s28-t12"
+      },
+      {
+        "slide_number": 28,
+        "text": "[11]",
+        "claim_key": "s28-t13"
+      },
+      {
+        "slide_number": 28,
+        "text": "S. M. Lundberg and S.-I. Lee, \u201cA Unified Approach to Interpreting Model Predictions,\u201d NeurIPS, 2017.",
+        "claim_key": "s28-t14"
+      },
+      {
+        "slide_number": 28,
+        "text": "Click a reference to open the primary paper or official model card.",
+        "claim_key": "s28-t15"
+      },
+      {
+        "slide_number": 29,
+        "text": "Appendix \u00b7 Complete Test Results",
+        "claim_key": "s29-t0"
+      },
+      {
+        "slide_number": 29,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s29-t2"
+      },
+      {
+        "slide_number": 29,
+        "text": "29"
+      },
+      {
+        "slide_number": 29,
+        "text": "Label-only models \u00b7 One canonical test evaluation per run",
+        "claim_key": "s29-t4"
+      },
+      {
+        "slide_number": 29,
+        "text": "Saved experiment Inputs Accuracy (%) Macro F1 (%)"
+      },
+      {
+        "slide_number": 29,
+        "text": "A \u00b7 Qwen Base \u00b7 sentence \u2192 label Sentence 23.19 14.21"
+      },
+      {
+        "slide_number": 29,
+        "text": "A \u00b7 Qwen SFT \u00b7 sentence \u2192 label Sentence 93.84 93.89"
+      },
+      {
+        "slide_number": 29,
+        "text": "C \u00b7 Qwen Base \u00b7 metadata \u2192 label Sentence + metadata 33.54 27.63"
+      },
+      {
+        "slide_number": 29,
+        "text": "C \u00b7 Qwen SFT \u00b7 metadata \u2192 label Sentence + metadata 95.51 95.55"
+      },
+      {
+        "slide_number": 29,
+        "text": "ALBERT-base-v2 Sentence 88.09 88.20"
+      },
+      {
+        "slide_number": 29,
+        "text": "ModernBERT-base \u00b7 original Sentence 89.36 89.43"
+      },
+      {
+        "slide_number": 29,
+        "text": "ModernBERT-base \u00b7 retuned Sentence 92.12 92.18"
+      },
+      {
+        "slide_number": 29,
+        "text": "ModernBERT-large Sentence 93.33 93.39"
+      },
+      {
+        "slide_number": 29,
+        "text": "Metadata = gold Category + Target. These are distinct experiments/evaluations; inspect inputs before comparing scores.",
+        "claim_key": "s29-t6"
+      },
+      {
+        "slide_number": 30,
+        "text": "Appendix \u00b7 Classification Reports",
+        "claim_key": "s30-t0"
+      },
+      {
+        "slide_number": 30,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s30-t2"
+      },
+      {
+        "slide_number": 30,
+        "text": "30"
+      },
+      {
+        "slide_number": 30,
+        "text": "Label-only \u00b7 Full per-class precision, recall and F1",
+        "claim_key": "s30-t4"
+      },
+      {
+        "slide_number": 30,
+        "text": "A \u00b7 Qwen Base \u00b7 sentence \u2192 label",
+        "claim_key": "s30-t5"
+      },
+      {
+        "slide_number": 30,
+        "text": "Class P (%) R (%) F1 (%) N"
+      },
+      {
+        "slide_number": 30,
+        "text": "0 Anti-stereotype 15.07 32.03 20.50 359"
+      },
+      {
+        "slide_number": 30,
+        "text": "1 Stereotype 28.39 78.72 41.73 343"
+      },
+      {
+        "slide_number": 30,
+        "text": "2 Neutral: no target 85.00 4.25 8.10 400"
+      },
+      {
+        "slide_number": 30,
+        "text": "3 Neutral: target 0.00 0.00 0.00 372"
+      },
+      {
+        "slide_number": 30,
+        "text": "4 Bias 25.00 0.38 0.75 264"
+      },
+      {
+        "slide_number": 30,
+        "text": "Accuracy 23.19% Macro F1 14.21%",
+        "claim_key": "s30-t7"
+      },
+      {
+        "slide_number": 30,
+        "text": "A \u00b7 Qwen SFT \u00b7 sentence \u2192 label",
+        "claim_key": "s30-t8"
+      },
+      {
+        "slide_number": 30,
+        "text": "Class P (%) R (%) F1 (%) N"
+      },
+      {
+        "slide_number": 30,
+        "text": "0 Anti-stereotype 88.03 86.07 87.04 359"
+      },
+      {
+        "slide_number": 30,
+        "text": "1 Stereotype 86.48 89.50 87.97 343"
+      },
+      {
+        "slide_number": 30,
+        "text": "2 Neutral: no target 99.49 97.00 98.23 400"
+      },
+      {
+        "slide_number": 30,
+        "text": "3 Neutral: target 97.11 99.19 98.14 372"
+      },
+      {
+        "slide_number": 30,
+        "text": "4 Bias 98.47 97.73 98.10 264"
+      },
+      {
+        "slide_number": 30,
+        "text": "Accuracy 93.84% Macro F1 93.89%",
+        "claim_key": "s30-t10"
+      },
+      {
+        "slide_number": 30,
+        "text": "Complete test split: 1,738 examples. P = precision; R = recall; N = gold support. All five labels are scored.",
+        "claim_key": "s30-t11"
+      },
+      {
+        "slide_number": 31,
+        "text": "Appendix \u00b7 Classification Reports",
+        "claim_key": "s31-t0"
+      },
+      {
+        "slide_number": 31,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s31-t2"
+      },
+      {
+        "slide_number": 31,
+        "text": "31"
+      },
+      {
+        "slide_number": 31,
+        "text": "Label-only \u00b7 Full per-class precision, recall and F1",
+        "claim_key": "s31-t4"
+      },
+      {
+        "slide_number": 31,
+        "text": "C \u00b7 Qwen Base \u00b7 metadata \u2192 label",
+        "claim_key": "s31-t5"
+      },
+      {
+        "slide_number": 31,
+        "text": "Class P (%) R (%) F1 (%) N"
+      },
+      {
+        "slide_number": 31,
+        "text": "0 Anti-stereotype 21.00 39.83 27.50 359"
+      },
+      {
+        "slide_number": 31,
+        "text": "1 Stereotype 30.15 70.85 42.30 343"
+      },
+      {
+        "slide_number": 31,
+        "text": "2 Neutral: no target 100.00 47.75 64.64 400"
+      },
+      {
+        "slide_number": 31,
+        "text": "3 Neutral: target 0.00 0.00 0.00 372"
+      },
+      {
+        "slide_number": 31,
+        "text": "4 Bias 10.00 2.27 3.70 264"
+      },
+      {
+        "slide_number": 31,
+        "text": "Accuracy 33.54% Macro F1 27.63%",
+        "claim_key": "s31-t7"
+      },
+      {
+        "slide_number": 31,
+        "text": "C \u00b7 Qwen SFT \u00b7 metadata \u2192 label",
+        "claim_key": "s31-t8"
+      },
+      {
+        "slide_number": 31,
+        "text": "Class P (%) R (%) F1 (%) N"
+      },
+      {
+        "slide_number": 31,
+        "text": "0 Anti-stereotype 87.07 91.92 89.43 359"
+      },
+      {
+        "slide_number": 31,
+        "text": "1 Stereotype 92.19 86.01 88.99 343"
+      },
+      {
+        "slide_number": 31,
+        "text": "2 Neutral: no target 100.00 100.00 100.00 400"
+      },
+      {
+        "slide_number": 31,
+        "text": "3 Neutral: target 98.93 99.73 99.33 372"
+      },
+      {
+        "slide_number": 31,
+        "text": "4 Bias 100.00 100.00 100.00 264"
+      },
+      {
+        "slide_number": 31,
+        "text": "Accuracy 95.51% Macro F1 95.55%",
+        "claim_key": "s31-t10"
+      },
+      {
+        "slide_number": 31,
+        "text": "Complete test split: 1,738 examples. P = precision; R = recall; N = gold support. All five labels are scored.",
+        "claim_key": "s31-t11"
+      },
+      {
+        "slide_number": 32,
+        "text": "Appendix \u00b7 Classification Reports",
+        "claim_key": "s32-t0"
+      },
+      {
+        "slide_number": 32,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s32-t2"
+      },
+      {
+        "slide_number": 32,
+        "text": "32"
+      },
+      {
+        "slide_number": 32,
+        "text": "Label-only \u00b7 Full per-class precision, recall and F1",
+        "claim_key": "s32-t4"
+      },
+      {
+        "slide_number": 32,
+        "text": "ALBERT-base-v2",
+        "claim_key": "s32-t5"
+      },
+      {
+        "slide_number": 32,
+        "text": "Class P (%) R (%) F1 (%) N"
+      },
+      {
+        "slide_number": 32,
+        "text": "0 Anti-stereotype 76.79 71.87 74.24 359"
+      },
+      {
+        "slide_number": 32,
+        "text": "1 Stereotype 72.27 79.01 75.49 343"
+      },
+      {
+        "slide_number": 32,
+        "text": "2 Neutral: no target 98.21 96.00 97.09 400"
+      },
+      {
+        "slide_number": 32,
+        "text": "3 Neutral: target 97.07 98.12 97.59 372"
+      },
+      {
+        "slide_number": 32,
+        "text": "4 Bias 97.31 95.83 96.56 264"
+      },
+      {
+        "slide_number": 32,
+        "text": "Accuracy 88.09% Macro F1 88.20%",
+        "claim_key": "s32-t7"
+      },
+      {
+        "slide_number": 32,
+        "text": "ModernBERT-large",
+        "claim_key": "s32-t8"
+      },
+      {
+        "slide_number": 32,
+        "text": "Class P (%) R (%) F1 (%) N"
+      },
+      {
+        "slide_number": 32,
+        "text": "0 Anti-stereotype 86.72 85.52 86.12 359"
+      },
+      {
+        "slide_number": 32,
+        "text": "1 Stereotype 85.20 88.92 87.02 343"
+      },
+      {
+        "slide_number": 32,
+        "text": "2 Neutral: no target 99.49 96.75 98.10 400"
+      },
+      {
+        "slide_number": 32,
+        "text": "3 Neutral: target 97.60 98.39 97.99 372"
+      },
+      {
+        "slide_number": 32,
+        "text": "4 Bias 98.09 97.35 97.72 264"
+      },
+      {
+        "slide_number": 32,
+        "text": "Accuracy 93.33% Macro F1 93.39%",
+        "claim_key": "s32-t10"
+      },
+      {
+        "slide_number": 32,
+        "text": "Complete test split: 1,738 examples. P = precision; R = recall; N = gold support. All five labels are scored.",
+        "claim_key": "s32-t11"
+      },
+      {
+        "slide_number": 33,
+        "text": "Appendix \u00b7 Classification Reports",
+        "claim_key": "s33-t0"
+      },
+      {
+        "slide_number": 33,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s33-t2"
+      },
+      {
+        "slide_number": 33,
+        "text": "33"
+      },
+      {
+        "slide_number": 33,
+        "text": "Label-only \u00b7 Full per-class precision, recall and F1",
+        "claim_key": "s33-t4"
+      },
+      {
+        "slide_number": 33,
+        "text": "ModernBERT-base \u00b7 original",
+        "claim_key": "s33-t5"
+      },
+      {
+        "slide_number": 33,
+        "text": "Class P (%) R (%) F1 (%) N"
+      },
+      {
+        "slide_number": 33,
+        "text": "0 Anti-stereotype 80.77 76.04 78.34 359"
+      },
+      {
+        "slide_number": 33,
+        "text": "1 Stereotype 76.55 82.80 79.55 343"
+      },
+      {
+        "slide_number": 33,
+        "text": "2 Neutral: no target 98.69 94.50 96.55 400"
+      },
+      {
+        "slide_number": 33,
+        "text": "3 Neutral: target 96.02 97.31 96.66 372"
+      },
+      {
+        "slide_number": 33,
+        "text": "4 Bias 95.17 96.97 96.06 264"
+      },
+      {
+        "slide_number": 33,
+        "text": "Accuracy 89.36% Macro F1 89.43%",
+        "claim_key": "s33-t7"
+      },
+      {
+        "slide_number": 33,
+        "text": "ModernBERT-base \u00b7 retuned",
+        "claim_key": "s33-t8"
+      },
+      {
+        "slide_number": 33,
+        "text": "Class P (%) R (%) F1 (%) N"
+      },
+      {
+        "slide_number": 33,
+        "text": "0 Anti-stereotype 85.51 82.17 83.81 359"
+      },
+      {
+        "slide_number": 33,
+        "text": "1 Stereotype 82.17 86.01 84.05 343"
+      },
+      {
+        "slide_number": 33,
+        "text": "2 Neutral: no target 99.48 96.00 97.71 400"
+      },
+      {
+        "slide_number": 33,
+        "text": "3 Neutral: target 96.34 98.92 97.61 372"
+      },
+      {
+        "slide_number": 33,
+        "text": "4 Bias 97.37 98.11 97.74 264"
+      },
+      {
+        "slide_number": 33,
+        "text": "Accuracy 92.12% Macro F1 92.18%",
+        "claim_key": "s33-t10"
+      },
+      {
+        "slide_number": 33,
+        "text": "Complete test split: 1,738 examples. P = precision; R = recall; N = gold support. All five labels are scored.",
+        "claim_key": "s33-t11"
+      },
+      {
+        "slide_number": 34,
+        "text": "Appendix \u00b7 Classification Reports",
+        "claim_key": "s34-t0"
+      },
+      {
+        "slide_number": 34,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s34-t2"
+      },
+      {
+        "slide_number": 34,
+        "text": "34"
+      },
+      {
+        "slide_number": 34,
+        "text": "JSON category \u00b7 Five normalized classes",
+        "claim_key": "s34-t4"
+      },
+      {
+        "slide_number": 34,
+        "text": "B \u00b7 Qwen Base \u00b7 JSON",
+        "claim_key": "s34-t5"
+      },
+      {
+        "slide_number": 34,
+        "text": "Class P (%) R (%) F1 (%) N"
+      },
+      {
+        "slide_number": 34,
+        "text": "gender 50.34 94.66 65.72 393"
+      },
+      {
+        "slide_number": 34,
+        "text": "race 94.17 37.29 53.43 303"
+      },
+      {
+        "slide_number": 34,
+        "text": "profession 73.68 4.61 8.68 607"
+      },
+      {
+        "slide_number": 34,
+        "text": "religion 46.67 20.00 28.00 35"
+      },
+      {
+        "slide_number": 34,
+        "text": "neutral 46.37 95.75 62.48 400"
+      },
+      {
+        "slide_number": 34,
+        "text": "Accuracy 51.96% Macro F1 43.66%",
+        "claim_key": "s34-t7"
+      },
+      {
+        "slide_number": 34,
+        "text": "B \u00b7 Qwen SFT \u00b7 JSON",
+        "claim_key": "s34-t8"
+      },
+      {
+        "slide_number": 34,
+        "text": "Class P (%) R (%) F1 (%) N"
+      },
+      {
+        "slide_number": 34,
+        "text": "gender 98.98 98.98 98.98 393"
+      },
+      {
+        "slide_number": 34,
+        "text": "race 100.00 100.00 100.00 303"
+      },
+      {
+        "slide_number": 34,
+        "text": "profession 99.51 99.84 99.67 607"
+      },
+      {
+        "slide_number": 34,
+        "text": "religion 100.00 100.00 100.00 35"
+      },
+      {
+        "slide_number": 34,
+        "text": "neutral 98.99 98.50 98.75 400"
+      },
+      {
+        "slide_number": 34,
+        "text": "Accuracy 99.37% Macro F1 99.48%",
+        "claim_key": "s34-t10"
+      },
+      {
+        "slide_number": 34,
+        "text": "Task B: only Sentence is input. Category, target and label are generated together by Base / SFT.",
+        "claim_key": "s34-t11"
+      },
+      {
+        "slide_number": 35,
+        "text": "Appendix \u00b7 Classification Reports",
+        "claim_key": "s35-t0"
+      },
+      {
+        "slide_number": 35,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s35-t2"
+      },
+      {
+        "slide_number": 35,
+        "text": "35"
+      },
+      {
+        "slide_number": 35,
+        "text": "B \u00b7 Generated JSON \u00b7 Label classification report",
+        "claim_key": "s35-t4"
+      },
+      {
+        "slide_number": 35,
+        "text": "B \u00b7 Qwen Base \u00b7 JSON",
+        "claim_key": "s35-t5"
+      },
+      {
+        "slide_number": 35,
+        "text": "Class P (%) R (%) F1 (%) N"
+      },
+      {
+        "slide_number": 35,
+        "text": "0 Anti-stereotype 100.00 1.67 3.29 359"
+      },
+      {
+        "slide_number": 35,
+        "text": "1 Stereotype 19.57 18.66 19.10 343"
+      },
+      {
+        "slide_number": 35,
+        "text": "2 Neutral: no target 54.73 88.25 67.56 400"
+      },
+      {
+        "slide_number": 35,
+        "text": "3 Neutral: target 44.00 17.74 25.29 372"
+      },
+      {
+        "slide_number": 35,
+        "text": "4 Bias 18.03 41.67 25.17 264"
+      },
+      {
+        "slide_number": 35,
+        "text": "Accuracy 34.46% Macro F1 28.08%",
+        "claim_key": "s35-t7"
+      },
+      {
+        "slide_number": 35,
+        "text": "B \u00b7 Qwen SFT \u00b7 JSON",
+        "claim_key": "s35-t8"
+      },
+      {
+        "slide_number": 35,
+        "text": "Class P (%) R (%) F1 (%) N"
+      },
+      {
+        "slide_number": 35,
+        "text": "0 Anti-stereotype 88.60 84.40 86.45 359"
+      },
+      {
+        "slide_number": 35,
+        "text": "1 Stereotype 85.12 90.09 87.54 343"
+      },
+      {
+        "slide_number": 35,
+        "text": "2 Neutral: no target 98.99 98.50 98.75 400"
+      },
+      {
+        "slide_number": 35,
+        "text": "3 Neutral: target 96.58 98.66 97.61 372"
+      },
+      {
+        "slide_number": 35,
+        "text": "4 Bias 99.61 96.21 97.88 264"
+      },
+      {
+        "slide_number": 35,
+        "text": "Accuracy 93.61% Macro F1 93.64%",
+        "claim_key": "s35-t10"
+      },
+      {
+        "slide_number": 35,
+        "text": "This scores the label field from generated JSON; all-fields accuracy is a separate metric.",
+        "claim_key": "s35-t11"
+      },
+      {
+        "slide_number": 36,
+        "text": "Appendix \u00b7 Target Classification",
+        "claim_key": "s36-t0"
+      },
+      {
+        "slide_number": 36,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s36-t2"
+      },
+      {
+        "slide_number": 36,
+        "text": "36"
+      },
+      {
+        "slide_number": 36,
+        "text": "B \u00b7 Qwen Base \u00b7 JSON \u00b7 Exact target strings (1 / 3)",
+        "claim_key": "s36-t4"
+      },
+      {
+        "slide_number": 36,
+        "text": "Gold target P (%) R (%) F1 (%) N"
+      },
+      {
+        "slide_number": 36,
+        "text": "Afghanistan 40.00 18.18 25.00 11"
+      },
+      {
+        "slide_number": 36,
+        "text": "Afghanistanis 100.00 27.27 42.86 22"
+      },
+      {
+        "slide_number": 36,
+        "text": "African 66.67 33.33 44.44 6"
+      },
+      {
+        "slide_number": 36,
+        "text": "Africans 100.00 87.50 93.33 16"
+      },
+      {
+        "slide_number": 36,
+        "text": "Arab 100.00 20.00 33.33 10"
+      },
+      {
+        "slide_number": 36,
+        "text": "Arabs 87.50 93.33 90.32 15"
+      },
+      {
+        "slide_number": 36,
+        "text": "Asexual 0.00 0.00 0.00 17"
+      },
+      {
+        "slide_number": 36,
+        "text": "Bartenders 100.00 14.75 25.71 61"
+      },
+      {
+        "slide_number": 36,
+        "text": "Bengali 100.00 100.00 100.00 2"
+      },
+      {
+        "slide_number": 36,
+        "text": "Bengalis 100.00 100.00 100.00 9"
+      },
+      {
+        "slide_number": 36,
+        "text": "Bisexual 0.00 0.00 0.00 25"
+      },
+      {
+        "slide_number": 36,
+        "text": "Brahmin 75.00 75.00 75.00 4"
+      },
+      {
+        "slide_number": 36,
+        "text": "Brahmins 100.00 88.89 94.12 9"
+      },
+      {
+        "slide_number": 36,
+        "text": "Butchers 100.00 56.52 72.22 23"
+      },
+      {
+        "slide_number": 36,
+        "text": "Chemists 100.00 5.00 9.52 20"
+      },
+      {
+        "slide_number": 36,
+        "text": "Gold target P (%) R (%) F1 (%) N"
+      },
+      {
+        "slide_number": 36,
+        "text": "Commanders 100.00 60.00 75.00 20"
+      },
+      {
+        "slide_number": 36,
+        "text": "Crimean 0.00 0.00 0.00 7"
+      },
+      {
+        "slide_number": 36,
+        "text": "Crimeans 91.67 36.67 52.38 30"
+      },
+      {
+        "slide_number": 36,
+        "text": "Engineers 100.00 20.83 34.48 24"
+      },
+      {
+        "slide_number": 36,
+        "text": "Entrepreneurs 100.00 7.69 14.29 26"
+      },
+      {
+        "slide_number": 36,
+        "text": "Ethiopian 66.67 22.22 33.33 9"
+      },
+      {
+        "slide_number": 36,
+        "text": "Ethiopians 94.44 47.22 62.96 36"
+      },
+      {
+        "slide_number": 36,
+        "text": "Gay 100.00 3.23 6.25 31"
+      },
+      {
+        "slide_number": 36,
+        "text": "Gentlemen 100.00 4.55 8.70 22"
+      },
+      {
+        "slide_number": 36,
+        "text": "Grandfathers 100.00 17.65 30.00 34"
+      },
+      {
+        "slide_number": 36,
+        "text": "Guitarists 100.00 15.79 27.27 38"
+      },
+      {
+        "slide_number": 36,
+        "text": "Hispanic 31.58 40.00 35.29 15"
+      },
+      {
+        "slide_number": 36,
+        "text": "Hispanics 92.86 37.14 53.06 35"
+      },
+      {
+        "slide_number": 36,
+        "text": "Historians 100.00 8.70 16.00 23"
+      },
+      {
+        "slide_number": 36,
+        "text": "Japanese 100.00 55.56 71.43 18"
+      },
+      {
+        "slide_number": 36,
+        "text": "Exact target accuracy 21.69% \u00b7 Macro F1 43.47% \u00b7 Out-of-set predictions count as errors.",
+        "claim_key": "s36-t7"
+      },
+      {
+        "slide_number": 37,
+        "text": "Appendix \u00b7 Target Classification",
+        "claim_key": "s37-t0"
+      },
+      {
+        "slide_number": 37,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s37-t2"
+      },
+      {
+        "slide_number": 37,
+        "text": "37"
+      },
+      {
+        "slide_number": 37,
+        "text": "B \u00b7 Qwen Base \u00b7 JSON \u00b7 Exact target strings (2 / 3)",
+        "claim_key": "s37-t4"
+      },
+      {
+        "slide_number": 37,
+        "text": "Gold target P (%) R (%) F1 (%) N"
+      },
+      {
+        "slide_number": 37,
+        "text": "Lesbian 0.00 0.00 0.00 12"
+      },
+      {
+        "slide_number": 37,
+        "text": "Lgbtq 0.00 0.00 0.00 19"
+      },
+      {
+        "slide_number": 37,
+        "text": "Males 100.00 35.71 52.63 42"
+      },
+      {
+        "slide_number": 37,
+        "text": "Managers 0.00 0.00 0.00 16"
+      },
+      {
+        "slide_number": 37,
+        "text": "Mathematicians 100.00 10.53 19.05 19"
+      },
+      {
+        "slide_number": 37,
+        "text": "Mommies 100.00 91.67 95.65 12"
+      },
+      {
+        "slide_number": 37,
+        "text": "Mothers 0.00 0.00 0.00 22"
+      },
+      {
+        "slide_number": 37,
+        "text": "Muslim 100.00 100.00 100.00 1"
+      },
+      {
+        "slide_number": 37,
+        "text": "Muslims 100.00 28.57 44.44 21"
+      },
+      {
+        "slide_number": 37,
+        "text": "Nb 0.00 0.00 0.00 15"
+      },
+      {
+        "slide_number": 37,
+        "text": "Neutral 0.00 0.00 0.00 400"
+      },
+      {
+        "slide_number": 37,
+        "text": "Nurses 100.00 75.00 85.71 8"
+      },
+      {
+        "slide_number": 37,
+        "text": "Pansexual 0.00 0.00 0.00 5"
+      },
+      {
+        "slide_number": 37,
+        "text": "Performing_artists 0.00 0.00 0.00 41"
+      },
+      {
+        "slide_number": 37,
+        "text": "Physicists 0.00 0.00 0.00 11"
+      },
+      {
+        "slide_number": 37,
+        "text": "Gold target P (%) R (%) F1 (%) N"
+      },
+      {
+        "slide_number": 37,
+        "text": "Politicians 0.00 0.00 0.00 21"
+      },
+      {
+        "slide_number": 37,
+        "text": "Producers 100.00 2.22 4.35 45"
+      },
+      {
+        "slide_number": 37,
+        "text": "Psychologists 0.00 0.00 0.00 24"
+      },
+      {
+        "slide_number": 37,
+        "text": "Queer 0.00 0.00 0.00 10"
+      },
+      {
+        "slide_number": 37,
+        "text": "Researchers 100.00 9.09 16.67 22"
+      },
+      {
+        "slide_number": 37,
+        "text": "Russian 40.00 13.33 20.00 15"
+      },
+      {
+        "slide_number": 37,
+        "text": "Russians 90.91 71.43 80.00 14"
+      },
+      {
+        "slide_number": 37,
+        "text": "Schoolboys 100.00 80.00 88.89 15"
+      },
+      {
+        "slide_number": 37,
+        "text": "Schoolgirls 100.00 57.14 72.73 14"
+      },
+      {
+        "slide_number": 37,
+        "text": "Sisters 100.00 61.54 76.19 13"
+      },
+      {
+        "slide_number": 37,
+        "text": "Software_developers 0.00 0.00 0.00 54"
+      },
+      {
+        "slide_number": 37,
+        "text": "Spain 100.00 50.00 66.67 6"
+      },
+      {
+        "slide_number": 37,
+        "text": "Spanish 88.89 66.67 76.19 12"
+      },
+      {
+        "slide_number": 37,
+        "text": "Transgender 0.00 0.00 0.00 20"
+      },
+      {
+        "slide_number": 37,
+        "text": "Yemen 0.00 0.00 0.00 2"
+      },
+      {
+        "slide_number": 37,
+        "text": "Exact target accuracy 21.69% \u00b7 Macro F1 43.47% \u00b7 Out-of-set predictions count as errors.",
+        "claim_key": "s37-t7"
+      },
+      {
+        "slide_number": 38,
+        "text": "Appendix \u00b7 Target Classification",
+        "claim_key": "s38-t0"
+      },
+      {
+        "slide_number": 38,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s38-t2"
+      },
+      {
+        "slide_number": 38,
+        "text": "38"
+      },
+      {
+        "slide_number": 38,
+        "text": "B \u00b7 Qwen Base \u00b7 JSON \u00b7 Exact target strings (3 / 3)",
+        "claim_key": "s38-t4"
+      },
+      {
+        "slide_number": 38,
+        "text": "Gold target P (%) R (%) F1 (%) N"
+      },
+      {
+        "slide_number": 38,
+        "text": "Yemenis 100.00 30.77 47.06 13"
+      },
+      {
+        "slide_number": 38,
+        "text": "bartender 75.00 100.00 85.71 3"
+      },
+      {
+        "slide_number": 38,
+        "text": "butcher 100.00 16.67 28.57 6"
+      },
+      {
+        "slide_number": 38,
+        "text": "chemist 100.00 50.00 66.67 4"
+      },
+      {
+        "slide_number": 38,
+        "text": "commander 100.00 25.00 40.00 8"
+      },
+      {
+        "slide_number": 38,
+        "text": "engineer 100.00 25.00 40.00 4"
+      },
+      {
+        "slide_number": 38,
+        "text": "entrepreneur 100.00 33.33 50.00 3"
+      },
+      {
+        "slide_number": 38,
+        "text": "gentlemen 28.57 100.00 44.44 4"
+      },
+      {
+        "slide_number": 38,
+        "text": "grandfather 66.67 66.67 66.67 3"
+      },
+      {
+        "slide_number": 38,
+        "text": "guitarist 100.00 25.00 40.00 4"
+      },
+      {
+        "slide_number": 38,
+        "text": "historian 0.00 0.00 0.00 2"
+      },
+      {
+        "slide_number": 38,
+        "text": "male 71.43 100.00 83.33 5"
+      },
+      {
+        "slide_number": 38,
+        "text": "manager 100.00 16.67 28.57 6"
+      },
+      {
+        "slide_number": 38,
+        "text": "mathematician 0.00 0.00 0.00 1"
+      },
+      {
+        "slide_number": 38,
+        "text": "mommy 100.00 83.33 90.91 6"
+      },
+      {
+        "slide_number": 38,
+        "text": "Gold target P (%) R (%) F1 (%) N"
+      },
+      {
+        "slide_number": 38,
+        "text": "mother 93.75 65.22 76.92 23"
+      },
+      {
+        "slide_number": 38,
+        "text": "nurse 100.00 50.00 66.67 12"
+      },
+      {
+        "slide_number": 38,
+        "text": "performing artist 75.00 50.00 60.00 6"
+      },
+      {
+        "slide_number": 38,
+        "text": "physicist 100.00 46.15 63.16 13"
+      },
+      {
+        "slide_number": 38,
+        "text": "politician 50.00 50.00 50.00 2"
+      },
+      {
+        "slide_number": 38,
+        "text": "producer 100.00 20.00 33.33 10"
+      },
+      {
+        "slide_number": 38,
+        "text": "psychologist 88.89 61.54 72.73 13"
+      },
+      {
+        "slide_number": 38,
+        "text": "researcher 100.00 83.33 90.91 6"
+      },
+      {
+        "slide_number": 38,
+        "text": "schoolboy 100.00 80.00 88.89 5"
+      },
+      {
+        "slide_number": 38,
+        "text": "schoolgirl 92.86 100.00 96.30 13"
+      },
+      {
+        "slide_number": 38,
+        "text": "sister 100.00 83.33 90.91 6"
+      },
+      {
+        "slide_number": 38,
+        "text": "software developer 100.00 37.50 54.55 8"
+      },
+      {
+        "slide_number": 38,
+        "text": "Exact target accuracy 21.69% \u00b7 Macro F1 43.47% \u00b7 Out-of-set predictions count as errors.",
+        "claim_key": "s38-t7"
+      },
+      {
+        "slide_number": 39,
+        "text": "Appendix \u00b7 Target Classification",
+        "claim_key": "s39-t0"
+      },
+      {
+        "slide_number": 39,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s39-t2"
+      },
+      {
+        "slide_number": 39,
+        "text": "39"
+      },
+      {
+        "slide_number": 39,
+        "text": "B \u00b7 Qwen SFT \u00b7 JSON \u00b7 Exact target strings (1 / 3)",
+        "claim_key": "s39-t4"
+      },
+      {
+        "slide_number": 39,
+        "text": "Gold target P (%) R (%) F1 (%) N"
+      },
+      {
+        "slide_number": 39,
+        "text": "Afghanistan 100.00 100.00 100.00 11"
+      },
+      {
+        "slide_number": 39,
+        "text": "Afghanistanis 100.00 100.00 100.00 22"
+      },
+      {
+        "slide_number": 39,
+        "text": "African 100.00 100.00 100.00 6"
+      },
+      {
+        "slide_number": 39,
+        "text": "Africans 100.00 100.00 100.00 16"
+      },
+      {
+        "slide_number": 39,
+        "text": "Arab 100.00 80.00 88.89 10"
+      },
+      {
+        "slide_number": 39,
+        "text": "Arabs 88.24 100.00 93.75 15"
+      },
+      {
+        "slide_number": 39,
+        "text": "Asexual 100.00 100.00 100.00 17"
+      },
+      {
+        "slide_number": 39,
+        "text": "Bartenders 100.00 100.00 100.00 61"
+      },
+      {
+        "slide_number": 39,
+        "text": "Bengali 100.00 50.00 66.67 2"
+      },
+      {
+        "slide_number": 39,
+        "text": "Bengalis 90.00 100.00 94.74 9"
+      },
+      {
+        "slide_number": 39,
+        "text": "Bisexual 100.00 100.00 100.00 25"
+      },
+      {
+        "slide_number": 39,
+        "text": "Brahmin 100.00 100.00 100.00 4"
+      },
+      {
+        "slide_number": 39,
+        "text": "Brahmins 100.00 100.00 100.00 9"
+      },
+      {
+        "slide_number": 39,
+        "text": "Butchers 100.00 95.65 97.78 23"
+      },
+      {
+        "slide_number": 39,
+        "text": "Chemists 100.00 100.00 100.00 20"
+      },
+      {
+        "slide_number": 39,
+        "text": "Gold target P (%) R (%) F1 (%) N"
+      },
+      {
+        "slide_number": 39,
+        "text": "Commanders 100.00 100.00 100.00 20"
+      },
+      {
+        "slide_number": 39,
+        "text": "Crimean 100.00 85.71 92.31 7"
+      },
+      {
+        "slide_number": 39,
+        "text": "Crimeans 96.77 100.00 98.36 30"
+      },
+      {
+        "slide_number": 39,
+        "text": "Engineers 100.00 100.00 100.00 24"
+      },
+      {
+        "slide_number": 39,
+        "text": "Entrepreneurs 100.00 100.00 100.00 26"
+      },
+      {
+        "slide_number": 39,
+        "text": "Ethiopian 100.00 88.89 94.12 9"
+      },
+      {
+        "slide_number": 39,
+        "text": "Ethiopians 97.30 100.00 98.63 36"
+      },
+      {
+        "slide_number": 39,
+        "text": "Gay 100.00 100.00 100.00 31"
+      },
+      {
+        "slide_number": 39,
+        "text": "Gentlemen 95.24 90.91 93.02 22"
+      },
+      {
+        "slide_number": 39,
+        "text": "Grandfathers 100.00 100.00 100.00 34"
+      },
+      {
+        "slide_number": 39,
+        "text": "Guitarists 100.00 100.00 100.00 38"
+      },
+      {
+        "slide_number": 39,
+        "text": "Hispanic 100.00 100.00 100.00 15"
+      },
+      {
+        "slide_number": 39,
+        "text": "Hispanics 100.00 100.00 100.00 35"
+      },
+      {
+        "slide_number": 39,
+        "text": "Historians 95.65 95.65 95.65 23"
+      },
+      {
+        "slide_number": 39,
+        "text": "Japanese 100.00 94.44 97.14 18"
+      },
+      {
+        "slide_number": 39,
+        "text": "Exact target accuracy 98.16% \u00b7 Macro F1 97.51% \u00b7 Out-of-set predictions count as errors.",
+        "claim_key": "s39-t7"
+      },
+      {
+        "slide_number": 40,
+        "text": "Appendix \u00b7 Target Classification",
+        "claim_key": "s40-t0"
+      },
+      {
+        "slide_number": 40,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s40-t2"
+      },
+      {
+        "slide_number": 40,
+        "text": "40"
+      },
+      {
+        "slide_number": 40,
+        "text": "B \u00b7 Qwen SFT \u00b7 JSON \u00b7 Exact target strings (2 / 3)",
+        "claim_key": "s40-t4"
+      },
+      {
+        "slide_number": 40,
+        "text": "Gold target P (%) R (%) F1 (%) N"
+      },
+      {
+        "slide_number": 40,
+        "text": "Lesbian 100.00 100.00 100.00 12"
+      },
+      {
+        "slide_number": 40,
+        "text": "Lgbtq 100.00 100.00 100.00 19"
+      },
+      {
+        "slide_number": 40,
+        "text": "Males 100.00 100.00 100.00 42"
+      },
+      {
+        "slide_number": 40,
+        "text": "Managers 93.75 93.75 93.75 16"
+      },
+      {
+        "slide_number": 40,
+        "text": "Mathematicians 90.48 100.00 95.00 19"
+      },
+      {
+        "slide_number": 40,
+        "text": "Mommies 100.00 100.00 100.00 12"
+      },
+      {
+        "slide_number": 40,
+        "text": "Mothers 95.65 100.00 97.78 22"
+      },
+      {
+        "slide_number": 40,
+        "text": "Muslim 100.00 100.00 100.00 1"
+      },
+      {
+        "slide_number": 40,
+        "text": "Muslims 100.00 100.00 100.00 21"
+      },
+      {
+        "slide_number": 40,
+        "text": "Nb 100.00 93.33 96.55 15"
+      },
+      {
+        "slide_number": 40,
+        "text": "Neutral 98.99 98.50 98.75 400"
+      },
+      {
+        "slide_number": 40,
+        "text": "Nurses 100.00 100.00 100.00 8"
+      },
+      {
+        "slide_number": 40,
+        "text": "Pansexual 100.00 100.00 100.00 5"
+      },
+      {
+        "slide_number": 40,
+        "text": "Performing_artists 95.24 97.56 96.39 41"
+      },
+      {
+        "slide_number": 40,
+        "text": "Physicists 100.00 100.00 100.00 11"
+      },
+      {
+        "slide_number": 40,
+        "text": "Gold target P (%) R (%) F1 (%) N"
+      },
+      {
+        "slide_number": 40,
+        "text": "Politicians 100.00 100.00 100.00 21"
+      },
+      {
+        "slide_number": 40,
+        "text": "Producers 100.00 100.00 100.00 45"
+      },
+      {
+        "slide_number": 40,
+        "text": "Psychologists 100.00 100.00 100.00 24"
+      },
+      {
+        "slide_number": 40,
+        "text": "Queer 100.00 100.00 100.00 10"
+      },
+      {
+        "slide_number": 40,
+        "text": "Researchers 95.24 90.91 93.02 22"
+      },
+      {
+        "slide_number": 40,
+        "text": "Russian 100.00 93.33 96.55 15"
+      },
+      {
+        "slide_number": 40,
+        "text": "Russians 93.33 100.00 96.55 14"
+      },
+      {
+        "slide_number": 40,
+        "text": "Schoolboys 100.00 100.00 100.00 15"
+      },
+      {
+        "slide_number": 40,
+        "text": "Schoolgirls 100.00 100.00 100.00 14"
+      },
+      {
+        "slide_number": 40,
+        "text": "Sisters 100.00 76.92 86.96 13"
+      },
+      {
+        "slide_number": 40,
+        "text": "Software_developers 96.43 100.00 98.18 54"
+      },
+      {
+        "slide_number": 40,
+        "text": "Spain 100.00 83.33 90.91 6"
+      },
+      {
+        "slide_number": 40,
+        "text": "Spanish 92.31 100.00 96.00 12"
+      },
+      {
+        "slide_number": 40,
+        "text": "Transgender 100.00 100.00 100.00 20"
+      },
+      {
+        "slide_number": 40,
+        "text": "Yemen 100.00 100.00 100.00 2"
+      },
+      {
+        "slide_number": 40,
+        "text": "Exact target accuracy 98.16% \u00b7 Macro F1 97.51% \u00b7 Out-of-set predictions count as errors.",
+        "claim_key": "s40-t7"
+      },
+      {
+        "slide_number": 41,
+        "text": "Appendix \u00b7 Target Classification",
+        "claim_key": "s41-t0"
+      },
+      {
+        "slide_number": 41,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s41-t2"
+      },
+      {
+        "slide_number": 41,
+        "text": "41"
+      },
+      {
+        "slide_number": 41,
+        "text": "B \u00b7 Qwen SFT \u00b7 JSON \u00b7 Exact target strings (3 / 3)",
+        "claim_key": "s41-t4"
+      },
+      {
+        "slide_number": 41,
+        "text": "Gold target P (%) R (%) F1 (%) N"
+      },
+      {
+        "slide_number": 41,
+        "text": "Yemenis 100.00 100.00 100.00 13"
+      },
+      {
+        "slide_number": 41,
+        "text": "bartender 100.00 100.00 100.00 3"
+      },
+      {
+        "slide_number": 41,
+        "text": "butcher 100.00 100.00 100.00 6"
+      },
+      {
+        "slide_number": 41,
+        "text": "chemist 100.00 100.00 100.00 4"
+      },
+      {
+        "slide_number": 41,
+        "text": "commander 100.00 87.50 93.33 8"
+      },
+      {
+        "slide_number": 41,
+        "text": "engineer 100.00 100.00 100.00 4"
+      },
+      {
+        "slide_number": 41,
+        "text": "entrepreneur 100.00 100.00 100.00 3"
+      },
+      {
+        "slide_number": 41,
+        "text": "gentlemen 100.00 75.00 85.71 4"
+      },
+      {
+        "slide_number": 41,
+        "text": "grandfather 75.00 100.00 85.71 3"
+      },
+      {
+        "slide_number": 41,
+        "text": "guitarist 100.00 100.00 100.00 4"
+      },
+      {
+        "slide_number": 41,
+        "text": "historian 100.00 100.00 100.00 2"
+      },
+      {
+        "slide_number": 41,
+        "text": "male 83.33 100.00 90.91 5"
+      },
+      {
+        "slide_number": 41,
+        "text": "manager 100.00 100.00 100.00 6"
+      },
+      {
+        "slide_number": 41,
+        "text": "mathematician 100.00 100.00 100.00 1"
+      },
+      {
+        "slide_number": 41,
+        "text": "mommy 100.00 100.00 100.00 6"
+      },
+      {
+        "slide_number": 41,
+        "text": "Gold target P (%) R (%) F1 (%) N"
+      },
+      {
+        "slide_number": 41,
+        "text": "mother 100.00 95.65 97.78 23"
+      },
+      {
+        "slide_number": 41,
+        "text": "nurse 100.00 91.67 95.65 12"
+      },
+      {
+        "slide_number": 41,
+        "text": "performing artist 100.00 83.33 90.91 6"
+      },
+      {
+        "slide_number": 41,
+        "text": "physicist 100.00 92.31 96.00 13"
+      },
+      {
+        "slide_number": 41,
+        "text": "politician 100.00 100.00 100.00 2"
+      },
+      {
+        "slide_number": 41,
+        "text": "producer 100.00 100.00 100.00 10"
+      },
+      {
+        "slide_number": 41,
+        "text": "psychologist 100.00 100.00 100.00 13"
+      },
+      {
+        "slide_number": 41,
+        "text": "researcher 100.00 100.00 100.00 6"
+      },
+      {
+        "slide_number": 41,
+        "text": "schoolboy 100.00 100.00 100.00 5"
+      },
+      {
+        "slide_number": 41,
+        "text": "schoolgirl 100.00 100.00 100.00 13"
+      },
+      {
+        "slide_number": 41,
+        "text": "sister 100.00 100.00 100.00 6"
+      },
+      {
+        "slide_number": 41,
+        "text": "software developer 100.00 100.00 100.00 8"
+      },
+      {
+        "slide_number": 41,
+        "text": "Exact target accuracy 98.16% \u00b7 Macro F1 97.51% \u00b7 Out-of-set predictions count as errors.",
+        "claim_key": "s41-t7"
+      },
+      {
+        "slide_number": 42,
+        "text": "Appendix \u00b7 Report Coverage",
+        "claim_key": "s42-t0"
+      },
+      {
+        "slide_number": 42,
+        "text": "Indian Institute of Information Technology Kottayam",
+        "claim_key": "s42-t2"
+      },
+      {
+        "slide_number": 42,
+        "text": "42"
+      },
+      {
+        "slide_number": 42,
+        "text": "Complete reports and diagnostic subsets are kept distinct",
+        "claim_key": "s42-t4"
+      },
+      {
+        "slide_number": 42,
+        "text": "Canonical test appendix",
+        "claim_key": "s42-t6"
+      },
+      {
+        "slide_number": 42,
+        "text": "\u2022 A / C: Base + SFT label reports \u2022 B: Base + SFT JSON field reports \u2022 4 saved encoder runs \u2022 All 87 exact target classes One test evaluation per model/task. SFT uses three separate LoRA adapters.",
+        "claim_key": "s42-t7"
+      },
+      {
+        "slide_number": 42,
+        "text": "Companion TXT files",
+        "claim_key": "s42-t9"
+      },
+      {
+        "slide_number": 42,
+        "text": "Earlier training-time evaluations, validation reports and partial diagnostics remain in the TXT files. Repeated evaluations of an adapter are not additional models. No model inference was rerun.",
+        "claim_key": "s42-t10"
+      },
+      {
+        "slide_number": 42,
+        "text": "Companions: all_label_only_classification_reports.txt and all_category_label_target_classification_reports.txt",
+        "claim_key": "s42-t11"
+      }
+    ],
+    "coverage": {
+      "semantic_review_performed": false,
+      "scope": "All text items supplied by the current-deck extractor; visual chart meaning and non-text content require separate review.",
+      "limitation": "Untracked-text heuristics are navigation aids. An empty issue list does not establish that short headlines, numeric labels, footnotes or other material claims were reviewed."
+    }
+  },
+  "errors": [],
+  "current_pptx_sha256": "216f7c30ecaf886d4c656715224ddc1d60429661ad2d33202b9b048480d9a257",
+  "claims_json_sha256": "9d34b7aeab389a0399e036a047da116970e76e39ee741d316b708f69ba61f09f"
+}

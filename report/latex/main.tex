@@ -1,0 +1,131 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[left=1.25in,right=1.25in,top=1in,bottom=1in]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyretermes}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\usepackage{amsmath,amssymb,graphicx,booktabs,longtable,tabularx,array}
+\usepackage{setspace,microtype,xcolor,titlesec,enumitem,caption,float,placeins,needspace}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,calc}
+\usepackage[authoryear,round]{natbib}
+\usepackage{xurl}
+\usepackage{fancyhdr}
+\usepackage[unicode,colorlinks=true,linkcolor=headingblue,citecolor=headingblue,urlcolor=headingblue]{hyperref}
+\definecolor{headingblue}{HTML}{365F91}
+\definecolor{softblue}{HTML}{EEF3FB}
+\definecolor{softgreen}{HTML}{EFF6F0}
+\definecolor{softpurple}{HTML}{F3EFF8}
+\setstretch{1.15}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{7pt}
+\setlength{\emergencystretch}{2em}
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.18}
+\titleformat{\section}{\color{headingblue}\bfseries\fontsize{14}{17}\selectfont}{\thesection}{.6em}{}
+\titleformat{\subsection}{\color{headingblue}\bfseries\fontsize{12}{15}\selectfont}{\thesubsection}{.6em}{}
+\titleformat{\subsubsection}{\bfseries\fontsize{11}{14}\selectfont}{\thesubsubsection}{.6em}{}
+\titlespacing*{\section}{0pt}{18pt}{8pt}
+\titlespacing*{\subsection}{0pt}{12pt}{5pt}
+\setlist{nosep,leftmargin=1.5em,topsep=4pt}
+\captionsetup{font=small,labelfont=bf,skip=6pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{gray}StereoDetect}
+\fancyhead[R]{\small\color{gray}IOE-414: Deep Learning}
+\fancyfoot[C]{\thepage}
+\fancypagestyle{plain}{\fancyhf{}\fancyhead[L]{\small\color{gray}StereoDetect}\fancyhead[R]{\small\color{gray}IOE-414: Deep Learning}\fancyfoot[C]{\thepage}\renewcommand{\headrulewidth}{.3pt}}
+\renewcommand{\headrulewidth}{.3pt}
+\setlength{\headheight}{14pt}
+\renewcommand{\contentsname}{Table of Contents}
+\setcounter{tocdepth}{2}
+\newcommand{\reportsection}[1]{\clearpage\section{#1}}
+\newcommand{\code}[1]{{\small\nolinkurl{#1}}}
+\makeatletter
+\let\tableinput\@@input
+\makeatother
+\newcommand{\pct}[1]{#1\%}
+\input{metadata}
+\hypersetup{pdftitle={StereoDetect: Explainable Stereotype Detection},pdfauthor={Harissh Ragav Dhamodaran and Mugupuram Kavya Amrutha},pdfsubject={Deep Learning Minor Project Report}}
+
+\begin{document}
+\hypersetup{pageanchor=false}
+\begin{titlepage}
+\centering
+{\fontsize{16}{20}\selectfont\bfseries INDIAN INSTITUTE OF\par INFORMATION TECHNOLOGY KOTTAYAM\par}
+\vspace{.18in}
+{\fontsize{12}{15}\selectfont (An Institute of National Importance)\par}
+\vspace{.3in}
+\includegraphics[width=1.65in]{figures/institute_logo.jpeg}\par
+\vspace{.3in}
+{\fontsize{14}{18}\selectfont\bfseries IOE-414: DEEP LEARNING\par}
+\vspace{.16in}
+{\fontsize{14}{18}\selectfont\bfseries MINOR PROJECT REPORT\par}
+\vspace{.35in}
+{\fontsize{14}{18}\selectfont\textbf{Project Title:}\par}
+\vspace{.12in}
+{\fontsize{17}{21}\selectfont\bfseries\ProjectTitle\par}
+\vspace{.4in}
+{\fontsize{14}{18}\selectfont\textbf{Group Members:}\par}
+\vspace{.13in}
+\begin{tabular}{ll}
+\MemberOne & \RegisterOne\\[7pt]
+\MemberTwo & \RegisterTwo
+\end{tabular}\par
+\vfill
+{\fontsize{12}{16}\selectfont Department of Computer Science and Engineering\par}
+\vspace{.18in}
+{\fontsize{12}{16}\selectfont\SubmissionMonth\par}
+\end{titlepage}
+
+\hypersetup{pageanchor=true}
+\pagenumbering{roman}
+\begingroup
+\setstretch{1.0}\setlength{\parskip}{0pt}\small
+\tableofcontents
+\endgroup
+\clearpage
+\section*{Abstract}
+\addcontentsline{toc}{section}{Abstract}
+Stereotype detection requires a classifier to distinguish group generalizations from counter-stereotypical descriptions, neutral statements, and bias. This project develops a reproducible five-class classification and explanation pipeline on the local StereoDetect benchmark splits. It compares ALBERT and ModernBERT encoders with Qwen3.5-2B under three explicitly separated tasks: (A) sentence to label, (B) sentence to category, target, and label in JSON, and (C) sentence plus supplied category and target to label. Each Qwen task is evaluated using the pretrained checkpoint and a separate supervised fine-tuned (SFT) LoRA adapter, with thinking disabled.
+
+The experiments use 6,080 training, 868 validation, and 1,738 test examples. Task A improves from 23.19\% to 93.84\% label accuracy and from 14.21\% to 93.89\% macro F1 after SFT. Task B achieves 93.61\% label accuracy, 99.37\% category accuracy, 98.16\% exact target accuracy, and 92.87\% accuracy when all three fields must match together. Task C achieves 95.51\% label accuracy with gold category and target annotations supplied as input. The saved ModernBERT-large run reaches 93.33\% accuracy and 93.39\% macro F1, while ALBERT reaches 88.09\% and 88.20\%, respectively.
+
+Word-level LIME and Kernel SHAP explanations are examined using two saved ModernBERT-large examples, including a misclassification, with signed color maps and legends. Error analysis identifies the stereotype/anti-stereotype boundary as a major remaining difficulty. The report presents prediction metrics and word-level sensitivity analyses for the evaluated models, with explicit task inputs and output-scoring rules.
+
+\textbf{Keywords:} stereotype detection; StereoDetect; Qwen3.5; LoRA; ModernBERT; ALBERT; LIME; SHAP.
+
+\subsection*{Base Paper Details}
+\addcontentsline{toc}{subsection}{Base Paper Details}
+\textbf{Primary benchmark paper.}
+\begin{description}[style=nextline,leftmargin=0pt]
+\item[Title:] StereoDetect: Detecting Stereotypes and Anti-stereotypes the Correct Way Using Social Psychological Underpinnings.
+\item[DOI:] \url{https://doi.org/10.18653/v1/2025.findings-emnlp.216}
+\item[Conference / publication:] \textit{Findings of the Association for Computational Linguistics: EMNLP 2025}, pp.\ 4051--4082.
+\item[Authors:] Kaustubh Shivshankar Shejole and Pushpak Bhattacharyya.
+\item[Year:] 2025.
+\end{description}
+\Needspace{4\baselineskip}
+The benchmark paper provides the conceptual and dataset basis for the five-class task \citep{shejole2025}. This project uses its local sentence-classification CSV splits and implements additional encoder, SFT, and explanation workflows.
+
+\textbf{Complementary methodology paper.}
+\begin{description}[style=nextline,leftmargin=0pt]
+\item[Title:] HEARTS: A Holistic Framework for Explainable, Sustainable and Robust Text Stereotype Detection.
+\item[DOI:] \url{https://doi.org/10.18653/v1/2025.ijcnlp-long.1}
+\item[Conference / publication:] \textit{Proceedings of the 14th International Joint Conference on Natural Language Processing and the 4th Conference of the Asia-Pacific Chapter of the Association for Computational Linguistics}, pp.\ 1--18.
+\item[Authors:] Theo King, Zekun Wu, Adriano Koshiyama, Emre Kazim, and Philip Colin Treleaven.
+\item[Year:] 2025.
+\end{description}
+HEARTS motivates the lightweight ALBERT baseline and paired LIME/SHAP analysis \citep{king2025}. Our five-label StereoDetect experiments differ from its binary EMGSD setup; the project is an adaptation rather than an exact reproduction of its dataset or reported scores.
+
+\clearpage
+\pagenumbering{arabic}
+\input{sections/problem}
+\input{sections/method}
+\input{sections/dataset}
+\input{sections/results}
+\input{sections/implementation}
+\clearpage
+\renewcommand{\refname}{References}
+\addcontentsline{toc}{section}{References}
+\input{references}
+\end{document}

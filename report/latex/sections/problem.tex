@@ -1,0 +1,27 @@
+\reportsection{Problem Statement}
+\subsection{Motivation and task definition}
+A statement about a social group can express a conventional association, contradict such an association, describe an individual neutrally, or convey bias. Recognizing a target word alone does not resolve these distinctions. The same vocabulary can occur in both stereotypical and anti-stereotypical descriptions, while a seemingly favorable group generalization can still be a stereotype. A useful system must therefore classify the sentence in context and make its decision available for inspection.
+
+StereoDetect separates stereotype and anti-stereotype detection from a broader measurement of model bias \citep{shejole2025}. Following the label mapping supplied with the local data, this project assigns each sentence one of five labels: anti-stereotype (0), stereotype (1), neutral without target term (2), neutral with target term (3), or bias (4). The class names describe dataset annotations. They should not be interpreted as a universal, context-free judgment about every possible utterance.
+
+Let $s$ denote a sentence, $c$ its category, $t$ its target-group string, and $y\in\{0,1,2,3,4\}$ its label. The project studies three Qwen input/output contracts:
+\begin{align}
+\text{Task A:}\quad & f_A(s)\longrightarrow y,\\
+\text{Task B:}\quad & f_B(s)\longrightarrow (c,t,y),\\
+\text{Task C:}\quad & f_C(s,c,t)\longrightarrow y.
+\end{align}
+Task B returns one JSON object containing all three predicted fields. Task C receives \emph{gold} category and target annotations from the dataset, referred to as \emph{auxiliary annotations}. Its score answers a conditional classification question and should be interpreted separately from the sentence-only tasks.
+
+\subsection{Project objectives}
+\begin{enumerate}
+\item Establish sentence-only encoder baselines using ALBERT and ModernBERT on the supplied train, validation, and test splits.
+\item Evaluate Qwen3.5-2B in all three tasks, comparing the base checkpoint with a task-specific SFT adapter for each task.
+\item Report label accuracy and macro F1 consistently, with category, target, and complete-record accuracy added for JSON generation.
+\item Analyze class-level errors and inspect selected encoder decisions using aligned word-level LIME and Kernel SHAP explanations.
+\item Preserve prompts, configurations, predictions, checkpoint-selection records, and metric definitions so reported values can be traced to saved artifacts.
+\end{enumerate}
+
+\subsection{Scope and contribution}
+The work combines supervised classification, parameter-efficient adaptation, structured prediction, and post-hoc explanations in one local implementation. The main experimental contribution is the comparison of three clearly specified Qwen tasks under both base and SFT states. A separate adapter is trained for each task; the three SFT results are not three inference modes of a single jointly trained adapter.
+
+The encoder workflows consume only the sentence. The explanation component operates on saved encoder classifiers and reuses their class probabilities under masked-word perturbations. The report's word color maps explain ModernBERT-large decisions. The model comparison also includes the MiniLM and Qwen3-Embedding baseline scores recorded in the review document.

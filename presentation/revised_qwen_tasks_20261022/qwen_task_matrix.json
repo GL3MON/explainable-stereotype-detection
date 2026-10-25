@@ -1,0 +1,71 @@
+{
+  "model": "Qwen/Qwen3.5-2B",
+  "num_test_examples": 1738,
+  "enable_thinking": false,
+  "tasks": [
+    {
+      "id": "A",
+      "task": "Sentence \u2192 label",
+      "inputs": [
+        "Sentence"
+      ],
+      "outputs": [
+        "label"
+      ],
+      "base": {
+        "evaluation": "outputs/eval/qwen35_2b_base_sentence_labels_nothinking_20261022_195718/evaluation.json",
+        "label_accuracy": 0.23187571921749137,
+        "label_macro_f1": 0.1421433638938894
+      },
+      "sft": {
+        "evaluation": "outputs/kaggle_qwen35_sentence_lora_1022-183119/results/artifacts/evaluation.json",
+        "label_accuracy": 0.9384349827387802,
+        "label_macro_f1": 0.9389457497123352
+      }
+    },
+    {
+      "id": "B",
+      "task": "Sentence \u2192 category + target + label",
+      "inputs": [
+        "Sentence"
+      ],
+      "outputs": [
+        "category",
+        "target",
+        "label"
+      ],
+      "base": {
+        "evaluation": "outputs/eval/qwen35_2b_base_nothinking_20261022_173617/json/evaluation.json",
+        "label_accuracy": 0.34464902186421176,
+        "label_macro_f1": 0.28082187698611016
+      },
+      "sft": {
+        "evaluation": "outputs/eval/json_test/evaluation.json",
+        "label_accuracy": 0.9361334867663982,
+        "label_macro_f1": 0.9364342638738865
+      }
+    },
+    {
+      "id": "C",
+      "task": "Sentence + category + target \u2192 label",
+      "inputs": [
+        "Sentence",
+        "Category",
+        "Target"
+      ],
+      "outputs": [
+        "label"
+      ],
+      "base": {
+        "evaluation": "outputs/eval/qwen35_2b_base_nothinking_20261022_173617/labels/evaluation.json",
+        "label_accuracy": 0.33544303797468356,
+        "label_macro_f1": 0.2762751272962536
+      },
+      "sft": {
+        "evaluation": "outputs/eval/adapter_test/evaluation.json",
+        "label_accuracy": 0.9551208285385501,
+        "label_macro_f1": 0.9555019843934469
+      }
+    }
+  ]
+}

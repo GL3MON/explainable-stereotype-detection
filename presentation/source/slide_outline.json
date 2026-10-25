@@ -1,0 +1,122 @@
+[
+  {
+    "number": 1,
+    "heading": "BTP Title",
+    "subtitle": "Editable title and identity details"
+  },
+  {
+    "number": 2,
+    "heading": "Introduction",
+    "subtitle": "Five labels capture different forms of group-related language"
+  },
+  {
+    "number": 3,
+    "heading": "Literature Review",
+    "subtitle": "Dataset foundations and explainable stereotype detection"
+  },
+  {
+    "number": 4,
+    "heading": "Literature Review",
+    "subtitle": "Model families used in the comparison"
+  },
+  {
+    "number": 5,
+    "heading": "Motivation",
+    "subtitle": "Test both classification quality and the usefulness of the output"
+  },
+  {
+    "number": 6,
+    "heading": "Problem Statement",
+    "subtitle": "Two Qwen task contracts, evaluated on the same held-out test split"
+  },
+  {
+    "number": 7,
+    "heading": "Architecture",
+    "subtitle": "Overall experimental pipeline"
+  },
+  {
+    "number": 8,
+    "heading": "Architecture",
+    "subtitle": "all-MiniLM-L6-v2 \u00b7 Compact sentence-embedding backbone"
+  },
+  {
+    "number": 9,
+    "heading": "Architecture",
+    "subtitle": "Qwen3-Embedding-0.6B \u00b7 Decoder-derived sentence representation"
+  },
+  {
+    "number": 10,
+    "heading": "Architecture",
+    "subtitle": "ALBERT-base-v2 \u00b7 Sentence-only five-class classifier"
+  },
+  {
+    "number": 11,
+    "heading": "Architecture",
+    "subtitle": "ModernBERT-large \u00b7 Sentence-only five-class classifier"
+  },
+  {
+    "number": 12,
+    "heading": "Architecture",
+    "subtitle": "Qwen3.5-2B \u00b7 Shared language backbone, two task adapters"
+  },
+  {
+    "number": 13,
+    "heading": "Architecture",
+    "subtitle": "Aligned word-level explanations for the encoder classifiers"
+  },
+  {
+    "number": 14,
+    "heading": "Experimental Results",
+    "subtitle": "Dataset, training setup, and evaluation protocol"
+  },
+  {
+    "number": 15,
+    "heading": "Experimental Results",
+    "subtitle": "Model comparison on the 1,738-example test split"
+  },
+  {
+    "number": 16,
+    "heading": "Experimental Results",
+    "subtitle": "Qwen3.5-2B \u00b7 Base versus fine-tuned label prediction"
+  },
+  {
+    "number": 17,
+    "heading": "Experimental Results",
+    "subtitle": "Qwen3.5-2B \u00b7 Base versus fine-tuned all-field generation"
+  },
+  {
+    "number": 18,
+    "heading": "Experimental Results",
+    "subtitle": "Structured output \u00b7 Category, target, label, and complete JSON"
+  },
+  {
+    "number": 19,
+    "heading": "Experimental Results",
+    "subtitle": "The main remaining errors separate stereotypes from anti-stereotypes"
+  },
+  {
+    "number": 20,
+    "heading": "Demonstration",
+    "subtitle": "Saved test example \u00b7 Same sentence, different structured predictions"
+  },
+  {
+    "number": 21,
+    "heading": "Demonstration",
+    "subtitle": "ModernBERT-large \u00b7 A saved LIME/SHAP explanation"
+  },
+  {
+    "number": 22,
+    "heading": "Conclusion",
+    "subtitle": "Task adaptation improves predictions; difficult class boundaries remain"
+  },
+  {
+    "number": 23,
+    "heading": "References",
+    "subtitle": "IEEE-style bibliography \u00b7 1 / 2"
+  },
+  {
+    "number": 24,
+    "heading": "References",
+    "subtitle": "IEEE-style bibliography \u00b7 2 / 2"
+  }
+]

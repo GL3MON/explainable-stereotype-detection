@@ -1,0 +1,1780 @@
+ALL CATEGORY, LABEL AND TARGET CLASSIFICATION REPORTS (JSON-OUTPUT EXPERIMENTS)
+Generated UTC: 2026-10-22T20:06:52.230337+00:00
+Three completed TEST runs appear first, followed by three full VALIDATION evaluations.
+The final six entries are clearly marked incomplete/partial diagnostic runs, not full-test results.
+Each experiment has a separate CATEGORY, LABEL and TARGET precision/recall/F1/support report.
+
+SCORING RULES
+Category: trim, case-fold and collapse whitespace on gold and predicted category; fixed five categories.
+Target: exact string match, preserving capitalization, underscores, spelling and whitespace.
+Label: strict integer 0-4; booleans, strings, missing labels and malformed JSON are invalid.
+Only the saved final completion is parsed; reasoning is never used to recover a prediction.
+Malformed/missing fields count as errors; no examples are dropped.
+Macro/weighted averages use the fixed five category/label classes, or gold target classes present in that run.
+Predicted-only/invalid class values are listed separately and remain incorrect predictions.
+Accuracy always includes all saved examples. Supports sum to the saved-example count in every report.
+All per-class values are fractions; accuracy lines also give percentages.
+Labels: 0 - Anti-stereotype; 1 - Stereotype; 2 - Neutral without target term; 3 - Neutral with target term; 4 - Bias.
+
+RUN SUMMARY
+ID       N   Category acc    Label acc   Target acc  Coverage / experiment
+1     1738       51.9563%     34.4649%     21.6916%  COMPLETE TEST - Qwen3.5-2B BASE - sentence -> JSON
+2     1738       99.3671%     93.5558%     98.1588%  COMPLETE TEST - Qwen3.5-2B JSON LoRA - training-time test evaluation
+3     1738       99.3671%     93.6133%     98.1588%  COMPLETE TEST - Qwen3.5-2B JSON LoRA - standalone test evaluation
+4      868       99.1935%     91.0138%     97.0046%  COMPLETE VALIDATION - Qwen3.5-2B JSON LoRA - validation epoch 1
+5      868       98.9631%     94.1244%     97.4654%  COMPLETE VALIDATION - Qwen3.5-2B JSON LoRA - validation epoch 2
+6      868       98.7327%     93.8940%     97.2350%  COMPLETE VALIDATION - Qwen3.5-2B JSON LoRA - validation epoch 3
+7      410       13.1707%     13.1707%     12.9268%  INCOMPLETE TEST SUBSET - JSON LoRA vLLM thinking - unfinished saved test subset
+8        8       12.5000%     12.5000%     12.5000%  PARTIAL TEST SMOKE - JSON LoRA vLLM thinking - test smoke
+9        4       25.0000%     25.0000%     25.0000%  PARTIAL TEST SMOKE - JSON LoRA vLLM thinking - sampled test smoke
+10      10       30.0000%     30.0000%     30.0000%  PARTIAL VALIDATION SMOKE - JSON LoRA vLLM thinking - validation budget 256 smoke
+11      10       20.0000%     20.0000%     20.0000%  PARTIAL VALIDATION SMOKE - JSON LoRA vLLM thinking - validation budget 512 smoke
+12      10       10.0000%     10.0000%     10.0000%  PARTIAL VALIDATION SMOKE - JSON LoRA vLLM thinking - final-JSON validation budget 256 smoke
+
+====================================================================================================
+JSON 01. Qwen3.5-2B BASE - sentence -> JSON
+====================================================================================================
+Coverage: COMPLETE TEST
+Split: TEST; 1738 / 1738 saved examples
+Input: Sentence only
+Output: category, target, label JSON
+Thinking enabled: False
+Source: outputs/eval/qwen35_2b_base_nothinking_20261022_173617/json/completions.jsonl
+Gold CSV: data/test.csv
+JSON parse/object failures: 0
+Invalid/missing category strings: 0
+Invalid/missing target strings: 0
+Invalid/missing labels: 0
+All three fields correct: 44/1738 (2.5316%)
+max_new_tokens: 96
+temperature: 0
+
+----------------------------------------------------------------------------------------------------
+CATEGORY CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 1738 examples): 0.519563 (51.96%)
+              precision    recall  f1-score   support
+
+      gender     0.5034    0.9466    0.6572       393
+        race     0.9417    0.3729    0.5343       303
+  profession     0.7368    0.0461    0.0868       607
+    religion     0.4667    0.2000    0.2800        35
+     neutral     0.4637    0.9575    0.6248       400
+
+    accuracy                         0.5196      1738
+   macro avg     0.6224    0.5046    0.4366      1738
+weighted avg     0.6515    0.5196    0.4215      1738
+
+----------------------------------------------------------------------------------------------------
+LABEL CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 1738 examples): 0.344649 (34.46%)
+                                 precision    recall  f1-score   support
+
+            0 - Anti-stereotype     1.0000    0.0167    0.0329       359
+                 1 - Stereotype     0.1957    0.1866    0.1910       343
+2 - Neutral without target term     0.5473    0.8825    0.6756       400
+   3 - Neutral with target term     0.4400    0.1774    0.2529       372
+                       4 - Bias     0.1803    0.4167    0.2517       264
+
+                       accuracy                         0.3446      1738
+                      macro avg     0.4727    0.3360    0.2808      1738
+                   weighted avg     0.4927    0.3446    0.2923      1738
+
+----------------------------------------------------------------------------------------------------
+TARGET CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 1738 examples): 0.216916 (21.69%)
+                     precision    recall  f1-score   support
+
+        Afghanistan     0.4000    0.1818    0.2500        11
+      Afghanistanis     1.0000    0.2727    0.4286        22
+            African     0.6667    0.3333    0.4444         6
+           Africans     1.0000    0.8750    0.9333        16
+               Arab     1.0000    0.2000    0.3333        10
+              Arabs     0.8750    0.9333    0.9032        15
+            Asexual     0.0000    0.0000    0.0000        17
+         Bartenders     1.0000    0.1475    0.2571        61
+            Bengali     1.0000    1.0000    1.0000         2
+           Bengalis     1.0000    1.0000    1.0000         9
+           Bisexual     0.0000    0.0000    0.0000        25
+            Brahmin     0.7500    0.7500    0.7500         4
+           Brahmins     1.0000    0.8889    0.9412         9
+           Butchers     1.0000    0.5652    0.7222        23
+           Chemists     1.0000    0.0500    0.0952        20
+         Commanders     1.0000    0.6000    0.7500        20
+            Crimean     0.0000    0.0000    0.0000         7
+           Crimeans     0.9167    0.3667    0.5238        30
+          Engineers     1.0000    0.2083    0.3448        24
+      Entrepreneurs     1.0000    0.0769    0.1429        26
+          Ethiopian     0.6667    0.2222    0.3333         9
+         Ethiopians     0.9444    0.4722    0.6296        36
+                Gay     1.0000    0.0323    0.0625        31
+          Gentlemen     1.0000    0.0455    0.0870        22
+       Grandfathers     1.0000    0.1765    0.3000        34
+         Guitarists     1.0000    0.1579    0.2727        38
+           Hispanic     0.3158    0.4000    0.3529        15
+          Hispanics     0.9286    0.3714    0.5306        35
+         Historians     1.0000    0.0870    0.1600        23
+           Japanese     1.0000    0.5556    0.7143        18
+            Lesbian     0.0000    0.0000    0.0000        12
+              Lgbtq     0.0000    0.0000    0.0000        19
+              Males     1.0000    0.3571    0.5263        42
+           Managers     0.0000    0.0000    0.0000        16
+     Mathematicians     1.0000    0.1053    0.1905        19
+            Mommies     1.0000    0.9167    0.9565        12
+            Mothers     0.0000    0.0000    0.0000        22
+             Muslim     1.0000    1.0000    1.0000         1
+            Muslims     1.0000    0.2857    0.4444        21
+                 Nb     0.0000    0.0000    0.0000        15
+            Neutral     0.0000    0.0000    0.0000       400
+             Nurses     1.0000    0.7500    0.8571         8
+          Pansexual     0.0000    0.0000    0.0000         5
+ Performing_artists     0.0000    0.0000    0.0000        41
+         Physicists     0.0000    0.0000    0.0000        11
+        Politicians     0.0000    0.0000    0.0000        21
+          Producers     1.0000    0.0222    0.0435        45
+      Psychologists     0.0000    0.0000    0.0000        24
+              Queer     0.0000    0.0000    0.0000        10
+        Researchers     1.0000    0.0909    0.1667        22
+            Russian     0.4000    0.1333    0.2000        15
+           Russians     0.9091    0.7143    0.8000        14
+         Schoolboys     1.0000    0.8000    0.8889        15
+        Schoolgirls     1.0000    0.5714    0.7273        14
+            Sisters     1.0000    0.6154    0.7619        13
+Software_developers     0.0000    0.0000    0.0000        54
+              Spain     1.0000    0.5000    0.6667         6
+            Spanish     0.8889    0.6667    0.7619        12
+        Transgender     0.0000    0.0000    0.0000        20
+              Yemen     0.0000    0.0000    0.0000         2
+            Yemenis     1.0000    0.3077    0.4706        13
+          bartender     0.7500    1.0000    0.8571         3
+            butcher     1.0000    0.1667    0.2857         6
+            chemist     1.0000    0.5000    0.6667         4
+          commander     1.0000    0.2500    0.4000         8
+           engineer     1.0000    0.2500    0.4000         4
+       entrepreneur     1.0000    0.3333    0.5000         3
+          gentlemen     0.2857    1.0000    0.4444         4
+        grandfather     0.6667    0.6667    0.6667         3
+          guitarist     1.0000    0.2500    0.4000         4
+          historian     0.0000    0.0000    0.0000         2
+               male     0.7143    1.0000    0.8333         5
+            manager     1.0000    0.1667    0.2857         6
+      mathematician     0.0000    0.0000    0.0000         1
+              mommy     1.0000    0.8333    0.9091         6
+             mother     0.9375    0.6522    0.7692        23
+              nurse     1.0000    0.5000    0.6667        12
+  performing artist     0.7500    0.5000    0.6000         6
+          physicist     1.0000    0.4615    0.6316        13
+         politician     0.5000    0.5000    0.5000         2
+           producer     1.0000    0.2000    0.3333        10
+       psychologist     0.8889    0.6154    0.7273        13
+         researcher     1.0000    0.8333    0.9091         6
+          schoolboy     1.0000    0.8000    0.8889         5
+         schoolgirl     0.9286    1.0000    0.9630        13
+             sister     1.0000    0.8333    0.9091         6
+ software developer     1.0000    0.3750    0.5455         8
+
+          micro avg     0.8850    0.2169    0.3484      1738
+          macro avg     0.7021    0.3735    0.4347      1738
+       weighted avg     0.5514    0.2169    0.2744      1738
+
+Predicted values outside the scored gold-class set (all counted as errors):
+Each has gold support 0 and precision/recall/F1 0; excluded from macro/weighted averages.
+  "neutral": predicted 539 times
+  "gender": predicted 78 times
+  "performers": predicted 19 times
+  "Bisexuals": predicted 18 times
+  "Ethiopia": predicted 18 times
+  "Performing Artists": predicted 18 times
+  "mothers": predicted 17 times
+  "entrepreneurs": predicted 16 times
+  "programmers": predicted 16 times
+  "Crimean Tatars": predicted 15 times
+  "bar keepers": predicted 14 times
+  "historians": predicted 13 times
+  "guitar players": predicted 12 times
+  "Islam": predicted 11 times
+  "grandfathers": predicted 11 times
+  "politicians": predicted 11 times
+  "psychologists": predicted 11 times
+  "woman": predicted 11 times
+  "women": predicted 11 times
+  "Transgender people": predicted 10 times
+  "film producers": predicted 10 times
+  "LGBTQ": predicted 9 times
+  "Hispanic people": predicted 8 times
+  "Queers": predicted 8 times
+  "physicists": predicted 8 times
+  "Asexuals": predicted 7 times
+  "LGBTQ people": predicted 7 times
+  "Grandpas": predicted 6 times
+  "Lesbians": predicted 6 times
+  "Nonbinary people": predicted 6 times
+  "asexuals": predicted 6 times
+  "hispanic": predicted 6 times
+  "mathematicians": predicted 6 times
+  "transgender people": predicted 6 times
+  "Afghans": predicted 5 times
+  "Men": predicted 5 times
+  "engineers": predicted 5 times
+  "gentleman": predicted 5 times
+  "mixologists": predicted 5 times
+  "neither": predicted 5 times
+  "Yemenites": predicted 4 times
+  "arab": predicted 4 times
+  "bartenders": predicted 4 times
+  "dog": predicted 4 times
+  "gay": predicted 4 times
+  "her": predicted 4 times
+  "lesbian": predicted 4 times
+  "men": predicted 4 times
+  "transgender": predicted 4 times
+  "Barmans": predicted 3 times
+  "african": predicted 3 times
+  "bisexuals": predicted 3 times
+  "cat": predicted 3 times
+  "grandchild": predicted 3 times
+  "he": predicted 3 times
+  "nonbinary people": predicted 3 times
+  "profession": predicted 3 times
+  "russian": predicted 3 times
+  "schoolgirls": predicted 3 times
+  "Afghanistani": predicted 2 times
+  "Gentleman": predicted 2 times
+  "Japanese people": predicted 2 times
+  "LGBTQ community": predicted 2 times
+  "Pansexuality": predicted 2 times
+  "Spanish people": predicted 2 times
+  "Target": predicted 2 times
+  "applied mathematicians": predicted 2 times
+  "barmaids": predicted 2 times
+  "bisexual": predicted 2 times
+  "bisexuality": predicted 2 times
+  "caucasian": predicted 2 times
+  "computer programmers": predicted 2 times
+  "crimean": predicted 2 times
+  "crimean peninsula": predicted 2 times
+  "diva": predicted 2 times
+  "female": predicted 2 times
+  "girl": predicted 2 times
+  "girls": predicted 2 times
+  "grandpas": predicted 2 times
+  "hair": predicted 2 times
+  "lesbians": predicted 2 times
+  "males": predicted 2 times
+  "managers": predicted 2 times
+  "musical": predicted 2 times
+  "nurses": predicted 2 times
+  "occupation": predicted 2 times
+  "pansexuality": predicted 2 times
+  "programmer": predicted 2 times
+  "scholars": predicted 2 times
+  "schoolboys": predicted 2 times
+  "she": predicted 2 times
+  "sisters": predicted 2 times
+  "spain": predicted 2 times
+  "volunteers": predicted 2 times
+  "Abu Bakr Salem": predicted 1 times
+  "Afghan": predicted 1 times
+  "Afghan people": predicted 1 times
+  "Afghani": predicted 1 times
+  "Ainu": predicted 1 times
+  "Amazon.com": predicted 1 times
+  "American": predicted 1 times
+  "Americans": predicted 1 times
+  "Arab diaspora": predicted 1 times
+  "Arab man": predicted 1 times
+  "Asia": predicted 1 times
+  "Bar keepers": predicted 1 times
+  "Barmaids": predicted 1 times
+  "Bartender": predicted 1 times
+  "Chartered Physicist": predicted 1 times
+  "Computer programmers": predicted 1 times
+  "Crimea": predicted 1 times
+  "Crimean diaspora": predicted 1 times
+  "Dario Cecchini": predicted 1 times
+  "Demiflux": predicted 1 times
+  "Dingoes": predicted 1 times
+  "Dog breeding": predicted 1 times
+  "EF scale": predicted 1 times
+  "Elvis Presley": predicted 1 times
+  "Flat beer": predicted 1 times
+  "Followers of Islam": predicted 1 times
+  "Gay people": predicted 1 times
+  "Grandfather Falls": predicted 1 times
+  "Grandfather Mountain": predicted 1 times
+  "Grandfather and Grandmother": predicted 1 times
+  "Grandfather clocks": predicted 1 times
+  "Grandpa and Grandmother": predicted 1 times
+  "Jack Russell Terriers": predicted 1 times
+  "Japanese art and architecture": predicted 1 times
+  "Japanese nationality": predicted 1 times
+  "Japanese phonology": predicted 1 times
+  "Japanese society": predicted 1 times
+  "King Ezana": predicted 1 times
+  "LGBTQ communities": predicted 1 times
+  "LGBTQ individuals": predicted 1 times
+  "Latin": predicted 1 times
+  "Line managers": predicted 1 times
+  "Llhasa": predicted 1 times
+  "MLB rookies": predicted 1 times
+  "Male": predicted 1 times
+  "Male gametes": predicted 1 times
+  "Mechanical Turk": predicted 1 times
+  "Mixologists": predicted 1 times
+  "Mother": predicted 1 times
+  "Muslim culture or Islamic culture": predicted 1 times
+  "Neil Armstrong": predicted 1 times
+  "Non-binary and genderqueer": predicted 1 times
+  "Non-binary gender": predicted 1 times
+  "Paco de Lucía": predicted 1 times
+  "Paintings": predicted 1 times
+  "Pansexuals": predicted 1 times
+  "Potatoes": predicted 1 times
+  "R": predicted 1 times
+  "Roman Catholicism": predicted 1 times
+  "Russian army": predicted 1 times
+  "Russian diaspora": predicted 1 times
+  "Senior managers": predicted 1 times
+  "Silk": predicted 1 times
+  "Snakes": predicted 1 times
+  "Soda water": predicted 1 times
+  "Software developer": predicted 1 times
+  "Software developers": predicted 1 times
+  "Sour patch kids": predicted 1 times
+  "Soviet Union": predicted 1 times
+  "Spongebob": predicted 1 times
+  "Tangerines": predicted 1 times
+  "Yemenite Arabic": predicted 1 times
+  "Yemenitees": predicted 1 times
+  "actresses": predicted 1 times
+  "adult": predicted 1 times
+  "afghanistan": predicted 1 times
+  "african refugee": predicted 1 times
+  "animals": predicted 1 times
+  "appearance": predicted 1 times
+  "artist": predicted 1 times
+  "asexual": predicted 1 times
+  "asian": predicted 1 times
+  "ballerina": predicted 1 times
+  "barmaid": predicted 1 times
+  "barmans": predicted 1 times
+  "black": predicted 1 times
+  "blank": predicted 1 times
+  "blanket": predicted 1 times
+  "blueberries": predicted 1 times
+  "brahmin": predicted 1 times
+  "butchers": predicted 1 times
+  "carrots": predicted 1 times
+  "cast members": predicted 1 times
+  "chemists": predicted 1 times
+  "child": predicted 1 times
+  "child psychologist": predicted 1 times
+  "children": predicted 1 times
+  "choreographers, dancers, set designers/artists, composers, and musicians": predicted 1 times
+  "classical guitar players": predicted 1 times
+  "clinical psychologists": predicted 1 times
+  "coder": predicted 1 times
+  "coders": predicted 1 times
+  "coffee": predicted 1 times
+  "computer programmer": predicted 1 times
+  "cousin": predicted 1 times
+  "dance": predicted 1 times
+  "daughters": predicted 1 times
+  "deliquent": predicted 1 times
+  "drunk guys": predicted 1 times
+  "duck": predicted 1 times
+  "dumb": predicted 1 times
+  "egrets": predicted 1 times
+  "emaciated": predicted 1 times
+  "ethiopian": predicted 1 times
+  "fat": predicted 1 times
+  "father": predicted 1 times
+  "feminine": predicted 1 times
+  "feminist": predicted 1 times
+  "food": predicted 1 times
+  "foreigners": predicted 1 times
+  "friend": predicted 1 times
+  "gays": predicted 1 times
+  "geek": predicted 1 times
+  "girlfriend": predicted 1 times
+  "grandchildren": predicted 1 times
+  "grandmother": predicted 1 times
+  "grandparents": predicted 1 times
+  "greatest Guitarists": predicted 1 times
+  "hospitality barmans": predicted 1 times
+  "housekeeper": predicted 1 times
+  "human race": predicted 1 times
+  "indigenous people": predicted 1 times
+  "innocent child": predicted 1 times
+  "kids": predicted 1 times
+  "ladies and gentlemen": predicted 1 times
+  "large man": predicted 1 times
+  "lunatics": predicted 1 times
+  "man": predicted 1 times
+  "mathematics": predicted 1 times
+  "matronly": predicted 1 times
+  "middle managers": predicted 1 times
+  "mixologist culture": predicted 1 times
+  "musician": predicted 1 times
+  "nerd": predicted 1 times
+  "neuter": predicted 1 times
+  "newest marines": predicted 1 times
+  "non-binary": predicted 1 times
+  "non-binary people": predicted 1 times
+  "panneer": predicted 1 times
+  "performing artists": predicted 1 times
+  "professor": predicted 1 times
+  "protesters": predicted 1 times
+  "queer": predicted 1 times
+  "religious": predicted 1 times
+  "religious enthusiasts": predicted 1 times
+  "researchers": predicted 1 times
+  "russians": predicted 1 times
+  "shy, introverted": predicted 1 times
+  "shy, introverted individuals": predicted 1 times
+  "siblings": predicted 1 times
+  "son": predicted 1 times
+  "soup": predicted 1 times
+  "soviets": predicted 1 times
+  "starseed": predicted 1 times
+  "store manager": predicted 1 times
+  "street drugs": predicted 1 times
+  "student": predicted 1 times
+  "tator tot": predicted 1 times
+  "teacher": predicted 1 times
+  "terrorism": predicted 1 times
+  "voice": predicted 1 times
+  "white male": predicted 1 times
+  "white mans": predicted 1 times
+  "wife": predicted 1 times
+  "wine": predicted 1 times
+  "wood": predicted 1 times
+  "younger sister": predicted 1 times
+  "youth": predicted 1 times
+
+====================================================================================================
+JSON 02. Qwen3.5-2B JSON LoRA - training-time test evaluation
+====================================================================================================
+Coverage: COMPLETE TEST
+Split: TEST; 1738 / 1738 saved examples
+Input: Sentence only
+Output: category, target, label JSON
+Thinking enabled: False
+Source: outputs/qwen35_2b_stereodetect_json/test_completions.jsonl
+Gold CSV: data/test.csv
+JSON parse/object failures: 0
+Invalid/missing category strings: 0
+Invalid/missing target strings: 0
+Invalid/missing labels: 0
+All three fields correct: 1613/1738 (92.8078%)
+max_new_tokens: 96
+
+----------------------------------------------------------------------------------------------------
+CATEGORY CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 1738 examples): 0.993671 (99.37%)
+              precision    recall  f1-score   support
+
+      gender     0.9898    0.9898    0.9898       393
+        race     1.0000    1.0000    1.0000       303
+  profession     0.9951    0.9984    0.9967       607
+    religion     1.0000    1.0000    1.0000        35
+     neutral     0.9899    0.9850    0.9875       400
+
+    accuracy                         0.9937      1738
+   macro avg     0.9950    0.9946    0.9948      1738
+weighted avg     0.9937    0.9937    0.9937      1738
+
+----------------------------------------------------------------------------------------------------
+LABEL CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 1738 examples): 0.935558 (93.56%)
+                                 precision    recall  f1-score   support
+
+            0 - Anti-stereotype     0.8856    0.8412    0.8629       359
+                 1 - Stereotype     0.8489    0.9009    0.8741       343
+2 - Neutral without target term     0.9899    0.9850    0.9875       400
+   3 - Neutral with target term     0.9658    0.9866    0.9761       372
+                       4 - Bias     0.9961    0.9621    0.9788       264
+
+                       accuracy                         0.9356      1738
+                      macro avg     0.9373    0.9352    0.9359      1738
+                   weighted avg     0.9363    0.9356    0.9356      1738
+
+----------------------------------------------------------------------------------------------------
+TARGET CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 1738 examples): 0.981588 (98.16%)
+                     precision    recall  f1-score   support
+
+        Afghanistan     1.0000    1.0000    1.0000        11
+      Afghanistanis     1.0000    1.0000    1.0000        22
+            African     1.0000    1.0000    1.0000         6
+           Africans     1.0000    1.0000    1.0000        16
+               Arab     1.0000    0.8000    0.8889        10
+              Arabs     0.8824    1.0000    0.9375        15
+            Asexual     1.0000    1.0000    1.0000        17
+         Bartenders     1.0000    1.0000    1.0000        61
+            Bengali     1.0000    0.5000    0.6667         2
+           Bengalis     0.9000    1.0000    0.9474         9
+           Bisexual     1.0000    1.0000    1.0000        25
+            Brahmin     1.0000    1.0000    1.0000         4
+           Brahmins     1.0000    1.0000    1.0000         9
+           Butchers     1.0000    0.9565    0.9778        23
+           Chemists     1.0000    1.0000    1.0000        20
+         Commanders     1.0000    1.0000    1.0000        20
+            Crimean     1.0000    0.8571    0.9231         7
+           Crimeans     0.9677    1.0000    0.9836        30
+          Engineers     1.0000    1.0000    1.0000        24
+      Entrepreneurs     1.0000    1.0000    1.0000        26
+          Ethiopian     1.0000    0.8889    0.9412         9
+         Ethiopians     0.9730    1.0000    0.9863        36
+                Gay     1.0000    1.0000    1.0000        31
+          Gentlemen     0.9524    0.9091    0.9302        22
+       Grandfathers     1.0000    1.0000    1.0000        34
+         Guitarists     1.0000    1.0000    1.0000        38
+           Hispanic     1.0000    1.0000    1.0000        15
+          Hispanics     1.0000    1.0000    1.0000        35
+         Historians     0.9565    0.9565    0.9565        23
+           Japanese     1.0000    0.9444    0.9714        18
+            Lesbian     1.0000    1.0000    1.0000        12
+              Lgbtq     1.0000    1.0000    1.0000        19
+              Males     1.0000    1.0000    1.0000        42
+           Managers     0.9375    0.9375    0.9375        16
+     Mathematicians     0.9048    1.0000    0.9500        19
+            Mommies     1.0000    1.0000    1.0000        12
+            Mothers     0.9565    1.0000    0.9778        22
+             Muslim     1.0000    1.0000    1.0000         1
+            Muslims     1.0000    1.0000    1.0000        21
+                 Nb     1.0000    0.9333    0.9655        15
+            Neutral     0.9899    0.9850    0.9875       400
+             Nurses     1.0000    1.0000    1.0000         8
+          Pansexual     1.0000    1.0000    1.0000         5
+ Performing_artists     0.9524    0.9756    0.9639        41
+         Physicists     1.0000    1.0000    1.0000        11
+        Politicians     1.0000    1.0000    1.0000        21
+          Producers     1.0000    1.0000    1.0000        45
+      Psychologists     1.0000    1.0000    1.0000        24
+              Queer     1.0000    1.0000    1.0000        10
+        Researchers     0.9524    0.9091    0.9302        22
+            Russian     1.0000    0.9333    0.9655        15
+           Russians     0.9333    1.0000    0.9655        14
+         Schoolboys     1.0000    1.0000    1.0000        15
+        Schoolgirls     1.0000    1.0000    1.0000        14
+            Sisters     1.0000    0.7692    0.8696        13
+Software_developers     0.9643    1.0000    0.9818        54
+              Spain     1.0000    0.8333    0.9091         6
+            Spanish     0.9231    1.0000    0.9600        12
+        Transgender     1.0000    1.0000    1.0000        20
+              Yemen     1.0000    1.0000    1.0000         2
+            Yemenis     1.0000    1.0000    1.0000        13
+          bartender     1.0000    1.0000    1.0000         3
+            butcher     1.0000    1.0000    1.0000         6
+            chemist     1.0000    1.0000    1.0000         4
+          commander     1.0000    0.8750    0.9333         8
+           engineer     1.0000    1.0000    1.0000         4
+       entrepreneur     1.0000    1.0000    1.0000         3
+          gentlemen     1.0000    0.7500    0.8571         4
+        grandfather     0.7500    1.0000    0.8571         3
+          guitarist     1.0000    1.0000    1.0000         4
+          historian     1.0000    1.0000    1.0000         2
+               male     0.8333    1.0000    0.9091         5
+            manager     1.0000    1.0000    1.0000         6
+      mathematician     1.0000    1.0000    1.0000         1
+              mommy     1.0000    1.0000    1.0000         6
+             mother     1.0000    0.9565    0.9778        23
+              nurse     1.0000    0.9167    0.9565        12
+  performing artist     1.0000    0.8333    0.9091         6
+          physicist     1.0000    0.9231    0.9600        13
+         politician     1.0000    1.0000    1.0000         2
+           producer     1.0000    1.0000    1.0000        10
+       psychologist     1.0000    1.0000    1.0000        13
+         researcher     1.0000    1.0000    1.0000         6
+          schoolboy     1.0000    1.0000    1.0000         5
+         schoolgirl     1.0000    1.0000    1.0000        13
+             sister     1.0000    1.0000    1.0000         6
+ software developer     1.0000    1.0000    1.0000         8
+
+          micro avg     0.9861    0.9816    0.9839      1738
+          macro avg     0.9854    0.9695    0.9751      1738
+       weighted avg     0.9869    0.9816    0.9836      1738
+
+Predicted values outside the scored gold-class set (all counted as errors):
+Each has gold support 0 and precision/recall/F1 0; excluded from macro/weighted averages.
+  "Ladies": predicted 2 times
+  "Ainu": predicted 1 times
+  "Demisexual": predicted 1 times
+  "Jamesians": predicted 1 times
+  "Rookies": predicted 1 times
+  "Scientists": predicted 1 times
+  "father": predicted 1 times
+
+====================================================================================================
+JSON 03. Qwen3.5-2B JSON LoRA - standalone test evaluation
+====================================================================================================
+Coverage: COMPLETE TEST
+Split: TEST; 1738 / 1738 saved examples
+Input: Sentence only
+Output: category, target, label JSON
+Thinking enabled: False
+Source: outputs/eval/json_test/completions.jsonl
+Gold CSV: data/test.csv
+JSON parse/object failures: 0
+Invalid/missing category strings: 0
+Invalid/missing target strings: 0
+Invalid/missing labels: 0
+All three fields correct: 1614/1738 (92.8654%)
+
+----------------------------------------------------------------------------------------------------
+CATEGORY CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 1738 examples): 0.993671 (99.37%)
+              precision    recall  f1-score   support
+
+      gender     0.9898    0.9898    0.9898       393
+        race     1.0000    1.0000    1.0000       303
+  profession     0.9951    0.9984    0.9967       607
+    religion     1.0000    1.0000    1.0000        35
+     neutral     0.9899    0.9850    0.9875       400
+
+    accuracy                         0.9937      1738
+   macro avg     0.9950    0.9946    0.9948      1738
+weighted avg     0.9937    0.9937    0.9937      1738
+
+----------------------------------------------------------------------------------------------------
+LABEL CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 1738 examples): 0.936133 (93.61%)
+                                 precision    recall  f1-score   support
+
+            0 - Anti-stereotype     0.8860    0.8440    0.8645       359
+                 1 - Stereotype     0.8512    0.9009    0.8754       343
+2 - Neutral without target term     0.9899    0.9850    0.9875       400
+   3 - Neutral with target term     0.9658    0.9866    0.9761       372
+                       4 - Bias     0.9961    0.9621    0.9788       264
+
+                       accuracy                         0.9361      1738
+                      macro avg     0.9378    0.9357    0.9364      1738
+                   weighted avg     0.9369    0.9361    0.9362      1738
+
+----------------------------------------------------------------------------------------------------
+TARGET CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 1738 examples): 0.981588 (98.16%)
+                     precision    recall  f1-score   support
+
+        Afghanistan     1.0000    1.0000    1.0000        11
+      Afghanistanis     1.0000    1.0000    1.0000        22
+            African     1.0000    1.0000    1.0000         6
+           Africans     1.0000    1.0000    1.0000        16
+               Arab     1.0000    0.8000    0.8889        10
+              Arabs     0.8824    1.0000    0.9375        15
+            Asexual     1.0000    1.0000    1.0000        17
+         Bartenders     1.0000    1.0000    1.0000        61
+            Bengali     1.0000    0.5000    0.6667         2
+           Bengalis     0.9000    1.0000    0.9474         9
+           Bisexual     1.0000    1.0000    1.0000        25
+            Brahmin     1.0000    1.0000    1.0000         4
+           Brahmins     1.0000    1.0000    1.0000         9
+           Butchers     1.0000    0.9565    0.9778        23
+           Chemists     1.0000    1.0000    1.0000        20
+         Commanders     1.0000    1.0000    1.0000        20
+            Crimean     1.0000    0.8571    0.9231         7
+           Crimeans     0.9677    1.0000    0.9836        30
+          Engineers     1.0000    1.0000    1.0000        24
+      Entrepreneurs     1.0000    1.0000    1.0000        26
+          Ethiopian     1.0000    0.8889    0.9412         9
+         Ethiopians     0.9730    1.0000    0.9863        36
+                Gay     1.0000    1.0000    1.0000        31
+          Gentlemen     0.9524    0.9091    0.9302        22
+       Grandfathers     1.0000    1.0000    1.0000        34
+         Guitarists     1.0000    1.0000    1.0000        38
+           Hispanic     1.0000    1.0000    1.0000        15
+          Hispanics     1.0000    1.0000    1.0000        35
+         Historians     0.9565    0.9565    0.9565        23
+           Japanese     1.0000    0.9444    0.9714        18
+            Lesbian     1.0000    1.0000    1.0000        12
+              Lgbtq     1.0000    1.0000    1.0000        19
+              Males     1.0000    1.0000    1.0000        42
+           Managers     0.9375    0.9375    0.9375        16
+     Mathematicians     0.9048    1.0000    0.9500        19
+            Mommies     1.0000    1.0000    1.0000        12
+            Mothers     0.9565    1.0000    0.9778        22
+             Muslim     1.0000    1.0000    1.0000         1
+            Muslims     1.0000    1.0000    1.0000        21
+                 Nb     1.0000    0.9333    0.9655        15
+            Neutral     0.9899    0.9850    0.9875       400
+             Nurses     1.0000    1.0000    1.0000         8
+          Pansexual     1.0000    1.0000    1.0000         5
+ Performing_artists     0.9524    0.9756    0.9639        41
+         Physicists     1.0000    1.0000    1.0000        11
+        Politicians     1.0000    1.0000    1.0000        21
+          Producers     1.0000    1.0000    1.0000        45
+      Psychologists     1.0000    1.0000    1.0000        24
+              Queer     1.0000    1.0000    1.0000        10
+        Researchers     0.9524    0.9091    0.9302        22
+            Russian     1.0000    0.9333    0.9655        15
+           Russians     0.9333    1.0000    0.9655        14
+         Schoolboys     1.0000    1.0000    1.0000        15
+        Schoolgirls     1.0000    1.0000    1.0000        14
+            Sisters     1.0000    0.7692    0.8696        13
+Software_developers     0.9643    1.0000    0.9818        54
+              Spain     1.0000    0.8333    0.9091         6
+            Spanish     0.9231    1.0000    0.9600        12
+        Transgender     1.0000    1.0000    1.0000        20
+              Yemen     1.0000    1.0000    1.0000         2
+            Yemenis     1.0000    1.0000    1.0000        13
+          bartender     1.0000    1.0000    1.0000         3
+            butcher     1.0000    1.0000    1.0000         6
+            chemist     1.0000    1.0000    1.0000         4
+          commander     1.0000    0.8750    0.9333         8
+           engineer     1.0000    1.0000    1.0000         4
+       entrepreneur     1.0000    1.0000    1.0000         3
+          gentlemen     1.0000    0.7500    0.8571         4
+        grandfather     0.7500    1.0000    0.8571         3
+          guitarist     1.0000    1.0000    1.0000         4
+          historian     1.0000    1.0000    1.0000         2
+               male     0.8333    1.0000    0.9091         5
+            manager     1.0000    1.0000    1.0000         6
+      mathematician     1.0000    1.0000    1.0000         1
+              mommy     1.0000    1.0000    1.0000         6
+             mother     1.0000    0.9565    0.9778        23
+              nurse     1.0000    0.9167    0.9565        12
+  performing artist     1.0000    0.8333    0.9091         6
+          physicist     1.0000    0.9231    0.9600        13
+         politician     1.0000    1.0000    1.0000         2
+           producer     1.0000    1.0000    1.0000        10
+       psychologist     1.0000    1.0000    1.0000        13
+         researcher     1.0000    1.0000    1.0000         6
+          schoolboy     1.0000    1.0000    1.0000         5
+         schoolgirl     1.0000    1.0000    1.0000        13
+             sister     1.0000    1.0000    1.0000         6
+ software developer     1.0000    1.0000    1.0000         8
+
+          micro avg     0.9861    0.9816    0.9839      1738
+          macro avg     0.9854    0.9695    0.9751      1738
+       weighted avg     0.9869    0.9816    0.9836      1738
+
+Predicted values outside the scored gold-class set (all counted as errors):
+Each has gold support 0 and precision/recall/F1 0; excluded from macro/weighted averages.
+  "Ladies": predicted 2 times
+  "Ainu": predicted 1 times
+  "Demisexual": predicted 1 times
+  "Jamesians": predicted 1 times
+  "Rookies": predicted 1 times
+  "Scientists": predicted 1 times
+  "father": predicted 1 times
+
+====================================================================================================
+JSON 04. Qwen3.5-2B JSON LoRA - validation epoch 1
+====================================================================================================
+Coverage: COMPLETE VALIDATION
+Split: VAL; 868 / 868 saved examples
+Input: Sentence only
+Output: category, target, label JSON
+Thinking enabled: False
+Source: outputs/qwen35_2b_stereodetect_json/validation_completions_step_380.jsonl
+Gold CSV: data/val.csv
+JSON parse/object failures: 0
+Invalid/missing category strings: 0
+Invalid/missing target strings: 0
+Invalid/missing labels: 0
+All three fields correct: 781/868 (89.9770%)
+max_new_tokens: 96
+
+----------------------------------------------------------------------------------------------------
+CATEGORY CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 868 examples): 0.991935 (99.19%)
+              precision    recall  f1-score   support
+
+      gender     0.9813    1.0000    0.9906       210
+        race     0.9935    1.0000    0.9968       154
+  profession     1.0000    0.9892    0.9946       278
+    religion     1.0000    1.0000    1.0000        21
+     neutral     0.9901    0.9805    0.9853       205
+
+    accuracy                         0.9919       868
+   macro avg     0.9930    0.9939    0.9934       868
+weighted avg     0.9920    0.9919    0.9919       868
+
+----------------------------------------------------------------------------------------------------
+LABEL CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 868 examples): 0.910138 (91.01%)
+                                 precision    recall  f1-score   support
+
+            0 - Anti-stereotype     0.7615    0.9274    0.8363       179
+                 1 - Stereotype     0.9034    0.7360    0.8111       178
+2 - Neutral without target term     0.9901    0.9805    0.9853       205
+   3 - Neutral with target term     0.9820    0.9535    0.9676       172
+                       4 - Bias     0.9481    0.9552    0.9517       134
+
+                       accuracy                         0.9101       868
+                      macro avg     0.9170    0.9105    0.9104       868
+                   weighted avg     0.9171    0.9101    0.9101       868
+
+----------------------------------------------------------------------------------------------------
+TARGET CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 868 examples): 0.970046 (97.00%)
+                     precision    recall  f1-score   support
+
+        Afghanistan     0.9000    1.0000    0.9474         9
+      Afghanistanis     1.0000    0.9091    0.9524        11
+            African     1.0000    1.0000    1.0000         1
+           Africans     1.0000    1.0000    1.0000         8
+               Arab     1.0000    1.0000    1.0000         3
+              Arabs     1.0000    1.0000    1.0000         5
+            Asexual     1.0000    1.0000    1.0000         5
+         Bartenders     0.9688    1.0000    0.9841        31
+           Bengalis     1.0000    1.0000    1.0000         8
+           Bisexual     0.9048    1.0000    0.9500        19
+           Brahmins     1.0000    1.0000    1.0000         5
+           Butchers     1.0000    1.0000    1.0000         7
+           Chemists     1.0000    0.8571    0.9231         7
+         Commanders     1.0000    0.8000    0.8889        10
+            Crimean     1.0000    0.5000    0.6667         4
+           Crimeans     0.8750    1.0000    0.9333        14
+          Engineers     1.0000    1.0000    1.0000        10
+      Entrepreneurs     1.0000    0.8000    0.8889         5
+          Ethiopian     1.0000    0.6667    0.8000         6
+         Ethiopians     0.8750    1.0000    0.9333        14
+                Gay     1.0000    0.9000    0.9474        20
+          Gentlemen     1.0000    1.0000    1.0000         8
+       Grandfathers     1.0000    1.0000    1.0000        16
+         Guitarists     1.0000    1.0000    1.0000        21
+           Hispanic     0.8333    1.0000    0.9091         5
+          Hispanics     1.0000    0.9583    0.9787        24
+         Historians     0.9167    1.0000    0.9565        11
+           Japanese     1.0000    1.0000    1.0000        14
+            Lesbian     1.0000    1.0000    1.0000         9
+              Lgbtq     1.0000    1.0000    1.0000        12
+              Males     0.9524    1.0000    0.9756        20
+           Managers     1.0000    1.0000    1.0000        12
+     Mathematicians     1.0000    0.9000    0.9474        10
+            Mommies     1.0000    1.0000    1.0000         6
+            Mothers     1.0000    1.0000    1.0000         8
+             Muslim     1.0000    1.0000    1.0000         3
+            Muslims     1.0000    1.0000    1.0000        13
+                 Nb     1.0000    0.8571    0.9231         7
+            Neutral     0.9901    0.9805    0.9853       205
+             Nurses     1.0000    1.0000    1.0000         3
+          Pansexual     1.0000    1.0000    1.0000         3
+ Performing_artists     1.0000    1.0000    1.0000        11
+         Physicists     1.0000    1.0000    1.0000         1
+        Politicians     1.0000    1.0000    1.0000         8
+          Producers     1.0000    1.0000    1.0000        27
+      Psychologists     1.0000    1.0000    1.0000         9
+              Queer     1.0000    1.0000    1.0000        12
+        Researchers     1.0000    0.9231    0.9600        13
+            Russian     0.8571    0.8571    0.8571         7
+           Russians     0.9231    0.9231    0.9231        13
+         Schoolboys     1.0000    0.8750    0.9333         8
+        Schoolgirls     1.0000    0.8750    0.9333         8
+            Sisters     1.0000    1.0000    1.0000         8
+Software_developers     1.0000    1.0000    1.0000        26
+              Spain     1.0000    1.0000    1.0000         2
+            Spanish     1.0000    1.0000    1.0000         3
+        Transgender     1.0000    1.0000    1.0000         6
+            Yemenis     1.0000    1.0000    1.0000         3
+          bartender     1.0000    1.0000    1.0000         2
+            butcher     1.0000    0.7500    0.8571         4
+            chemist     1.0000    1.0000    1.0000         6
+          commander     1.0000    1.0000    1.0000         2
+           engineer     1.0000    1.0000    1.0000         3
+       entrepreneur     1.0000    1.0000    1.0000         3
+          gentlemen     1.0000    1.0000    1.0000         2
+          guitarist     1.0000    1.0000    1.0000         3
+          historian     1.0000    1.0000    1.0000         2
+               male     0.6667    1.0000    0.8000         2
+            manager     1.0000    1.0000    1.0000         2
+      mathematician     1.0000    1.0000    1.0000         2
+              mommy     1.0000    1.0000    1.0000         5
+             mother     1.0000    1.0000    1.0000        10
+  performing artist     1.0000    1.0000    1.0000         1
+          physicist     1.0000    1.0000    1.0000         8
+         politician     1.0000    1.0000    1.0000         1
+           producer     1.0000    1.0000    1.0000         2
+       psychologist     1.0000    1.0000    1.0000         9
+         researcher     1.0000    1.0000    1.0000         3
+          schoolboy     0.8333    1.0000    0.9091         5
+         schoolgirl     1.0000    1.0000    1.0000         6
+             sister     1.0000    0.6000    0.7500         5
+ software developer     1.0000    1.0000    1.0000         3
+
+          micro avg     0.9802    0.9700    0.9751       868
+          macro avg     0.9817    0.9626    0.9685       868
+       weighted avg     0.9823    0.9700    0.9742       868
+
+Predicted values outside the scored gold-class set (all counted as errors):
+Each has gold support 0 and precision/recall/F1 0; excluded from macro/weighted averages.
+  "brother": predicted 2 times
+  "commanders": predicted 2 times
+  "Demiflux": predicted 1 times
+  "Indigenous": predicted 1 times
+  "gay": predicted 1 times
+  "grandmothers": predicted 1 times
+  "schoolgirls": predicted 1 times
+
+====================================================================================================
+JSON 05. Qwen3.5-2B JSON LoRA - validation epoch 2
+====================================================================================================
+Coverage: COMPLETE VALIDATION
+Split: VAL; 868 / 868 saved examples
+Input: Sentence only
+Output: category, target, label JSON
+Thinking enabled: False
+Source: outputs/qwen35_2b_stereodetect_json/validation_completions_step_760.jsonl
+Gold CSV: data/val.csv
+JSON parse/object failures: 0
+Invalid/missing category strings: 0
+Invalid/missing target strings: 0
+Invalid/missing labels: 0
+All three fields correct: 809/868 (93.2028%)
+max_new_tokens: 96
+
+----------------------------------------------------------------------------------------------------
+CATEGORY CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 868 examples): 0.989631 (98.96%)
+              precision    recall  f1-score   support
+
+      gender     0.9766    0.9952    0.9858       210
+        race     0.9871    0.9935    0.9903       154
+  profession     0.9964    0.9964    0.9964       278
+    religion     1.0000    1.0000    1.0000        21
+     neutral     0.9950    0.9707    0.9827       205
+
+    accuracy                         0.9896       868
+   macro avg     0.9910    0.9912    0.9911       868
+weighted avg     0.9897    0.9896    0.9896       868
+
+----------------------------------------------------------------------------------------------------
+LABEL CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 868 examples): 0.941244 (94.12%)
+                                 precision    recall  f1-score   support
+
+            0 - Anti-stereotype     0.9222    0.8603    0.8902       179
+                 1 - Stereotype     0.8632    0.9213    0.8913       178
+2 - Neutral without target term     0.9950    0.9707    0.9827       205
+   3 - Neutral with target term     0.9771    0.9942    0.9856       172
+                       4 - Bias     0.9485    0.9627    0.9556       134
+
+                       accuracy                         0.9412       868
+                      macro avg     0.9412    0.9419    0.9411       868
+                   weighted avg     0.9422    0.9412    0.9413       868
+
+----------------------------------------------------------------------------------------------------
+TARGET CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 868 examples): 0.974654 (97.47%)
+                     precision    recall  f1-score   support
+
+        Afghanistan     1.0000    0.8889    0.9412         9
+      Afghanistanis     1.0000    1.0000    1.0000        11
+            African     1.0000    1.0000    1.0000         1
+           Africans     1.0000    1.0000    1.0000         8
+               Arab     1.0000    1.0000    1.0000         3
+              Arabs     1.0000    1.0000    1.0000         5
+            Asexual     1.0000    1.0000    1.0000         5
+         Bartenders     1.0000    1.0000    1.0000        31
+           Bengalis     1.0000    1.0000    1.0000         8
+           Bisexual     0.9000    0.9474    0.9231        19
+           Brahmins     1.0000    1.0000    1.0000         5
+           Butchers     1.0000    1.0000    1.0000         7
+           Chemists     1.0000    0.8571    0.9231         7
+         Commanders     1.0000    1.0000    1.0000        10
+            Crimean     1.0000    0.7500    0.8571         4
+           Crimeans     0.9333    1.0000    0.9655        14
+          Engineers     1.0000    1.0000    1.0000        10
+      Entrepreneurs     1.0000    1.0000    1.0000         5
+          Ethiopian     0.8000    0.6667    0.7273         6
+         Ethiopians     0.8667    0.9286    0.8966        14
+                Gay     0.9474    0.9000    0.9231        20
+          Gentlemen     1.0000    0.8750    0.9333         8
+       Grandfathers     0.9375    0.9375    0.9375        16
+         Guitarists     1.0000    1.0000    1.0000        21
+           Hispanic     1.0000    1.0000    1.0000         5
+          Hispanics     1.0000    1.0000    1.0000        24
+         Historians     0.9167    1.0000    0.9565        11
+           Japanese     1.0000    1.0000    1.0000        14
+            Lesbian     1.0000    1.0000    1.0000         9
+              Lgbtq     1.0000    1.0000    1.0000        12
+              Males     1.0000    1.0000    1.0000        20
+           Managers     1.0000    1.0000    1.0000        12
+     Mathematicians     1.0000    1.0000    1.0000        10
+            Mommies     1.0000    1.0000    1.0000         6
+            Mothers     1.0000    1.0000    1.0000         8
+             Muslim     1.0000    1.0000    1.0000         3
+            Muslims     1.0000    1.0000    1.0000        13
+                 Nb     1.0000    1.0000    1.0000         7
+            Neutral     0.9950    0.9707    0.9827       205
+             Nurses     1.0000    1.0000    1.0000         3
+          Pansexual     1.0000    1.0000    1.0000         3
+ Performing_artists     1.0000    1.0000    1.0000        11
+         Physicists     1.0000    1.0000    1.0000         1
+        Politicians     1.0000    1.0000    1.0000         8
+          Producers     1.0000    1.0000    1.0000        27
+      Psychologists     1.0000    1.0000    1.0000         9
+              Queer     1.0000    1.0000    1.0000        12
+        Researchers     1.0000    0.9231    0.9600        13
+            Russian     1.0000    0.8571    0.9231         7
+           Russians     0.9286    1.0000    0.9630        13
+         Schoolboys     0.8889    1.0000    0.9412         8
+        Schoolgirls     1.0000    1.0000    1.0000         8
+            Sisters     1.0000    1.0000    1.0000         8
+Software_developers     1.0000    1.0000    1.0000        26
+              Spain     1.0000    1.0000    1.0000         2
+            Spanish     1.0000    1.0000    1.0000         3
+        Transgender     1.0000    1.0000    1.0000         6
+            Yemenis     1.0000    1.0000    1.0000         3
+          bartender     1.0000    1.0000    1.0000         2
+            butcher     1.0000    1.0000    1.0000         4
+            chemist     1.0000    1.0000    1.0000         6
+          commander     1.0000    1.0000    1.0000         2
+           engineer     1.0000    1.0000    1.0000         3
+       entrepreneur     1.0000    1.0000    1.0000         3
+          gentlemen     0.6667    1.0000    0.8000         2
+          guitarist     1.0000    1.0000    1.0000         3
+          historian     1.0000    1.0000    1.0000         2
+               male     0.6667    1.0000    0.8000         2
+            manager     1.0000    1.0000    1.0000         2
+      mathematician     1.0000    1.0000    1.0000         2
+              mommy     1.0000    1.0000    1.0000         5
+             mother     0.8333    1.0000    0.9091        10
+  performing artist     1.0000    1.0000    1.0000         1
+          physicist     1.0000    1.0000    1.0000         8
+         politician     1.0000    1.0000    1.0000         1
+           producer     1.0000    1.0000    1.0000         2
+       psychologist     1.0000    1.0000    1.0000         9
+         researcher     1.0000    1.0000    1.0000         3
+          schoolboy     1.0000    0.8000    0.8889         5
+         schoolgirl     1.0000    1.0000    1.0000         6
+             sister     1.0000    0.6000    0.7500         5
+ software developer     1.0000    1.0000    1.0000         3
+
+          micro avg     0.9814    0.9747    0.9780       868
+          macro avg     0.9790    0.9744    0.9744       868
+       weighted avg     0.9831    0.9747    0.9778       868
+
+Predicted values outside the scored gold-class set (all counted as errors):
+Each has gold support 0 and precision/recall/F1 0; excluded from macro/weighted averages.
+  "brother": predicted 2 times
+  "Indigenous": predicted 1 times
+  "Venezuela": predicted 1 times
+  "baker": predicted 1 times
+  "gay": predicted 1 times
+
+====================================================================================================
+JSON 06. Qwen3.5-2B JSON LoRA - validation epoch 3
+====================================================================================================
+Coverage: COMPLETE VALIDATION
+Split: VAL; 868 / 868 saved examples
+Input: Sentence only
+Output: category, target, label JSON
+Thinking enabled: False
+Source: outputs/qwen35_2b_stereodetect_json/validation_completions_step_1140.jsonl
+Gold CSV: data/val.csv
+JSON parse/object failures: 0
+Invalid/missing category strings: 0
+Invalid/missing target strings: 0
+Invalid/missing labels: 0
+All three fields correct: 808/868 (93.0876%)
+max_new_tokens: 96
+
+----------------------------------------------------------------------------------------------------
+CATEGORY CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 868 examples): 0.987327 (98.73%)
+              precision    recall  f1-score   support
+
+      gender     0.9766    0.9952    0.9858       210
+        race     0.9808    0.9935    0.9871       154
+  profession     0.9928    0.9964    0.9946       278
+    religion     1.0000    1.0000    1.0000        21
+     neutral     0.9949    0.9610    0.9777       205
+
+    accuracy                         0.9873       868
+   macro avg     0.9890    0.9892    0.9890       868
+weighted avg     0.9874    0.9873    0.9873       868
+
+----------------------------------------------------------------------------------------------------
+LABEL CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 868 examples): 0.938940 (93.89%)
+                                 precision    recall  f1-score   support
+
+            0 - Anti-stereotype     0.8944    0.8994    0.8969       179
+                 1 - Stereotype     0.8933    0.8933    0.8933       178
+2 - Neutral without target term     0.9949    0.9610    0.9777       205
+   3 - Neutral with target term     0.9769    0.9826    0.9797       172
+                       4 - Bias     0.9281    0.9627    0.9451       134
+
+                       accuracy                         0.9389       868
+                      macro avg     0.9375    0.9398    0.9385       868
+                   weighted avg     0.9395    0.9389    0.9391       868
+
+----------------------------------------------------------------------------------------------------
+TARGET CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 868 examples): 0.972350 (97.24%)
+                     precision    recall  f1-score   support
+
+        Afghanistan     1.0000    0.8889    0.9412         9
+      Afghanistanis     1.0000    1.0000    1.0000        11
+            African     1.0000    1.0000    1.0000         1
+           Africans     1.0000    1.0000    1.0000         8
+               Arab     1.0000    1.0000    1.0000         3
+              Arabs     1.0000    1.0000    1.0000         5
+            Asexual     1.0000    1.0000    1.0000         5
+         Bartenders     1.0000    1.0000    1.0000        31
+           Bengalis     1.0000    1.0000    1.0000         8
+           Bisexual     0.9048    1.0000    0.9500        19
+           Brahmins     1.0000    1.0000    1.0000         5
+           Butchers     1.0000    1.0000    1.0000         7
+           Chemists     1.0000    0.8571    0.9231         7
+         Commanders     1.0000    0.9000    0.9474        10
+            Crimean     1.0000    0.7500    0.8571         4
+           Crimeans     0.9333    1.0000    0.9655        14
+          Engineers     1.0000    1.0000    1.0000        10
+      Entrepreneurs     1.0000    1.0000    1.0000         5
+          Ethiopian     0.8000    0.6667    0.7273         6
+         Ethiopians     0.8667    0.9286    0.8966        14
+                Gay     1.0000    0.9000    0.9474        20
+          Gentlemen     1.0000    1.0000    1.0000         8
+       Grandfathers     0.9375    0.9375    0.9375        16
+         Guitarists     1.0000    1.0000    1.0000        21
+           Hispanic     1.0000    1.0000    1.0000         5
+          Hispanics     1.0000    1.0000    1.0000        24
+         Historians     0.9167    1.0000    0.9565        11
+           Japanese     1.0000    1.0000    1.0000        14
+            Lesbian     1.0000    1.0000    1.0000         9
+              Lgbtq     1.0000    1.0000    1.0000        12
+              Males     1.0000    1.0000    1.0000        20
+           Managers     1.0000    1.0000    1.0000        12
+     Mathematicians     1.0000    1.0000    1.0000        10
+            Mommies     1.0000    1.0000    1.0000         6
+            Mothers     1.0000    1.0000    1.0000         8
+             Muslim     1.0000    1.0000    1.0000         3
+            Muslims     1.0000    1.0000    1.0000        13
+                 Nb     1.0000    1.0000    1.0000         7
+            Neutral     0.9949    0.9610    0.9777       205
+             Nurses     1.0000    1.0000    1.0000         3
+          Pansexual     1.0000    1.0000    1.0000         3
+ Performing_artists     1.0000    1.0000    1.0000        11
+         Physicists     1.0000    1.0000    1.0000         1
+        Politicians     1.0000    1.0000    1.0000         8
+          Producers     1.0000    1.0000    1.0000        27
+      Psychologists     1.0000    1.0000    1.0000         9
+              Queer     1.0000    1.0000    1.0000        12
+        Researchers     1.0000    0.9231    0.9600        13
+            Russian     1.0000    0.8571    0.9231         7
+           Russians     0.9286    1.0000    0.9630        13
+         Schoolboys     0.8750    0.8750    0.8750         8
+        Schoolgirls     1.0000    1.0000    1.0000         8
+            Sisters     1.0000    1.0000    1.0000         8
+Software_developers     1.0000    1.0000    1.0000        26
+              Spain     1.0000    1.0000    1.0000         2
+            Spanish     1.0000    1.0000    1.0000         3
+        Transgender     1.0000    1.0000    1.0000         6
+            Yemenis     1.0000    1.0000    1.0000         3
+          bartender     1.0000    1.0000    1.0000         2
+            butcher     1.0000    1.0000    1.0000         4
+            chemist     1.0000    1.0000    1.0000         6
+          commander     0.6667    1.0000    0.8000         2
+           engineer     1.0000    1.0000    1.0000         3
+       entrepreneur     1.0000    1.0000    1.0000         3
+          gentlemen     1.0000    1.0000    1.0000         2
+          guitarist     1.0000    1.0000    1.0000         3
+          historian     1.0000    1.0000    1.0000         2
+               male     0.6667    1.0000    0.8000         2
+            manager     1.0000    1.0000    1.0000         2
+      mathematician     1.0000    1.0000    1.0000         2
+              mommy     1.0000    1.0000    1.0000         5
+             mother     0.8333    1.0000    0.9091        10
+  performing artist     1.0000    1.0000    1.0000         1
+          physicist     1.0000    1.0000    1.0000         8
+         politician     1.0000    1.0000    1.0000         1
+           producer     1.0000    1.0000    1.0000         2
+       psychologist     1.0000    1.0000    1.0000         9
+         researcher     1.0000    1.0000    1.0000         3
+          schoolboy     0.8000    0.8000    0.8000         5
+         schoolgirl     1.0000    1.0000    1.0000         6
+             sister     1.0000    0.6000    0.7500         5
+ software developer     1.0000    1.0000    1.0000         3
+
+          micro avg     0.9814    0.9724    0.9769       868
+          macro avg     0.9771    0.9737    0.9733       868
+       weighted avg     0.9831    0.9724    0.9766       868
+
+Predicted values outside the scored gold-class set (all counted as errors):
+Each has gold support 0 and precision/recall/F1 0; excluded from macro/weighted averages.
+  "brother": predicted 2 times
+  "Indigenous": predicted 1 times
+  "Sudan": predicted 1 times
+  "Venezuela": predicted 1 times
+  "baker": predicted 1 times
+  "farmer": predicted 1 times
+  "gay": predicted 1 times
+
+====================================================================================================
+JSON 07. JSON LoRA vLLM thinking - unfinished saved test subset
+====================================================================================================
+Coverage: INCOMPLETE TEST SUBSET
+Split: TEST; 410 / 1738 saved examples
+Input: Sentence only
+Output: category, target, label JSON
+Thinking enabled: True
+Source: outputs/eval/json_test_vllm_thinking_limited_20261014/completions.jsonl
+Gold CSV: data/test.csv
+JSON parse/object failures: 355
+Invalid/missing category strings: 355
+Invalid/missing target strings: 355
+Invalid/missing labels: 355
+All three fields correct: 51/410 (12.4390%)
+max_tokens: 2048
+temperature: 1.0
+
+----------------------------------------------------------------------------------------------------
+CATEGORY CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 410 examples): 0.131707 (13.17%)
+              precision    recall  f1-score   support
+
+      gender     1.0000    0.1346    0.2373       104
+        race     1.0000    0.0694    0.1299        72
+  profession     1.0000    0.0977    0.1781       133
+    religion     0.0000    0.0000    0.0000         6
+     neutral     1.0000    0.2316    0.3761        95
+
+   micro avg     1.0000    0.1317    0.2328       410
+   macro avg     0.8000    0.1067    0.1843       410
+weighted avg     0.9854    0.1317    0.2279       410
+
+Predicted values outside the scored gold-class set (all counted as errors):
+Each has gold support 0 and precision/recall/F1 0; excluded from macro/weighted averages.
+  "<INVALID_OR_MISSING>": predicted 355 times
+  "performing_artists": predicted 1 times
+
+----------------------------------------------------------------------------------------------------
+LABEL CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 410 examples): 0.131707 (13.17%)
+                                 precision    recall  f1-score   support
+
+            0 - Anti-stereotype     1.0000    0.0787    0.1458        89
+                 1 - Stereotype     0.9167    0.1392    0.2418        79
+2 - Neutral without target term     1.0000    0.2316    0.3761        95
+   3 - Neutral with target term     1.0000    0.1750    0.2979        80
+                       4 - Bias     0.0000    0.0000    0.0000        67
+
+                      micro avg     0.9818    0.1317    0.2323       410
+                      macro avg     0.7833    0.1249    0.2123       410
+                   weighted avg     0.8205    0.1317    0.2235       410
+
+Predicted values outside the scored gold-class set (all counted as errors):
+Each has gold support 0 and precision/recall/F1 0; excluded from macro/weighted averages.
+  -1: predicted 355 times
+
+----------------------------------------------------------------------------------------------------
+TARGET CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 410 examples): 0.129268 (12.93%)
+                     precision    recall  f1-score   support
+
+        Afghanistan     0.0000    0.0000    0.0000         2
+      Afghanistanis     0.0000    0.0000    0.0000         3
+            African     0.0000    0.0000    0.0000         1
+           Africans     0.0000    0.0000    0.0000         2
+               Arab     0.0000    0.0000    0.0000         4
+              Arabs     0.0000    0.0000    0.0000         4
+            Asexual     1.0000    0.3333    0.5000         3
+         Bartenders     1.0000    0.1250    0.2222        16
+           Bengalis     0.0000    0.0000    0.0000         2
+           Bisexual     1.0000    0.5000    0.6667         6
+            Brahmin     0.0000    0.0000    0.0000         1
+           Brahmins     0.0000    0.0000    0.0000         1
+           Butchers     0.0000    0.0000    0.0000         8
+           Chemists     0.0000    0.0000    0.0000         3
+         Commanders     0.0000    0.0000    0.0000         5
+            Crimean     0.0000    0.0000    0.0000         2
+           Crimeans     0.0000    0.0000    0.0000         4
+          Engineers     1.0000    0.1429    0.2500         7
+      Entrepreneurs     0.0000    0.0000    0.0000         4
+          Ethiopian     0.0000    0.0000    0.0000         4
+         Ethiopians     1.0000    0.0909    0.1667        11
+                Gay     1.0000    0.3333    0.5000         9
+          Gentlemen     1.0000    0.1667    0.2857         6
+       Grandfathers     0.0000    0.0000    0.0000        10
+         Guitarists     0.0000    0.0000    0.0000        11
+           Hispanic     0.0000    0.0000    0.0000         6
+          Hispanics     1.0000    0.1000    0.1818        10
+         Historians     0.0000    0.0000    0.0000         2
+            Lesbian     0.0000    0.0000    0.0000         5
+              Lgbtq     1.0000    0.2500    0.4000         8
+              Males     1.0000    0.1667    0.2857         6
+           Managers     0.0000    0.0000    0.0000         3
+     Mathematicians     0.0000    0.0000    0.0000         2
+            Mommies     0.0000    0.0000    0.0000         6
+            Mothers     0.0000    0.0000    0.0000         8
+            Muslims     0.0000    0.0000    0.0000         4
+                 Nb     1.0000    0.2500    0.4000         4
+            Neutral     1.0000    0.2316    0.3761        95
+             Nurses     0.0000    0.0000    0.0000         2
+          Pansexual     0.0000    0.0000    0.0000         1
+ Performing_artists     1.0000    0.3636    0.5333        11
+         Physicists     0.0000    0.0000    0.0000         2
+        Politicians     1.0000    0.5714    0.7273         7
+          Producers     0.0000    0.0000    0.0000         9
+      Psychologists     0.0000    0.0000    0.0000         4
+              Queer     1.0000    0.5000    0.6667         2
+        Researchers     0.0000    0.0000    0.0000         3
+            Russian     0.0000    0.0000    0.0000         4
+           Russians     1.0000    0.2500    0.4000         4
+         Schoolboys     0.0000    0.0000    0.0000         5
+        Schoolgirls     0.0000    0.0000    0.0000         2
+            Sisters     0.0000    0.0000    0.0000         2
+Software_developers     1.0000    0.2000    0.3333        10
+              Spain     0.0000    0.0000    0.0000         2
+            Spanish     1.0000    0.3333    0.5000         3
+        Transgender     1.0000    0.2000    0.3333         5
+              Yemen     0.0000    0.0000    0.0000         1
+            Yemenis     0.0000    0.0000    0.0000         3
+            butcher     0.0000    0.0000    0.0000         1
+            chemist     0.0000    0.0000    0.0000         2
+          commander     0.0000    0.0000    0.0000         2
+       entrepreneur     0.0000    0.0000    0.0000         2
+          guitarist     0.0000    0.0000    0.0000         1
+               male     0.0000    0.0000    0.0000         1
+            manager     0.0000    0.0000    0.0000         2
+              mommy     0.0000    0.0000    0.0000         1
+             mother     0.0000    0.0000    0.0000         9
+              nurse     0.0000    0.0000    0.0000         3
+  performing artist     0.0000    0.0000    0.0000         2
+          physicist     0.0000    0.0000    0.0000         2
+           producer     0.0000    0.0000    0.0000         1
+       psychologist     0.0000    0.0000    0.0000         4
+          schoolboy     0.0000    0.0000    0.0000         2
+         schoolgirl     0.0000    0.0000    0.0000         2
+             sister     0.0000    0.0000    0.0000         1
+ software developer     0.0000    0.0000    0.0000         2
+
+          micro avg     0.9815    0.1293    0.2284       410
+          macro avg     0.2500    0.0672    0.1017       410
+       weighted avg     0.5439    0.1293    0.2032       410
+
+Predicted values outside the scored gold-class set (all counted as errors):
+Each has gold support 0 and precision/recall/F1 0; excluded from macro/weighted averages.
+  "<INVALID_OR_MISSING>": predicted 355 times
+  "Hispanis": predicted 1 times
+
+====================================================================================================
+JSON 08. JSON LoRA vLLM thinking - test smoke
+====================================================================================================
+Coverage: PARTIAL TEST SMOKE
+Split: TEST; 8 / 1738 saved examples
+Input: Sentence only
+Output: category, target, label JSON
+Thinking enabled: True
+Source: outputs/eval/json_test_vllm_thinking_limited_20261014/smoke/completions.jsonl
+Gold CSV: data/test.csv
+JSON parse/object failures: 7
+Invalid/missing category strings: 7
+Invalid/missing target strings: 7
+Invalid/missing labels: 7
+All three fields correct: 1/8 (12.5000%)
+max_tokens: 2048
+
+----------------------------------------------------------------------------------------------------
+CATEGORY CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 8 examples): 0.125000 (12.50%)
+              precision    recall  f1-score   support
+
+      gender     1.0000    0.5000    0.6667         2
+        race     0.0000    0.0000    0.0000         3
+  profession     0.0000    0.0000    0.0000         1
+    religion     0.0000    0.0000    0.0000         0
+     neutral     0.0000    0.0000    0.0000         2
+
+   micro avg     1.0000    0.1250    0.2222         8
+   macro avg     0.2000    0.1000    0.1333         8
+weighted avg     0.2500    0.1250    0.1667         8
+
+Predicted values outside the scored gold-class set (all counted as errors):
+Each has gold support 0 and precision/recall/F1 0; excluded from macro/weighted averages.
+  "<INVALID_OR_MISSING>": predicted 7 times
+
+----------------------------------------------------------------------------------------------------
+LABEL CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 8 examples): 0.125000 (12.50%)
+                                 precision    recall  f1-score   support
+
+            0 - Anti-stereotype     0.0000    0.0000    0.0000         0
+                 1 - Stereotype     1.0000    0.5000    0.6667         2
+2 - Neutral without target term     0.0000    0.0000    0.0000         2
+   3 - Neutral with target term     0.0000    0.0000    0.0000         3
+                       4 - Bias     0.0000    0.0000    0.0000         1
+
+                      micro avg     1.0000    0.1250    0.2222         8
+                      macro avg     0.2000    0.1000    0.1333         8
+                   weighted avg     0.2500    0.1250    0.1667         8
+
+Predicted values outside the scored gold-class set (all counted as errors):
+Each has gold support 0 and precision/recall/F1 0; excluded from macro/weighted averages.
+  -1: predicted 7 times
+
+----------------------------------------------------------------------------------------------------
+TARGET CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 8 examples): 0.125000 (12.50%)
+              precision    recall  f1-score   support
+
+ Afghanistan     0.0000    0.0000    0.0000         1
+       Arabs     0.0000    0.0000    0.0000         1
+  Bartenders     0.0000    0.0000    0.0000         1
+         Gay     1.0000    1.0000    1.0000         1
+   Hispanics     0.0000    0.0000    0.0000         1
+     Lesbian     0.0000    0.0000    0.0000         1
+     Neutral     0.0000    0.0000    0.0000         2
+
+   micro avg     1.0000    0.1250    0.2222         8
+   macro avg     0.1429    0.1429    0.1429         8
+weighted avg     0.1250    0.1250    0.1250         8
+
+Predicted values outside the scored gold-class set (all counted as errors):
+Each has gold support 0 and precision/recall/F1 0; excluded from macro/weighted averages.
+  "<INVALID_OR_MISSING>": predicted 7 times
+
+====================================================================================================
+JSON 09. JSON LoRA vLLM thinking - sampled test smoke
+====================================================================================================
+Coverage: PARTIAL TEST SMOKE
+Split: TEST; 4 / 1738 saved examples
+Input: Sentence only
+Output: category, target, label JSON
+Thinking enabled: True
+Source: outputs/eval/json_test_vllm_thinking_limited_20261014/smoke_sampled/completions.jsonl
+Gold CSV: data/test.csv
+JSON parse/object failures: 3
+Invalid/missing category strings: 3
+Invalid/missing target strings: 3
+Invalid/missing labels: 3
+All three fields correct: 1/4 (25.0000%)
+max_tokens: 2048
+temperature: 1.0
+
+----------------------------------------------------------------------------------------------------
+CATEGORY CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 4 examples): 0.250000 (25.00%)
+              precision    recall  f1-score   support
+
+      gender     0.0000    0.0000    0.0000         1
+        race     0.0000    0.0000    0.0000         1
+  profession     0.0000    0.0000    0.0000         0
+    religion     0.0000    0.0000    0.0000         0
+     neutral     1.0000    0.5000    0.6667         2
+
+   micro avg     1.0000    0.2500    0.4000         4
+   macro avg     0.2000    0.1000    0.1333         4
+weighted avg     0.5000    0.2500    0.3333         4
+
+Predicted values outside the scored gold-class set (all counted as errors):
+Each has gold support 0 and precision/recall/F1 0; excluded from macro/weighted averages.
+  "<INVALID_OR_MISSING>": predicted 3 times
+
+----------------------------------------------------------------------------------------------------
+LABEL CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 4 examples): 0.250000 (25.00%)
+                                 precision    recall  f1-score   support
+
+            0 - Anti-stereotype     0.0000    0.0000    0.0000         0
+                 1 - Stereotype     0.0000    0.0000    0.0000         1
+2 - Neutral without target term     1.0000    0.5000    0.6667         2
+   3 - Neutral with target term     0.0000    0.0000    0.0000         1
+                       4 - Bias     0.0000    0.0000    0.0000         0
+
+                      micro avg     1.0000    0.2500    0.4000         4
+                      macro avg     0.2000    0.1000    0.1333         4
+                   weighted avg     0.5000    0.2500    0.3333         4
+
+Predicted values outside the scored gold-class set (all counted as errors):
+Each has gold support 0 and precision/recall/F1 0; excluded from macro/weighted averages.
+  -1: predicted 3 times
+
+----------------------------------------------------------------------------------------------------
+TARGET CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 4 examples): 0.250000 (25.00%)
+              precision    recall  f1-score   support
+
+         Gay     0.0000    0.0000    0.0000         1
+   Hispanics     0.0000    0.0000    0.0000         1
+     Neutral     1.0000    0.5000    0.6667         2
+
+   micro avg     1.0000    0.2500    0.4000         4
+   macro avg     0.3333    0.1667    0.2222         4
+weighted avg     0.5000    0.2500    0.3333         4
+
+Predicted values outside the scored gold-class set (all counted as errors):
+Each has gold support 0 and precision/recall/F1 0; excluded from macro/weighted averages.
+  "<INVALID_OR_MISSING>": predicted 3 times
+
+====================================================================================================
+JSON 10. JSON LoRA vLLM thinking - validation budget 256 smoke
+====================================================================================================
+Coverage: PARTIAL VALIDATION SMOKE
+Split: VAL; 10 / 868 saved examples
+Input: Sentence only
+Output: category, target, label JSON
+Thinking enabled: True
+Source: outputs/eval/json_val_vllm_budget_smoke_20261014/budget_256/completions.jsonl
+Gold CSV: data/val.csv
+JSON parse/object failures: 7
+Invalid/missing category strings: 7
+Invalid/missing target strings: 7
+Invalid/missing labels: 7
+All three fields correct: 3/10 (30.0000%)
+max_tokens: 512
+thinking_token_budget: 256
+temperature: 1.0
+
+----------------------------------------------------------------------------------------------------
+CATEGORY CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 10 examples): 0.300000 (30.00%)
+              precision    recall  f1-score   support
+
+      gender     1.0000    0.2000    0.3333         5
+        race     0.0000    0.0000    0.0000         2
+  profession     0.0000    0.0000    0.0000         0
+    religion     0.0000    0.0000    0.0000         0
+     neutral     1.0000    0.6667    0.8000         3
+
+   micro avg     1.0000    0.3000    0.4615        10
+   macro avg     0.4000    0.1733    0.2267        10
+weighted avg     0.8000    0.3000    0.4067        10
+
+Predicted values outside the scored gold-class set (all counted as errors):
+Each has gold support 0 and precision/recall/F1 0; excluded from macro/weighted averages.
+  "<INVALID_OR_MISSING>": predicted 7 times
+
+----------------------------------------------------------------------------------------------------
+LABEL CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 10 examples): 0.300000 (30.00%)
+                                 precision    recall  f1-score   support
+
+            0 - Anti-stereotype     0.0000    0.0000    0.0000         1
+                 1 - Stereotype     1.0000    0.3333    0.5000         3
+2 - Neutral without target term     1.0000    0.6667    0.8000         3
+   3 - Neutral with target term     0.0000    0.0000    0.0000         2
+                       4 - Bias     0.0000    0.0000    0.0000         1
+
+                      micro avg     1.0000    0.3000    0.4615        10
+                      macro avg     0.4000    0.2000    0.2600        10
+                   weighted avg     0.6000    0.3000    0.3900        10
+
+Predicted values outside the scored gold-class set (all counted as errors):
+Each has gold support 0 and precision/recall/F1 0; excluded from macro/weighted averages.
+  -1: predicted 7 times
+
+----------------------------------------------------------------------------------------------------
+TARGET CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 10 examples): 0.300000 (30.00%)
+              precision    recall  f1-score   support
+
+    Africans     0.0000    0.0000    0.0000         1
+    Crimeans     0.0000    0.0000    0.0000         1
+         Gay     0.0000    0.0000    0.0000         1
+   Gentlemen     0.0000    0.0000    0.0000         1
+       Males     1.0000    0.5000    0.6667         2
+     Neutral     1.0000    0.6667    0.8000         3
+        male     0.0000    0.0000    0.0000         1
+
+   micro avg     1.0000    0.3000    0.4615        10
+   macro avg     0.2857    0.1667    0.2095        10
+weighted avg     0.5000    0.3000    0.3733        10
+
+Predicted values outside the scored gold-class set (all counted as errors):
+Each has gold support 0 and precision/recall/F1 0; excluded from macro/weighted averages.
+  "<INVALID_OR_MISSING>": predicted 7 times
+
+====================================================================================================
+JSON 11. JSON LoRA vLLM thinking - validation budget 512 smoke
+====================================================================================================
+Coverage: PARTIAL VALIDATION SMOKE
+Split: VAL; 10 / 868 saved examples
+Input: Sentence only
+Output: category, target, label JSON
+Thinking enabled: True
+Source: outputs/eval/json_val_vllm_budget_smoke_20261014/budget_512/completions.jsonl
+Gold CSV: data/val.csv
+JSON parse/object failures: 8
+Invalid/missing category strings: 8
+Invalid/missing target strings: 8
+Invalid/missing labels: 8
+All three fields correct: 2/10 (20.0000%)
+max_tokens: 768
+thinking_token_budget: 512
+temperature: 1.0
+
+----------------------------------------------------------------------------------------------------
+CATEGORY CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 10 examples): 0.200000 (20.00%)
+              precision    recall  f1-score   support
+
+      gender     1.0000    0.2000    0.3333         5
+        race     0.0000    0.0000    0.0000         2
+  profession     0.0000    0.0000    0.0000         0
+    religion     0.0000    0.0000    0.0000         0
+     neutral     1.0000    0.3333    0.5000         3
+
+   micro avg     1.0000    0.2000    0.3333        10
+   macro avg     0.4000    0.1067    0.1667        10
+weighted avg     0.8000    0.2000    0.3167        10
+
+Predicted values outside the scored gold-class set (all counted as errors):
+Each has gold support 0 and precision/recall/F1 0; excluded from macro/weighted averages.
+  "<INVALID_OR_MISSING>": predicted 8 times
+
+----------------------------------------------------------------------------------------------------
+LABEL CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 10 examples): 0.200000 (20.00%)
+                                 precision    recall  f1-score   support
+
+            0 - Anti-stereotype     0.0000    0.0000    0.0000         1
+                 1 - Stereotype     0.0000    0.0000    0.0000         3
+2 - Neutral without target term     1.0000    0.3333    0.5000         3
+   3 - Neutral with target term     1.0000    0.5000    0.6667         2
+                       4 - Bias     0.0000    0.0000    0.0000         1
+
+                      micro avg     1.0000    0.2000    0.3333        10
+                      macro avg     0.4000    0.1667    0.2333        10
+                   weighted avg     0.5000    0.2000    0.2833        10
+
+Predicted values outside the scored gold-class set (all counted as errors):
+Each has gold support 0 and precision/recall/F1 0; excluded from macro/weighted averages.
+  -1: predicted 8 times
+
+----------------------------------------------------------------------------------------------------
+TARGET CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 10 examples): 0.200000 (20.00%)
+              precision    recall  f1-score   support
+
+    Africans     0.0000    0.0000    0.0000         1
+    Crimeans     0.0000    0.0000    0.0000         1
+         Gay     0.0000    0.0000    0.0000         1
+   Gentlemen     0.0000    0.0000    0.0000         1
+       Males     1.0000    0.5000    0.6667         2
+     Neutral     1.0000    0.3333    0.5000         3
+        male     0.0000    0.0000    0.0000         1
+
+   micro avg     1.0000    0.2000    0.3333        10
+   macro avg     0.2857    0.1190    0.1667        10
+weighted avg     0.5000    0.2000    0.2833        10
+
+Predicted values outside the scored gold-class set (all counted as errors):
+Each has gold support 0 and precision/recall/F1 0; excluded from macro/weighted averages.
+  "<INVALID_OR_MISSING>": predicted 8 times
+
+====================================================================================================
+JSON 12. JSON LoRA vLLM thinking - final-JSON validation budget 256 smoke
+====================================================================================================
+Coverage: PARTIAL VALIDATION SMOKE
+Split: VAL; 10 / 868 saved examples
+Input: Sentence only
+Output: category, target, label JSON
+Thinking enabled: True
+Source: outputs/eval/json_val_vllm_final_json_smoke_20261014/budget_256/completions.jsonl
+Gold CSV: data/val.csv
+JSON parse/object failures: 9
+Invalid/missing category strings: 9
+Invalid/missing target strings: 9
+Invalid/missing labels: 9
+All three fields correct: 1/10 (10.0000%)
+max_tokens: 512
+thinking_token_budget: 256
+temperature: 1.0
+
+----------------------------------------------------------------------------------------------------
+CATEGORY CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 10 examples): 0.100000 (10.00%)
+              precision    recall  f1-score   support
+
+      gender     0.0000    0.0000    0.0000         5
+        race     1.0000    0.5000    0.6667         2
+  profession     0.0000    0.0000    0.0000         0
+    religion     0.0000    0.0000    0.0000         0
+     neutral     0.0000    0.0000    0.0000         3
+
+   micro avg     1.0000    0.1000    0.1818        10
+   macro avg     0.2000    0.1000    0.1333        10
+weighted avg     0.2000    0.1000    0.1333        10
+
+Predicted values outside the scored gold-class set (all counted as errors):
+Each has gold support 0 and precision/recall/F1 0; excluded from macro/weighted averages.
+  "<INVALID_OR_MISSING>": predicted 9 times
+
+----------------------------------------------------------------------------------------------------
+LABEL CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 10 examples): 0.100000 (10.00%)
+                                 precision    recall  f1-score   support
+
+            0 - Anti-stereotype     1.0000    1.0000    1.0000         1
+                 1 - Stereotype     0.0000    0.0000    0.0000         3
+2 - Neutral without target term     0.0000    0.0000    0.0000         3
+   3 - Neutral with target term     0.0000    0.0000    0.0000         2
+                       4 - Bias     0.0000    0.0000    0.0000         1
+
+                      micro avg     1.0000    0.1000    0.1818        10
+                      macro avg     0.2000    0.2000    0.2000        10
+                   weighted avg     0.1000    0.1000    0.1000        10
+
+Predicted values outside the scored gold-class set (all counted as errors):
+Each has gold support 0 and precision/recall/F1 0; excluded from macro/weighted averages.
+  -1: predicted 9 times
+
+----------------------------------------------------------------------------------------------------
+TARGET CLASSIFICATION REPORT
+----------------------------------------------------------------------------------------------------
+Accuracy (all 10 examples): 0.100000 (10.00%)
+              precision    recall  f1-score   support
+
+    Africans     1.0000    1.0000    1.0000         1
+    Crimeans     0.0000    0.0000    0.0000         1
+         Gay     0.0000    0.0000    0.0000         1
+   Gentlemen     0.0000    0.0000    0.0000         1
+       Males     0.0000    0.0000    0.0000         2
+     Neutral     0.0000    0.0000    0.0000         3
+        male     0.0000    0.0000    0.0000         1
+
+   micro avg     1.0000    0.1000    0.1818        10
+   macro avg     0.1429    0.1429    0.1429        10
+weighted avg     0.1000    0.1000    0.1000        10
+
+Predicted values outside the scored gold-class set (all counted as errors):
+Each has gold support 0 and precision/recall/F1 0; excluded from macro/weighted averages.
+  "<INVALID_OR_MISSING>": predicted 9 times
+
+====================================================================================================
+COVERAGE AND COMPARISON NOTES
+====================================================================================================
+The 410-example thinking benchmark is unfinished and does not estimate the full test result.
+Validation results are model-selection results, not held-out test results. Smoke subsets are diagnostic only.
+The empty outputs/eval/thinking_check/completions.jsonl contains no scorable predictions.
+Training-time and standalone test reports are both included because their saved completions differ.
+Category/target reports were newly calculated from saved JSON; no new model generations were requested.
